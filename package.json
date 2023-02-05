@@ -1,6 +1,6 @@
 {
-  "name": "test",
-  "productName": "Tower Defense",
+  "name": "kingdom-defenders",
+  "productName": "Kingdom Defenders",
   "version": "1.0.0",
   "description": "Tower Defense Game",
   "main": "src/index.js",
