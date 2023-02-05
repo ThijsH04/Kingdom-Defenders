@@ -1,0 +1,47 @@
+{
+  "name": "test",
+  "productName": "Tower Defense",
+  "version": "1.0.0",
+  "description": "Tower Defense Game",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "build-installer": "electron-builder"
+  },
+  "build": {
+    "appId": "tower-defense",
+    "win": {
+      "target": ["nsis"],
+      "icon": "src/tower.ico"
+    },
+    "nsis": {
+      "installerIcon": "src/tower.ico",
+      "uninstallerIcon": "src/tower.ico",
+      "uninstallDisplayName": "Tower Defense",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "keywords": [],
+  "author": {
+    "name": "Lukas Potters",
+    "email": "lukaspotters@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^23.6.0",
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "electron": "22.2.0"
+  }
+}
