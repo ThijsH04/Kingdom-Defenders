@@ -16,11 +16,11 @@
     "appId": "tower-defense",
     "win": {
       "target": ["nsis"],
-      "icon": "src/tower.ico"
+      "icon": "src/assets/tower.ico"
     },
     "nsis": {
-      "installerIcon": "src/tower.ico",
-      "uninstallerIcon": "src/tower.ico",
+      "installerIcon": "src/assets/tower.ico",
+      "uninstallerIcon": "src/assets/tower.ico",
       "uninstallDisplayName": "Tower Defense",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
