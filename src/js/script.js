@@ -7,6 +7,7 @@ let ctx = canvas.getContext("2d")
 
 previousFrameTime = Date.now()
 let map = null;
+let towers = null;
 let tileSize = 0
 // load tilesets
 let tileset = new Image()
@@ -38,6 +39,8 @@ function game() {
     ctx.fillStyle = "#000000"
     ctx.fillRect(0,0,canvas.width,canvas.height)
     map.render(ctx, tileset, tileSize, timePassed)
+    towers.update(ctx, tileSize, timePassed)
+    
     requestAnimationFrame(game)
 }
 function updateCanvasSize() {
@@ -51,9 +54,22 @@ function updateCanvasSize() {
     tileSize = Math.floor(canvas.height / map.height)
 }
 
+document.getElementById("game").addEventListener("click", e =>{
+    console.log(e);
+    let x = Math.floor(e.clientX/tileSize);
+    let y = Math.floor(e.clientY/tileSize);
+    console.log("x: " +x + "y: "+y);
+    console.log(map);
+    if(x>=map.width||y>=map.height){ // return for now, just testing the tower building
+        return;
+    }
+    towers.addTower(new Tower(1,x,y,null,0,"water"),map.tiles[y][x]);
+});
+
 window.onresize = updateCanvasSize
 window.onload = () => {
     map = new GameMap(0)
+    towers = new Towers(0);
     updateCanvasSize()
     requestAnimationFrame(game)
 }
