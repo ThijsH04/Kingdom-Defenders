@@ -72,7 +72,7 @@ document.getElementById("game").addEventListener("click", e =>{
 window.onresize = updateCanvasSize
 window.onload = () => {
     map = new GameMap(0)
-    tutorial = new Tutorial()
+    tutorial = new Tutorial(map)
     updateCanvasSize()
     requestAnimationFrame(game)
 }
