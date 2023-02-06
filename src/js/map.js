@@ -86,11 +86,11 @@ class Path {
     constructor(id, type) {
         this.positions = mapDataPaths[id]
         this.type = type
-        this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,false,1)
-        this.startBox.element.innerHTML += "start"
+        this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,1,false,1)
+        this.startBox.text.innerHTML += "start"
         this.startBox.element.style.background = "#0f05"
-        this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,false,1)
-        this.endBox.element.innerHTML += "end"
+        this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,1,false,1)
+        this.endBox.text.innerHTML += "end"
         this.endBox.element.style.background = "#f005"
     }
     render(ctx, tileset, tileSize, drawPath) {

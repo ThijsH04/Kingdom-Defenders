@@ -21,7 +21,7 @@ body {
 .text-box{
     position: absolute;
     border-radius: 10px;
-    background: #0003;
+    background: #0005;
     z-index: 1;
     padding: 5px;
     text-align: center;
