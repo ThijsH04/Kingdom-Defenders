@@ -33,6 +33,7 @@ class GameMap {
         for(let e=0;e<this.enemies.length;e++) {
             this.enemies[e].update(ctx, tileset, tileSize, time, render)
         }
+        this.enemies = this.enemies.filter(e => e.health.hp>0);
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
             this.waterFrame = (this.waterFrame + 1) % 8

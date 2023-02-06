@@ -1,5 +1,5 @@
 class Projectile{
-    constructor(tower,x,y,w,h,enemy,lifespan,speed,img,size,type){
+    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type){
         this.tower = tower;
         this.x = x;
         this.y = y;
@@ -10,6 +10,7 @@ class Projectile{
         this.targetY = enemy.y;
         this.a = Math.atan2(enemy.y-y,enemy.x-x);
         this.lifespan = lifespan;
+        this.damage = damage;
         this.speed = speed;
         this.img = img;
         this.size = .8;
@@ -25,6 +26,15 @@ class Projectile{
         let dy = Math.round(Math.sin(this.a)*1000000)/1000000 * time * this.speed
         this.x += dx
         this.y += dy
+        if(
+            this.x < this.targetX + this.enemy.w &&
+            this.x + this.w > this.targetX &&
+            this.y < this.targetY + this.enemy.h &&
+            this.h + this.y > this.targetY
+        ) {
+            this.enemy.health.hp -= this.damage;
+            this.lifespan = 0;
+        }
         if(render) this.render(ctx, tileSize);
     }
 
