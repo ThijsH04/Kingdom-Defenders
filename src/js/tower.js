@@ -8,11 +8,16 @@ class Tower{
         this.img = img;
         this.cost = cost;
         this.type = type;
+
+        this.health = new HealthBar(this,100)
     }
 
-    update(ctx, tileSize, timePassed){
+    update(ctx, tileset, tileSize, timePassed, render=true){
         // to be implemented
-        this.render(ctx, tileSize);
+        if(render) {
+            this.render(ctx, tileSize);
+            if(this.health.hp < this.health.max) this.health.update(this,ctx, tileset, tileSize)
+        }
     }
 
     render(ctx, tileSize){

@@ -16,7 +16,7 @@ class Projectile{
         this.type = type;
     }
 
-    update(ctx, tileSize, time){ // this is non homing
+    update(ctx, tileSize, time, render=true){ // this is non homing
         this.lifespan -= time;
         if(this.lifespan<0){
             return false;
@@ -25,7 +25,7 @@ class Projectile{
         let dy = Math.round(Math.sin(this.a)*1000000)/1000000 * time * this.speed
         this.x += dx
         this.y += dy
-        this.render(ctx, tileSize);
+        if(render) this.render(ctx, tileSize);
     }
 
     render(ctx, tileSize){

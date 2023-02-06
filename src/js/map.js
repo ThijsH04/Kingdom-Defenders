@@ -22,16 +22,19 @@ class GameMap {
         this.paths.push(new Path(0, "ground"))
         this.enemies.push(new Enemy(0, this.paths[0].positions))
     }
-    update(ctx, tileset, tileSize, time) {
-        this.render(ctx, tileset, tileSize, time)
-        for(let p=0;p<this.paths.length;p++) {
-            this.paths[p].render(ctx, tileset, tileSize, false)
+    update(ctx, tileset, tileSize, time, render=true) {
+        if(render) {
+            this.render(ctx, tileset, tileSize, time)
+            for(let p=0;p<this.paths.length;p++) {
+                this.paths[p].render(ctx, tileset, tileSize, false)
+            }
         }
+        
         for(let e=0;e<this.enemies.length;e++) {
-            this.enemies[e].update(ctx, tileset, tileSize, time)
+            this.enemies[e].update(ctx, tileset, tileSize, time, render)
         }
-        this.towers.update(ctx, tileSize, time)
-        this.projectiles.update(ctx, tileSize, time);
+        this.towers.update(ctx, tileset, tileSize, time, render)
+        this.projectiles.update(ctx, tileSize, time, render);
     }
     render(ctx, tileset, tileSize, time) {
         this.waterUpdateTime+=time

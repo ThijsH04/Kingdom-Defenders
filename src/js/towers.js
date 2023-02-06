@@ -4,9 +4,9 @@ class Towers{
         this.towers = [];
     }
 
-    update(ctx, tileSize, timePassed){        
+    update(ctx, tileset, tileSize, timePassed, render=true){        
         for(let t of this.towers){
-            t.update(ctx, tileSize, timePassed);
+            t.update(ctx, tileset, tileSize, timePassed, render);
         }
     }
 

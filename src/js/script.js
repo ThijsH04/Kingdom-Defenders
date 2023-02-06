@@ -31,25 +31,29 @@ tileset.waterRows = {157:0,158:0,159:0,160:0,161:0,162:0, // please ignore this
                      181:4,182:4,183:4,184:4,185:4,186:4,
                      187:5,188:5,189:5,190:5,191:5,192:5}
 
+let gameSpeed = 1 // speed of game
 function game() {
     frameTime = Date.now()
-    timePassed = (frameTime - previousFrameTime) / 1000 // time since last frame, in seconds
+    // time since last frame, in seconds
+    // prevent too much time between frames
+    timePassed = Math.min((frameTime - previousFrameTime) / 1000, 0.1)
     previousFrameTime = frameTime
 
-    ctx.fillStyle = "#000000"
-    ctx.fillRect(0,0,canvas.width,canvas.height)
-    map.update(ctx, tileset, tileSize, timePassed)    
+    for(let x=0;x<Math.floor(gameSpeed);x++) { // full number speed 
+        map.update(ctx, tileset, tileSize, timePassed, false)  
+    }
+    map.update(ctx, tileset, tileSize, timePassed * (gameSpeed % 1)) // decimal speed + render
     requestAnimationFrame(game)
 }
 function updateCanvasSize() {
     let canvas = document.getElementById("game")
     w = window.innerWidth
     h = window.innerHeight
-    canvas.width = w
-    canvas.height = h
-    canvas.style.width = w+"px"
-    canvas.style.height = h+"px"
-    tileSize = Math.floor(canvas.height / map.height)
+    tileSize = Math.floor(h / map.height)
+    canvas.width = tileSize * map.width
+    canvas.height = tileSize * map.height
+    canvas.style.width = tileSize * map.width+"px"
+    canvas.style.height = tileSize * map.height+"px"
 }
 
 document.getElementById("game").addEventListener("click", e =>{
