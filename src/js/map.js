@@ -39,8 +39,8 @@ class GameMap {
             this.waterFrame = (this.waterFrame + 1) % 8
             this.waterUpdateTime = 0
         }
-        this.towers.update(ctx, tileset, tileSize, time, render)
         this.projectiles.update(ctx, tileSize, time, render);
+        this.towers.update(ctx, tileset, tileSize, time, render)
     }
     render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {

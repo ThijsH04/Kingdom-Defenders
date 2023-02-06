@@ -13,7 +13,7 @@ class Projectile{
         this.damage = damage;
         this.speed = speed;
         this.img = img;
-        this.size = .8;
+        this.size = size;
         this.type = type;
     }
 

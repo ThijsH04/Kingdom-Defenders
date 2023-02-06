@@ -58,15 +58,16 @@ function updateCanvasSize() {
 }
 
 document.getElementById("game").addEventListener("click", e =>{
-    let dummyTower = new Tower(1,Math.floor(e.clientX/tileSize)+.5,Math.floor(e.clientY/tileSize)+.5,null,1,1,0,"water");    
-    map.projectiles.addProjectile(dummyTower,map.enemies[0]);
+    // let dummyTower = new Tower(1,Math.floor(e.clientX/tileSize)+.5,Math.floor(e.clientY/tileSize)+.5,null,1,1,0,"water");    
+    // map.projectiles.addProjectile(dummyTower,map.enemies[0]);
+    map.enemies.push(new Enemy(1, map.paths[0].positions))
     let x = Math.floor(e.clientX/tileSize);
     let y = Math.floor(e.clientY/tileSize);
-    console.log(map);
     if(x>=map.width||y>=map.height){ // return for now, just testing the tower building
         return;
     }
-    map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
+    map.towers.addTower(new HomingTower(1,x+.5,y+.5,map),map.tiles[y][x]);
+    // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
 });
 
 window.onresize = updateCanvasSize
