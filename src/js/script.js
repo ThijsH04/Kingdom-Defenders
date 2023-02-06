@@ -38,7 +38,7 @@ function game() {
 
     ctx.fillStyle = "#000000"
     ctx.fillRect(0,0,canvas.width,canvas.height)
-    map.render(ctx, tileset, tileSize, timePassed)
+    map.update(ctx, tileset, tileSize, timePassed)
     towers.update(ctx, tileSize, timePassed)
     
     requestAnimationFrame(game)
