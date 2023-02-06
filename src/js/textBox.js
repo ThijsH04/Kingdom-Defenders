@@ -1,5 +1,5 @@
 class TextBox {
-    constructor(x,y,w,h,tileSize,closeable=true,movement=0) {
+    constructor(x,y,w,h,tileSize,fontSize=1,closeable=true,movement=0) {
         this.element = document.createElement('div')
         this.element.className = 'text-box'
 
@@ -8,6 +8,7 @@ class TextBox {
         this.w=w
         this.h=h
         
+        this.fontSize=fontSize
         this.movement=movement
         this.diff = 0
         this.dy = 0
@@ -19,12 +20,13 @@ class TextBox {
             this.closeBtn.innerHTML = 'X';
             this.closeBtn.className = 'text-close';
             
-            this.element.appendChild(this.closeBtn);
-            
             this.closeBtn.onclick = () => { 
                 this.remove()
             };
+            this.element.appendChild(this.closeBtn);
         }
+        this.text = document.createElement('span');
+        this.element.appendChild(this.text)
     }
     remove(){
         this.element.remove();
@@ -44,7 +46,7 @@ class TextBox {
         this.element.style.top = (this.y * tileSize - this.h * tileSize - tileSize + this.dy) + "px"
         this.element.style.width = (this.w * tileSize) + "px"
         this.element.style.height = (this.h * tileSize) + "px"
-        this.element.style.fontSize = (tileSize) + "px"
+        this.element.style.fontSize = (this.fontSize * tileSize) + "px"
         
         this.diff += this.movement/100
         if(Math.abs(this.diff) > Math.abs(0.3*this.movement)) this.movement = -this.movement

@@ -33,16 +33,15 @@ class GameMap {
         for(let e=0;e<this.enemies.length;e++) {
             this.enemies[e].update(ctx, tileset, tileSize, time, render)
         }
-        this.towers.update(ctx, tileset, tileSize, time, render)
-        this.projectiles.update(ctx, tileSize, time, render);
-    }
-    render(ctx, tileset, tileSize, time) {
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
             this.waterFrame = (this.waterFrame + 1) % 8
             this.waterUpdateTime = 0
         }
-        
+        this.towers.update(ctx, tileset, tileSize, time, render)
+        this.projectiles.update(ctx, tileSize, time, render);
+    }
+    render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {
             for(let x=0;x<this.width;x++) {
                 let layers = this.tiles[y][x].renderLayers
@@ -86,11 +85,11 @@ class Path {
     constructor(id, type) {
         this.positions = mapDataPaths[id]
         this.type = type
-        this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,false,1)
-        this.startBox.element.innerHTML += "start"
+        this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,1,false,1)
+        this.startBox.text.innerHTML += "start"
         this.startBox.element.style.background = "#0f05"
-        this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,false,1)
-        this.endBox.element.innerHTML += "end"
+        this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,1,false,1)
+        this.endBox.text.innerHTML += "end"
         this.endBox.element.style.background = "#f005"
     }
     render(ctx, tileset, tileSize, drawPath) {
