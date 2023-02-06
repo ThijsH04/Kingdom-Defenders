@@ -6,11 +6,14 @@ class Enemy {
         }
         this.x=x
         this.y=y
-        this.size = 0.8
+        this.w=0.8
+        this.h=0.8
         this.speed = 5
         this.type=type
         this.path = path
         this.point = p
+
+        this.health = new HealthBar(this,100)
     }
     update(ctx, tileset, tileSize, time) {
         let p=this.point
@@ -38,9 +41,10 @@ class Enemy {
             }
         }
         this.render(ctx, tileset, tileSize)
+        if(this.health.hp < this.health.max) this.health.update(this,ctx, tileset, tileSize)
     }
     render(ctx, tileset, tileSize) {
         ctx.fillStyle = "#ff0000"
-        ctx.fillRect((this.x - 0.5*this.size)*tileSize, (this.y - 0.5*this.size)*tileSize, this.size*tileSize, this.size*tileSize)
+        ctx.fillRect((this.x - 0.5*this.w)*tileSize, (this.y - 0.5*this.h)*tileSize, this.w*tileSize, this.h*tileSize)
     }
 }
