@@ -13,8 +13,18 @@ class GameMap {
                 this.tiles[i].push(new Tile(mapData, j, i, this.width, this.height))
             }
         }
+        this.paths = []
+        this.enemies = []
+
+        this.paths.push(new Path(0, "ground"))
     }
-    render(ctx, tileset, tileSize, time)  {
+    update(ctx, tileset, tileSize, time) {
+        this.render(ctx, tileset, tileSize, time)
+        for(let p=0;p<this.paths.length;p++) {
+            this.paths[p].render(ctx, tileset, tileSize, false)
+        }
+    }
+    render(ctx, tileset, tileSize, time) {
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
             this.waterFrame = (this.waterFrame + 1) % 8
@@ -46,6 +56,7 @@ class GameMap {
     }
 }
 
+
 class Tile {
     constructor(mapData, x, y, w, h) {
         this.tower = false
@@ -56,4 +67,32 @@ class Tile {
             this.layers[mapData.layers[l].name] = mapData.layers[l].data[y*w+x] > 0
         }
     }
+}
+
+
+class Path {
+    constructor(id, type) {
+        this.positions = mapDataPaths[id]
+        this.type = type
+        this.startBox = new TextBox(this.positions[0][0],this.positions[0][1],3,1,0,false)
+        this.startBox.element.innerHTML += "start"
+        this.startBox.element.style.background = "#0f09"
+        this.endBox = new TextBox(this.positions[this.positions.length-1][0],this.positions[this.positions.length-1][1],3,1,0,false)
+        this.endBox.element.innerHTML += "end"
+        this.endBox.element.style.background = "#f009"
+    }
+    render(ctx, tileset, tileSize, drawPath) {
+        console.log(tileSize, drawPath)
+        if(drawPath) {
+            ctx.strokeStyle = "#ffffff"
+            ctx.moveTo(this.positions[0][0] * tileSize,this.positions[0][1] * tileSize)
+            for(let i=1;i<this.positions.length;i++) {
+                ctx.lineTo(this.positions[i][0] * tileSize,this.positions[i][1] * tileSize)
+            }
+            ctx.stroke()
+        }
+        this.startBox.update(tileSize)
+        this.endBox.update(tileSize)
+    }
+    
 }
