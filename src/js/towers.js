@@ -4,15 +4,13 @@ class Towers{
         this.towers = [];
     }
 
-    update(ctx, tileSize, timePassed){        
+    update(ctx, tileset, tileSize, timePassed, render=true){        
         for(let t of this.towers){
-            t.update(ctx, tileSize, timePassed);
+            t.update(ctx, tileset, tileSize, timePassed, render);
         }
     }
 
     addTower(tower,tile){
-        console.log(tile);
-        console.log(tower);
         if(tile.tower || tile.object){ // checks if there is no tower or obstacle
             return
         }
@@ -25,6 +23,7 @@ class Towers{
         if(tower.type === "sky" &&!tile.sky){ // fly check, might change the tower type check later
             return;
         }
+        tile.tower = true;
         this.towers.push(tower);
     }
 }
