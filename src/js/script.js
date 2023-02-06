@@ -38,9 +38,7 @@ function game() {
 
     ctx.fillStyle = "#000000"
     ctx.fillRect(0,0,canvas.width,canvas.height)
-    map.update(ctx, tileset, tileSize, timePassed)
-    towers.update(ctx, tileSize, timePassed)
-    
+    map.update(ctx, tileset, tileSize, timePassed)    
     requestAnimationFrame(game)
 }
 function updateCanvasSize() {
@@ -55,21 +53,20 @@ function updateCanvasSize() {
 }
 
 document.getElementById("game").addEventListener("click", e =>{
-    console.log(e);
+    let dummyTower = new Tower(1,Math.floor(e.clientX/tileSize)+.5,Math.floor(e.clientY/tileSize)+.5,null,1,1,0,"water");    
+    map.projectiles.addProjectile(dummyTower,map.enemies[0]);
     let x = Math.floor(e.clientX/tileSize);
     let y = Math.floor(e.clientY/tileSize);
-    console.log("x: " +x + "y: "+y);
     console.log(map);
     if(x>=map.width||y>=map.height){ // return for now, just testing the tower building
         return;
     }
-    towers.addTower(new Tower(1,x,y,null,0,"water"),map.tiles[y][x]);
+    map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
 });
 
 window.onresize = updateCanvasSize
 window.onload = () => {
     map = new GameMap(0)
-    towers = new Towers(0);
     updateCanvasSize()
     requestAnimationFrame(game)
 }

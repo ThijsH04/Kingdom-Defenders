@@ -11,8 +11,6 @@ class Towers{
     }
 
     addTower(tower,tile){
-        console.log(tile);
-        console.log(tower);
         if(tile.tower || tile.object){ // checks if there is no tower or obstacle
             return
         }
@@ -25,6 +23,7 @@ class Towers{
         if(tower.type === "sky" &&!tile.sky){ // fly check, might change the tower type check later
             return;
         }
+        tile.tower = true;
         this.towers.push(tower);
     }
 }

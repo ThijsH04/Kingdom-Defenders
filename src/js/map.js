@@ -3,6 +3,8 @@ class GameMap {
         let mapData = mapDataList[id]
         this.tiles = []
         this.enemies = []
+        this.towers = new Towers(id)
+        this.projectiles = new Projectiles(id);
         this.height = mapData.height
         this.width = mapData.width
         this.waterFrame = 0
@@ -28,6 +30,8 @@ class GameMap {
         for(let e=0;e<this.enemies.length;e++) {
             this.enemies[e].update(ctx, tileset, tileSize, time)
         }
+        this.towers.update(ctx, tileSize, time)
+        this.projectiles.update(ctx, tileSize, time);
     }
     render(ctx, tileset, tileSize, time) {
         this.waterUpdateTime+=time
