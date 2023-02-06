@@ -13,7 +13,7 @@ class HomingTower extends Tower{
             console.log("something went wrong");
             return false;
         }
-        this.mapData.projectiles.projectiles.push(new HomingProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, 20, null, .8, "regular")) 
+        this.mapData.projectiles.projectiles.push(new HomingProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, 10, 20, null, .8, "regular")) 
     }
 }
 

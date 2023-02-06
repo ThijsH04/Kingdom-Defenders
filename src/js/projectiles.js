@@ -13,7 +13,7 @@ class Projectiles{
 
     addProjectile(tower,enemy){
         //still testing some stuff
-        this.projectiles.push(new Projectile(tower,tower.x,tower.y,1,1,enemy,5,20,null,.8,null));
+        this.projectiles.push(new Projectile(tower,tower.x,tower.y,1,1,enemy,5,20,20,null,.8,null));
         this.projectiles.push(new HomingProjectile(tower,tower.x,tower.y,1,1,enemy,5,20,null,.8,null));
     }
 }

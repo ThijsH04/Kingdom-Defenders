@@ -1,6 +1,6 @@
 class HomingProjectile extends Projectile{
-    constructor(tower,x,y,w,h,enemy,lifespan,speed,img,size,type){
-        super(tower,x,y,w,h,enemy,lifespan,speed,img,size,type);
+    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type){
+        super(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type);
     }
 
     update(ctx, tileSize, time, render=true){ // this is non homing
@@ -13,6 +13,17 @@ class HomingProjectile extends Projectile{
         let dy = Math.round(Math.sin(a)*1000000)/1000000 * time * this.speed
         this.x += dx
         this.y += dy
+
+        if(
+            this.x < this.enemy.x + this.enemy.w &&
+            this.x + this.w > this.enemy.x &&
+            this.y < this.enemy.y + this.enemy.h &&
+            this.h + this.y > this.enemy.y
+        ) {
+            this.enemy.health.hp -= this.damage;
+            this.lifespan = 0;
+        }
+
         if(render) this.render(ctx, tileSize);
     }
 }
