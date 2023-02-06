@@ -2,6 +2,7 @@ class GameMap {
     constructor(id) {
         let mapData = mapDataList[id]
         this.tiles = []
+        this.enemies = []
         this.height = mapData.height
         this.width = mapData.width
         this.waterFrame = 0
@@ -17,11 +18,15 @@ class GameMap {
         this.enemies = []
 
         this.paths.push(new Path(0, "ground"))
+        this.enemies.push(new Enemy(0, this.paths[0].positions))
     }
     update(ctx, tileset, tileSize, time) {
         this.render(ctx, tileset, tileSize, time)
         for(let p=0;p<this.paths.length;p++) {
             this.paths[p].render(ctx, tileset, tileSize, false)
+        }
+        for(let e=0;e<this.enemies.length;e++) {
+            this.enemies[e].update(ctx, tileset, tileSize, time)
         }
     }
     render(ctx, tileset, tileSize, time) {
@@ -74,15 +79,14 @@ class Path {
     constructor(id, type) {
         this.positions = mapDataPaths[id]
         this.type = type
-        this.startBox = new TextBox(this.positions[0][0],this.positions[0][1],3,1,0,false)
+        this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,false,1)
         this.startBox.element.innerHTML += "start"
-        this.startBox.element.style.background = "#0f09"
-        this.endBox = new TextBox(this.positions[this.positions.length-1][0],this.positions[this.positions.length-1][1],3,1,0,false)
+        this.startBox.element.style.background = "#0f05"
+        this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,false,1)
         this.endBox.element.innerHTML += "end"
-        this.endBox.element.style.background = "#f009"
+        this.endBox.element.style.background = "#f005"
     }
     render(ctx, tileset, tileSize, drawPath) {
-        console.log(tileSize, drawPath)
         if(drawPath) {
             ctx.strokeStyle = "#ffffff"
             ctx.moveTo(this.positions[0][0] * tileSize,this.positions[0][1] * tileSize)
