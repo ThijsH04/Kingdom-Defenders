@@ -1,6 +1,8 @@
 class GameMap {
-    constructor(id) {
-        let mapData = mapDataList[id]
+    constructor(id, mapData=null) {
+        if(mapData === null) {
+            mapData = mapDataList[id]
+        }
         this.tiles = []
         this.enemies = []
         this.towers = new Towers(id)
@@ -18,11 +20,14 @@ class GameMap {
         }
         this.paths = []
         this.enemies = new Enemies(0);
-
-        this.paths.push(new Path(0, "ground"))
-        this.enemies.enemies.push(new Enemy(0, this.paths[0].positions))
+        
+        if(id > -1) {
+            this.paths.push(new Path(0, "ground"))
+            this.enemies.enemies.push(new Enemy(0, this.paths[0].positions))
+        }
+        
     }
-    update(mode,ctx, tileset, tileSize, time, render=true) {
+    update(mode, ctx, tileset, tileSize, time, render=true) {
         if(render) {
             this.render(ctx, tileset, tileSize, time)
             for(let p=0;p<this.paths.length;p++) {

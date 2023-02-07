@@ -3,14 +3,15 @@ class WorldMap {
         this.id = id
         this.levels = []
         this.name = name
-        this.map = worldDataList[id].map
+        this.map = new GameMap(-1, worldDataList[id].map)
 
         for(let l=0;l<worldDataList[id].levels.length;l++) {
             this.levels.push(new Level(worldDataList[id].levels[l], l, this))
         }
         this.selectedLevel = -1
     }
-    update(mode, tileSize) {
+    update(mode,ctx, tileset, tileSize, time, render=true) {
+        this.map.update(mode,ctx, tileset, tileSize, time, render)
         for(let l=0;l<this.levels.length;l++) {
             this.levels[l].update(mode, tileSize)
         }
@@ -24,10 +25,11 @@ class Level {
         this.x = levelInfo.x
         this.y = levelInfo.y
         this.index = index
-        this.id = levelInfo.id
+        this.id = levelInfo.mapId
         this.name = levelInfo.name
         this.description = levelInfo.description
         this.completed = false
+        this.gameMap = new GameMap(this.id)
         this.createButton(map, index)
     }
     createButton(map, index) {
