@@ -5,8 +5,8 @@ class ShrapnelProjectile extends Projectile {
         this.shard = shard; // just a regular projectile most likely, of which the x and y still need to be set
     }
 
-    update(ctx, tileSize, time, render=true){ // this is non homing
-        super.update(ctx, tileSize, time, render);
+    update(mode, ctx, tileSize, time, render=true){ // this is non homing
+        super.update(mode, ctx, tileSize, time, render);
         if(this.lifespan<=0){
             this.createShrapnel();
         }

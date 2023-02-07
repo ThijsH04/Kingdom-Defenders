@@ -20,7 +20,7 @@ class Projectile{
         this.mapData = mapData;
     }
 
-    update(ctx, tileSize, time, render=true){ // this is non homing
+    update(mode, ctx, tileSize, time, render=true){ // this is non homing
         this.lifespan -= time;
         if(this.lifespan<0){
             return false;

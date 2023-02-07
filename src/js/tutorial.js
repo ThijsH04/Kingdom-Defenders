@@ -14,9 +14,9 @@ class Tutorial {
         this.tutorialItems.push(new TutorialItem("Click a tile to build a tower!", 5, 2, ()=>{return [this.mapData.width/2,this.mapData.height/2]}, ()=>{return this.mapData.towers.towers.length > 0}))
         this.tutorialItems.push(new TutorialItem("Click towers to upgrade them!", 5, 2, ()=>{if(this.mapData.towers.towers.length > 0) return [this.mapData.towers.towers[0].x,this.mapData.towers.towers[0].y]}))
     }
-    update(tileSize) {
+    update(mode, tileSize) {
         for(let t=0;t<this.tutorialItems.length;t++) {
-            this.tutorialItems[t].update(tileSize)
+            this.tutorialItems[t].update(mode, tileSize)
         }
     }
 }

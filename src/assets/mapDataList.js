@@ -126,7 +126,9 @@ mapDataList = [
 ]
 
 worldDataList = [
-   { "compressionlevel":-1,
+   {
+      //map json from Tiled
+      map:{ "compressionlevel":-1,
    "height":50,
    "infinite":false,
    "layers":[
@@ -241,7 +243,17 @@ worldDataList = [
    "type":"map",
    "version":"1.8",
    "width":60
-  }
+      },
+      levels: [
+         {
+            mapId:1,
+            x:5,
+            y:5,
+            name:"The Beginning",
+            description:"Monsters have started appearing from this cave. We should stop them before they get deeper into the kingdom!"
+         }
+      ]
+   }
 ]
 
 mapDataPaths = [
