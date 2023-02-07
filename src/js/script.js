@@ -7,6 +7,8 @@ let ctx = canvas.getContext("2d")
 previousFrameTime = Date.now()
 let map = null
 let tutorial = null
+let world = null
+let mode = "game"
 let tileSize = 0
 // load tilesets
 let tileset = new Image()
@@ -39,10 +41,11 @@ function game() {
     previousFrameTime = frameTime
 
     for(let x=0;x<Math.floor(gameSpeed);x++) { // full number speed 
-        map.update(ctx, tileset, tileSize, timePassed, false)  
+        map.update(mode, ctx, tileset, tileSize, timePassed, false)  
     }
-    tutorial.update(tileSize)
-    map.update(ctx, tileset, tileSize, timePassed * (gameSpeed % 1)) // decimal speed + render
+    world.update(mode, tileSize)
+    tutorial.update(mode, tileSize)
+    map.update(mode, ctx, tileset, tileSize, timePassed * (gameSpeed % 1)) // decimal speed + render
     requestAnimationFrame(game)
 }
 function updateCanvasSize() {
@@ -71,6 +74,7 @@ document.getElementById("game").addEventListener("click", e =>{
 
 window.onresize = updateCanvasSize
 window.onload = () => {
+    world = new WorldMap(0, "World 1")
     map = new GameMap(0)
     tutorial = new Tutorial(map)
     updateCanvasSize()

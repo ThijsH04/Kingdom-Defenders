@@ -22,21 +22,21 @@ class GameMap {
         this.paths.push(new Path(0, "ground"))
         this.enemies.enemies.push(new Enemy(0, this.paths[0].positions))
     }
-    update(ctx, tileset, tileSize, time, render=true) {
+    update(mode,ctx, tileset, tileSize, time, render=true) {
         if(render) {
             this.render(ctx, tileset, tileSize, time)
             for(let p=0;p<this.paths.length;p++) {
-                this.paths[p].render(ctx, tileset, tileSize, false)
+                this.paths[p].render(mode, ctx, tileset, tileSize, false)
             }
         }
-        this.enemies.update(ctx, tileset, tileSize, time, render);
+        this.enemies.update(mode, ctx, tileset, tileSize, time, render);
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
             this.waterFrame = (this.waterFrame + 1) % 8
             this.waterUpdateTime = 0
         }
-        this.projectiles.update(ctx, tileSize, time, render);
-        this.towers.update(ctx, tileset, tileSize, time, render)
+        this.projectiles.update(mode, ctx, tileSize, time, render);
+        this.towers.update(mode, ctx, tileset, tileSize, time, render)
     }
     render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {
@@ -89,7 +89,7 @@ class Path {
         this.endBox.text.innerHTML += "end"
         this.endBox.element.style.background = "#f005"
     }
-    render(ctx, tileset, tileSize, drawPath) {
+    render(mode, ctx, tileset, tileSize, drawPath) {
         if(drawPath) {
             ctx.strokeStyle = "#ffffff"
             ctx.moveTo(this.positions[0][0] * tileSize,this.positions[0][1] * tileSize)
@@ -98,8 +98,8 @@ class Path {
             }
             ctx.stroke()
         }
-        this.startBox.update(tileSize)
-        this.endBox.update(tileSize)
+        this.startBox.update(mode, tileSize)
+        this.endBox.update(mode, tileSize)
     }
     
 }

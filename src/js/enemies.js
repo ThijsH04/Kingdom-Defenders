@@ -4,9 +4,9 @@ class Enemies{
         this.enemies = [];
     }
 
-    update(ctx, tileset, tileSize, timePassed, render=true){        
+    update(mode, ctx, tileset, tileSize, timePassed, render=true){        
         for(let e=0;e<this.enemies.length;e++) {
-            this.enemies[e].update(ctx, tileset, tileSize, timePassed, render)
+            this.enemies[e].update(mode, ctx, tileset, tileSize, timePassed, render)
         }
         this.enemies = this.enemies.filter(e => e.health.hp>0);
     }
