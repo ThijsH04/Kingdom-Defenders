@@ -39,24 +39,25 @@ function game() {
     // prevent too much time between frames
     timePassed = Math.min((frameTime - previousFrameTime) / 1000, 0.1)
     previousFrameTime = frameTime
-
     for(let x=0;x<Math.floor(gameSpeed);x++) { // full number speed 
-        map.update(mode, ctx, tileset, tileSize, timePassed, false)  
+       if(mode == "game") map.update(mode, ctx, tileset, tileSize, timePassed, false)
+       else if(mode == "map") world.update(mode, ctx, tileset, tileSize, timePassed, false)
     }
-    world.update(mode, tileSize)
     tutorial.update(mode, tileSize)
-    map.update(mode, ctx, tileset, tileSize, timePassed * (gameSpeed % 1)) // decimal speed + render
+    if(mode == "game") map.update(mode, ctx, tileset, tileSize, timePassed * (gameSpeed % 1)) // decimal speed + render
+    else if(mode == "map") world.update(mode, ctx, tileset, tileSize, timePassed * (gameSpeed % 1))
     requestAnimationFrame(game)
 }
 function updateCanvasSize() {
     let canvas = document.getElementById("game")
     w = window.innerWidth
     h = window.innerHeight
-    tileSize = Math.floor(h / map.height)
-    canvas.width = tileSize * map.width
-    canvas.height = tileSize * map.height
-    canvas.style.width = tileSize * map.width+"px"
-    canvas.style.height = tileSize * map.height+"px"
+    m = (mode == "game" ? map : world.map)
+    tileSize = Math.floor(h / m.height)
+    canvas.width = tileSize * m.width
+    canvas.height = tileSize * m.height
+    canvas.style.width = tileSize * m.width+"px"
+    canvas.style.height = tileSize * m.height+"px"
 }
 
 document.getElementById("game").addEventListener("click", e =>{

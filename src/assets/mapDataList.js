@@ -246,9 +246,9 @@ worldDataList = [
       },
       levels: [
          {
-            mapId:1,
-            x:5,
-            y:5,
+            mapId:0,
+            x:22,
+            y:13,
             name:"The Beginning",
             description:"Monsters have started appearing from this cave. We should stop them before they get deeper into the kingdom!"
          }
