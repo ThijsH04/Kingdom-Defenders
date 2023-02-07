@@ -1,5 +1,5 @@
 class Tower{
-    constructor(id,x,y,w,h,attackSpeed,img,cost,type,mapData){
+    constructor(id,x,y,w,h,attackSpeed,img,cost,type,damage,mapData){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -10,6 +10,7 @@ class Tower{
         this.img = img;
         this.cost = cost;
         this.type = type;
+        this.damage = damage;
         this.mapData = mapData;
 
         this.health = new HealthBar(this,100)
@@ -37,7 +38,7 @@ class Tower{
         if(closestEnemyData.enemy == null){
             return false;
         }
-        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,10, 20, null, .8, "regular",this.mapData))
+        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,this.damage, 20, null, .8, "regular",this.mapData))
     }
 
     findClosestEnemy(){

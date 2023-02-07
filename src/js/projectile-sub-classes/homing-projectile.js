@@ -30,7 +30,7 @@ class HomingProjectile extends Projectile{
             this.y < this.enemy.y + this.enemy.h &&
             this.h + this.y > this.enemy.y
         ) {
-            this.enemy.health.hp -= this.damage;
+            this.damage.dealDamage(this.x,this.y,this.enemy);
             this.lifespan = 0;
         }
 

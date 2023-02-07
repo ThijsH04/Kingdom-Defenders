@@ -38,7 +38,7 @@ class Projectile{
             this.y < this.targetY + this.enemy.h &&
             this.h + this.y > this.targetY
         ) {
-            this.enemy.health.hp -= this.damage;
+            this.damage.dealDamage(this.x,this.y,this.enemy);
             this.lifespan = 0;
         }
         if(render) this.render(ctx, tileSize);
