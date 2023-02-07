@@ -24,8 +24,7 @@ class ShrapnelProjectile extends Projectile {
             newShard.targetY = this.y + Math.round(Math.sin(angle)*1000000)/1000000 * newShard.speed * newShard.lifespan;
             newShard.mapData = this.mapData;
             newShard.a = angle;
-            console.log(newShard.x);
-            
+            newShard.enemy = this.mapData.enemies.findClosestEnemy(this.x,this.y).enemy;
             console.log(newShard);
             
             this.mapData.projectiles.projectiles.push(newShard);

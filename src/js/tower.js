@@ -33,7 +33,7 @@ class Tower{
             this.attackTimer = this.attackSpeed;
             return false;
         }
-        let closestEnemyData = this.findClosestEnemy();
+        let closestEnemyData = Enemy.findClosestEnemy(this.x,this.y);
         if(closestEnemyData == null){
             console.log("something went wrong");
             return false;

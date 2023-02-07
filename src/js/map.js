@@ -17,10 +17,10 @@ class GameMap {
             }
         }
         this.paths = []
-        this.enemies = []
+        this.enemies = new Enemies(0);
 
         this.paths.push(new Path(0, "ground"))
-        this.enemies.push(new Enemy(0, this.paths[0].positions))
+        this.enemies.enemies.push(new Enemy(0, this.paths[0].positions))
     }
     update(ctx, tileset, tileSize, time, render=true) {
         if(render) {
@@ -29,11 +29,7 @@ class GameMap {
                 this.paths[p].render(ctx, tileset, tileSize, false)
             }
         }
-        
-        for(let e=0;e<this.enemies.length;e++) {
-            this.enemies[e].update(ctx, tileset, tileSize, time, render)
-        }
-        this.enemies = this.enemies.filter(e => e.health.hp>0);
+        this.enemies.update(ctx, tileset, tileSize, time, render);
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
             this.waterFrame = (this.waterFrame + 1) % 8
