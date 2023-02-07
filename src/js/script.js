@@ -2,7 +2,6 @@
 let canvas = document.getElementById("game")
 canvas.width  = window.innerWidth
 canvas.height = window.innerHeight
-    
 let ctx = canvas.getContext("2d")
 
 previousFrameTime = Date.now()
@@ -66,7 +65,7 @@ document.getElementById("game").addEventListener("click", e =>{
     if(x>=map.width||y>=map.height){ // return for now, just testing the tower building
         return;
     }
-    map.towers.addTower(new HomingTower(1,x+.5,y+.5,map),map.tiles[y][x]);
+    map.towers.addTower(new ShrapnelTower(1,x+.5,y+.5,map),map.tiles[y][x]);
     // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
 });
 

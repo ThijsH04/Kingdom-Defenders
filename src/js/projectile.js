@@ -1,20 +1,23 @@
 class Projectile{
-    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type){
+    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData){
         this.tower = tower;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.enemy = enemy;
-        this.targetX = enemy.x;
-        this.targetY = enemy.y;
-        this.a = Math.atan2(enemy.y-y,enemy.x-x);
+        if(enemy!=null){
+            this.targetX = enemy.x;
+            this.targetY = enemy.y;
+            this.a = Math.atan2(enemy.y-y,enemy.x-x);
+        }
         this.lifespan = lifespan;
         this.damage = damage;
         this.speed = speed;
         this.img = img;
         this.size = size;
         this.type = type;
+        this.mapData = mapData;
     }
 
     update(ctx, tileSize, time, render=true){ // this is non homing
@@ -26,7 +29,8 @@ class Projectile{
         let dy = Math.round(Math.sin(this.a)*1000000)/1000000 * time * this.speed
         this.x += dx
         this.y += dy
-        if(
+        if( 
+            this.enemy!=null &&
             this.x < this.targetX + this.enemy.w &&
             this.x + this.w > this.targetX &&
             this.y < this.targetY + this.enemy.h &&

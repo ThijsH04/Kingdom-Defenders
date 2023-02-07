@@ -38,7 +38,7 @@ class Tower{
             console.log("something went wrong");
             return false;
         }
-        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,10, 20, null, .8, "regular"))
+        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,10, 20, null, .8, "regular",this.mapData))
     }
 
     findClosestEnemy(){

@@ -1,9 +1,9 @@
 class HomingProjectile extends Projectile{
-    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type){
-        super(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type);
+    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData){
+        super(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData);
     }
 
-    update(ctx, tileSize, time, render=true){ // this is non homing
+    update(ctx, tileSize, time, render=true){ 
         this.lifespan -= time;
         if(this.lifespan<0){
             return false;
@@ -15,6 +15,7 @@ class HomingProjectile extends Projectile{
         this.y += dy
 
         if(
+            this.enemy!=null &&
             this.x < this.enemy.x + this.enemy.w &&
             this.x + this.w > this.enemy.x &&
             this.y < this.enemy.y + this.enemy.h &&
