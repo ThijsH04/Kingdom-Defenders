@@ -23,7 +23,6 @@ class GameMap {
         
         if(id > -1) {
             this.paths.push(new Path(0, "ground"))
-            this.enemies.enemies.push(new Enemy(0, this.paths[0].positions))
         }
         
     }
