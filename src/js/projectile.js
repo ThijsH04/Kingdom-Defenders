@@ -27,6 +27,8 @@ class Projectile{
         }
         let dx = Math.round(Math.cos(this.a)*1000000)/1000000 * time * this.speed
         let dy = Math.round(Math.sin(this.a)*1000000)/1000000 * time * this.speed
+        console.log(dx);
+        
         this.x += dx
         this.y += dy
         if( 
