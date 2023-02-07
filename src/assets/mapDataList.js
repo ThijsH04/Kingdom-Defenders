@@ -251,6 +251,48 @@ worldDataList = [
             y:13,
             name:"The Beginning",
             description:"Monsters have started appearing from this cave. We should stop them before they get deeper into the kingdom!"
+         },
+         {
+            mapId:0,
+            x:23.5,
+            y:28,
+            name:"Rivers",
+            description:""
+         },
+         {
+            mapId:0,
+            x:30,
+            y:41,
+            name:"Gardens",
+            description:""
+         },
+         {
+            mapId:0,
+            x:40,
+            y:42,
+            name:"Splitting Paths",
+            description:""
+         },
+         {
+            mapId:0,
+            x:46.5,
+            y:33,
+            name:"Lake",
+            description:""
+         },
+         {
+            mapId:0,
+            x:51.5,
+            y:20,
+            name:"Gardens",
+            description:""
+         },
+         {
+            mapId:0,
+            x:49.5,
+            y:10,
+            name:"Gardens",
+            description:""
          }
       ]
    }

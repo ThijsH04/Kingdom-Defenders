@@ -1,12 +1,12 @@
 class WorldMap {
-    constructor(id, name) {
+    constructor(game, id, name) {
         this.id = id
         this.levels = []
         this.name = name
         this.map = new GameMap(-1, worldDataList[id].map)
 
         for(let l=0;l<worldDataList[id].levels.length;l++) {
-            this.levels.push(new Level(worldDataList[id].levels[l], l, this))
+            this.levels.push(new Level(game, worldDataList[id].levels[l], l, this))
         }
         this.selectedLevel = -1
     }
@@ -16,10 +16,16 @@ class WorldMap {
             this.levels[l].update(mode, tileSize)
         }
     }
+    show(s=true) {
+        for(let l=0;l<this.levels.length;l++) {
+            this.levels[l].btn.style.display = (s ? "block" : "none")
+        }
+    }
+    
 }
 
 class Level {
-    constructor(levelInfo, index, map) {
+    constructor(game, levelInfo, index, map) {
         this.w = 2
         this.h = 2
         this.x = levelInfo.x
@@ -30,15 +36,21 @@ class Level {
         this.description = levelInfo.description
         this.completed = false
         this.gameMap = new GameMap(this.id)
-        this.createButton(map, index)
+        this.createButton(game, map, index)
     }
-    createButton(map, index) {
+    createButton(game, map, index) {
         this.btn = document.createElement('div');
         this.btn.innerHTML = index + 1;
         this.btn.className = 'buttons-world-'+(map.id+1);
             
     	this.btn.onclick = () => { 
-            console.log("hi")
+            if(this.index == 0 || map.levels[this.index-1].completed) {
+                game.mode = "game"
+                game.map = this.gameMap
+                map.show(false)
+                game.updateCanvasSize()
+            }
+            
         };
         document.body.appendChild(this.btn);
         console.log(this.btn)

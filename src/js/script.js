@@ -2,9 +2,9 @@
 
 window.onload = () => {
     game = new Game()
-    game.world = new WorldMap(0, "World 1")
+    game.world = new WorldMap(game, 0, "World 1")
     game.map = new GameMap(0)
-    game.tutorial = new Tutorial(game.map)
+    game.tutorial = new Tutorial(game, game.map)
     game.updateCanvasSize()
     function update() {
         game.update()
