@@ -3,7 +3,7 @@ class Game {
         this.map = null
         this.towers = null
         this.tutorial = null
-        this.mode = "game"
+        this.mode = "map"
         this.tileSize = 0
 
         this.canvas = document.getElementById("game")
