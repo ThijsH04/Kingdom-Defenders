@@ -15,14 +15,14 @@ class TutorialItem {
         this.complete = false
         this.repeat = repeat
     }
-    update(tileSize) {
+    update(mode, tileSize) {
         if(this.complete && !this.repeat) return
         if(!this.shown) {
             let loc = this.trigger()
             if(loc) {
                 this.textBox.x = loc[0]
                 this.textBox.y = loc[1]
-                this.textBox.update(tileSize)
+                this.textBox.update(mode, tileSize)
                 this.textBox.show()
                 this.shown = true
             }

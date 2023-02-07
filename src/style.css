@@ -43,3 +43,19 @@ body {
     font-family: spaceMono;
     src: url(./assets/spaceMono-regular.ttf);
 }
+/* assign this to buttons for each world */
+.buttons-world-1, .buttons-world-2 {
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    background: #0005;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events:all;
+    border: 5px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -14,7 +14,6 @@ class TextBox {
         this.dy = 0
 
         document.body.appendChild(this.element);
-        this.update(tileSize)
         if(closeable) {
             this.closeBtn = document.createElement('div');
             this.closeBtn.innerHTML = 'X';
@@ -41,7 +40,7 @@ class TextBox {
         }
     }
 
-    update(tileSize) {
+    update(mode, tileSize) {
         this.element.style.left = (this.x * tileSize - 0.5 * this.w * tileSize) + "px"
         this.element.style.top = (this.y * tileSize - this.h * tileSize - tileSize + this.dy) + "px"
         this.element.style.width = (this.w * tileSize) + "px"

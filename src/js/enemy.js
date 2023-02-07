@@ -15,7 +15,7 @@ class Enemy {
 
         this.health = new HealthBar(this,100)
     }
-    update(ctx, tileset, tileSize, time, render=true) {
+    update(mode, ctx, tileset, tileSize, time, render=true) {
         let p=this.point
         if(p === this.path.length - 1) {
             // deal damage to player
@@ -42,7 +42,7 @@ class Enemy {
         }
         if(render) {
             this.render(ctx, tileset, tileSize)
-            if(this.health.hp < this.health.max) this.health.update(this,ctx, tileset, tileSize)
+            if(this.health.hp < this.health.max) this.health.update(mode, this,ctx, tileset, tileSize)
         }
     }
     render(ctx, tileset, tileSize) {

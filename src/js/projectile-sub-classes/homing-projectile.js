@@ -5,10 +5,10 @@ class HomingProjectile extends Projectile{
         this.homingCooldown = homingCooldown;
     }
 
-    update(ctx, tileSize, time, render=true){ 
+    update(mode, ctx, tileSize, time, render=true){ 
         this.homingCooldown -= time;
         if(this.homingCooldown>0){
-            return super.update(ctx, tileSize, time, render);
+            return super.update(mode, ctx, tileSize, time, render);
         }
         this.lifespan -= time;
         if(this.lifespan<0){

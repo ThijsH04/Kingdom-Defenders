@@ -9,7 +9,7 @@ class HealthBar {
         this.x = parent.x
         this.y = parent.y - (0.5*parent.h)
     }
-    update(parent, ctx, tileset, tileSize) {
+    update(mode, parent, ctx, tileset, tileSize) {
         this.x = parent.x
         this.y = parent.y - (0.5*parent.h)
         this.render(ctx, tileset, tileSize)
