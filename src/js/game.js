@@ -64,4 +64,14 @@ class Game {
         if(this.mode == "game") this.map.update(this.mode, this.ctx, this.tileset, this.tileSize, timePassed * (this.gameSpeed % 1)) // decimal speed + render
         else if(this.mode == "map") this.world.update(this.mode, this.ctx, this.tileset, this.tileSize, timePassed * (this.gameSpeed % 1))
     }
+    setMode(mode) {
+        this.mode = mode
+        this.updateCanvasSize()
+        if(mode == "game") {
+
+        }
+        if(mode == "map") {
+            
+        }
+    }
 }
