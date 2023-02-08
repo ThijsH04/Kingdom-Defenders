@@ -59,3 +59,130 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.upgrade-btn {
+    border-radius: 25px;
+    padding: 10px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: #0005;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events:all;
+    border: 5px solid #fff;
+}
+
+.tree-container {
+    width: 1500px;
+    height: 1500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upgrade-tree {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    border-radius: 10px;
+    background: #000a;
+    font-size: 15px;
+    color: white;
+    z-index: 1;
+    pointer-events:all;
+    border: 5px solid #fff;
+    overflow-x: auto;
+}
+
+.upgrade-node {
+    border: 3px solid #fff;
+    background: #f00a;
+	padding: 5px 10px;
+	text-decoration: none;
+	display: inline-block;
+	width: 100px;
+    height: 100px;
+	border-radius: 25px;
+}
+
+.upgrade-tree ul {
+	padding-top: 20px; position: relative;
+}
+
+.upgrade-tree li {
+	float: left; text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 20px 5px 0 5px;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.upgrade-tree li::before, .upgrade-tree li::after{
+	content: '';
+	position: absolute; top: 0; right: 50%;
+	border-top: 2px solid #fff;
+	width: 50%; height: 20px;
+}
+.upgrade-tree li::after{
+	right: auto; left: 50%;
+	border-left: 2px solid #fff;
+}
+
+/*We need to remove left-right connectors from elements without 
+any siblings*/
+.upgrade-tree li:only-child::after, .upgrade-tree li:only-child::before {
+	display: none;
+}
+
+/*Remove space from the top of single children*/
+.upgrade-tree li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and 
+right connector from last child*/
+.upgrade-tree li:first-child::before, .upgrade-tree li:last-child::after{
+	border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.upgrade-tree li:last-child::before{
+	border-right: 2px solid #fff;
+	border-radius: 0 5px 0 0;
+}
+.upgrade-tree li:first-child::after{
+	border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+.upgrade-tree ul ul::before{
+	content: '';
+	position: absolute; top: 0; left: 50%;
+	border-left: 2px solid #fff;
+	width: 0; height: 20px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0009;
+    box-shadow:inset 0 0 10px #fff5;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: none;
+  }

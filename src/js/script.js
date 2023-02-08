@@ -5,7 +5,8 @@ window.onload = () => {
     game.world = new WorldMap(game, 0, "World 1")
     game.map = new GameMap(0)
     game.tutorial = new Tutorial(game)
-    game.updateCanvasSize()
+    game.upgrades = new Upgrades(game, upgrades)
+    game.setMode("map", false)
     function update() {
         game.update()
         requestAnimationFrame(update)
