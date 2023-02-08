@@ -11,7 +11,7 @@ window.onload = () => {
         requestAnimationFrame(update)
     }
     requestAnimationFrame(update)
-    window.onresize = game.updateCanvasSize
+    window.onresize = ()=> {game.updateCanvasSize()}
 
     document.getElementById("game").addEventListener("click", e =>{
         // let dummyTower = new Tower(1,Math.floor(e.clientX/tileSize)+.5,Math.floor(e.clientY/tileSize)+.5,null,1,1,0,"water");    
