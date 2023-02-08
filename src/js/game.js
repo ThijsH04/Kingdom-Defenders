@@ -13,6 +13,7 @@ class Game {
 
         this.tileset = this.createTileset()
         this.gameSpeed = 1
+        this.previousFrameTime = Date.now()
     }
 
     createTileset() {
