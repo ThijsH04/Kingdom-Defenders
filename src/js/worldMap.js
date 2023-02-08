@@ -45,10 +45,9 @@ class Level {
             
     	this.btn.onclick = () => { 
             if(this.index == 0 || map.levels[this.index-1].completed) {
-                game.mode = "game"
-                game.map = this.gameMap
+                game.setMode("game")
+                this.map = this.gameMap
                 map.show(false)
-                game.updateCanvasSize()
             }
             
         };
