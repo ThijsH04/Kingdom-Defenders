@@ -11,6 +11,10 @@ class Damage{
         }
         enemy.health.hp -= this.amount;
     }
+    
+    update(){
+        console.log("This method should not have been called");
+    }
 
 
 }

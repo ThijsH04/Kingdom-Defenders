@@ -27,4 +27,15 @@ class Enemies{
         }
         return {enemy:minEnemy,distance:minDistance};
     }
+
+    findEnemiesInRadius(x,y,r){
+        let res = [];
+        for(let e of this.enemies){
+            let distance = Math.sqrt((e.x-x)**2+(e.y-y)**2);
+            if(distance<r){
+                res.push(e);
+            }
+        }
+        return res;
+    }
 }
