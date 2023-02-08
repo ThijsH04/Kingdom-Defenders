@@ -89,9 +89,11 @@ class Path {
         this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,1,false,1)
         this.startBox.text.innerHTML += "start"
         this.startBox.element.style.background = "#0f05"
+        this.startBox.element.style.display = "none"
         this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,1,false,1)
         this.endBox.text.innerHTML += "end"
         this.endBox.element.style.background = "#f005"
+        this.endBox.element.style.display = "none"
     }
     render(mode, ctx, tileset, tileSize, drawPath) {
         if(drawPath) {
@@ -102,6 +104,8 @@ class Path {
             }
             ctx.stroke()
         }
+        this.startBox.element.style.display = "block"
+        this.endBox.element.style.display = "block"
         this.startBox.update(mode, tileSize)
         this.endBox.update(mode, tileSize)
     }
