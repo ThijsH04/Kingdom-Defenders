@@ -11,7 +11,7 @@ class GameMap {
         this.width = mapData.width
         this.waterFrame = 0
         this.waterUpdateTime = 0
-        let layers = mapData.layers
+
         for(let i=0;i<this.height;i++) {
             this.tiles.push([])
             for(let j=0;j<this.width;j++) {
