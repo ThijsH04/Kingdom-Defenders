@@ -1,11 +1,7 @@
 class Game {
     constructor() {
-        this.map = null
-        this.towers = null
-        this.tutorial = null
-        this.mode = "map"
+        this.mode = null
         this.tileSize = 0
-
         this.canvas = document.getElementById("game")
         this.canvas.width = window.innerWidth
         this.canvas.height = window.innerHeight
@@ -68,10 +64,19 @@ class Game {
         this.mode = mode
         this.updateCanvasSize()
         if(mode == "game") {
-
+            this.upgrades.showBtn.style.display = "none"
+        } else {
+            this.upgrades.showBtn.style.display = "block"
         }
         if(mode == "map") {
-            
+            this.world.show()
+        } else {
+            this.world.show(false)
+        }
+        if(mode == "upgrade") {
+            this.upgrades.element.style.display = "block" 
+        } else {
+            this.upgrades.element.style.display = "none"
         }
     }
 }

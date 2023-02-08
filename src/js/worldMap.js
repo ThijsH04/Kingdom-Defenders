@@ -18,7 +18,7 @@ class WorldMap {
     }
     show(s=true) {
         for(let l=0;l<this.levels.length;l++) {
-            this.levels[l].btn.style.display = (s ? "block" : "none")
+            this.levels[l].btn.style.display = (s ? "flex" : "none")
         }
     }
     
@@ -52,7 +52,6 @@ class Level {
             
         };
         document.body.appendChild(this.btn);
-        console.log(this.btn)
     }
     update(mode, tileSize) {
         this.btn.style.width = this.w*tileSize + "px"
