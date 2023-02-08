@@ -6,6 +6,7 @@ class Upgrades {
         this.showBtn.className = "upgrade-btn"
         this.showBtn.onclick = () => {
             game.setMode(game.mode == "upgrade" ? "map" : "upgrade")
+            this.selectNode(false)
         }
         this.showBtn.innerHTML = "Upgrade Menu"
 
@@ -14,15 +15,59 @@ class Upgrades {
         this.element.className = "upgrade-menu"
         document.body.appendChild(this.element)
 
+        this.infoBar = document.createElement("div")
+        this.infoBar.className = "upgrade-bar"
+        this.element.appendChild(this.infoBar)
+
+        this.upgradeInfo = document.createElement("div")
+        this.upgradeInfo.className = "upgrade-info"
+        this.element.appendChild(this.upgradeInfo)
+
         for(let t=0;t<trees.length;t++) {
-            this.upgradeTrees.push(new UpgradeTree(trees[t], this.element))
+            this.upgradeTrees.push(new UpgradeTree(trees[t], this.element, this))
         }
+    }
+    selectNode(node) {
+        console.log(node)
+        if(node) {
+            this.upgradeInfo.style.display = "block"
+            for(let t=0;t<this.upgradeTrees.length;t++) {
+                this.upgradeTrees[t].box.style.right = "400px"
+            }
+        } else {
+            this.upgradeInfo.style.display = "none"
+            for(let t=0;t<this.upgradeTrees.length;t++) {
+                this.upgradeTrees[t].box.style.right = "0px"
+            }
+        }
+        this.upgradeInfo.innerHTML = ""
+        let text = document.createElement("span")
+        text.innerHTML = "<h1>"+node.name+"</h1>"+node.description+"<br>cost: "+node.cost+"<br>"
+        this.upgradeInfo.appendChild(text)
+        let closeBtn = document.createElement("button")
+        closeBtn.className = "base-btn"
+        closeBtn.innerHTML = "close"
+        closeBtn.onclick = () => {
+            this.selectNode(false)
+        }
+        this.upgradeInfo.appendChild(closeBtn)
+
+        let buyBtn = document.createElement("button")
+        buyBtn.className = "base-btn"
+        buyBtn.innerHTML = "buy"
+        buyBtn.onclick = () => {
+            this.selectNode(false)
+            node.unlock()
+        }
+        this.upgradeInfo.appendChild(buyBtn)
+
+
     }
 }
 
 
 class UpgradeTree {
-    constructor(tree, mainElem) {
+    constructor(tree, mainElem, upgradeObj) {
         this.type = tree.type
         this.unlocked_upgrades = []
         this.nodes = []
@@ -54,13 +99,13 @@ class UpgradeTree {
         
 
         for(let n=0;n<tree.nodes.length;n++) {
-            this.nodes.push(new UpgradeNode(tree.nodes[n], elem))
+            this.nodes.push(new UpgradeNode(tree.nodes[n], elem, upgradeObj))
         }
     }
 }
 
 class UpgradeNode {
-    constructor(node, boxElem, l=0) {
+    constructor(node, boxElem, upgradeObj, l=0) {
         this.unlocked = false
         this.unlockable = false
         this.cost = node.cost
@@ -81,14 +126,14 @@ class UpgradeNode {
             let addElem = document.createElement("ul")
             this.element.appendChild(addElem)
             for(let n=0;n<node.nodes.length;n++) {
-                this.children.push(new UpgradeNode(node.nodes[n], addElem, l+1))
+                this.children.push(new UpgradeNode(node.nodes[n], addElem, upgradeObj, l+1))
             }
         }
         if(l === 0) this.unlockable = true
         if(node.cost === 0) this.unlock()
         this.element.div.scrollIntoView({behavior:"auto", block:"center",inline:"center"})
 
-        this.element.div.onclick = () => {this.unlock()}
+        this.element.div.onclick = (e) => {upgradeObj.selectNode(this)}
     }
     unlock() {
         if(this.unlockable) {
@@ -117,6 +162,7 @@ upgrades = [
                 {
                     name: "sub upgrade",
                     description: "hey look this upgrade can be developed further",
+                    cost: 1,
                     unlocks: [],
                     nodes: [
                         {
