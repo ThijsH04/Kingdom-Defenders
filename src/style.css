@@ -186,3 +186,7 @@ right connector from last child*/
   ::-webkit-scrollbar-corner {
     background: none;
   }
+
+.drag {
+    cursor: grab
+}

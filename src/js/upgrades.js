@@ -34,6 +34,24 @@ class UpgradeTree {
         let elem = document.createElement("ul")
         elem.className = "tree-container"
         this.box.appendChild(elem)
+        
+        this.mousedown = false
+        this.box.addEventListener('mousedown', (e) =>  {
+            this.mousedown = true
+            this.box.classList.add('drag')
+        })
+        this.box.addEventListener("mouseup", (e) => {
+            this.mousedown = false
+            this.box.classList.remove('drag')
+        })
+        this.box.addEventListener("mousemove", (e) => {
+            if(this.mousedown){
+                e.preventDefault();
+                this.box.scrollLeft -= e.movementX;
+                this.box.scrollTop -= e.movementY
+            }
+        });
+        
 
         for(let n=0;n<tree.nodes.length;n++) {
             this.nodes.push(new UpgradeNode(tree.nodes[n], elem))
