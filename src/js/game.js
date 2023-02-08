@@ -40,7 +40,7 @@ class Game {
         let w = window.innerWidth
         let h = window.innerHeight
         let m = (this.mode == "game" ? this.map : this.world.map)
-        this.tileSize = Math.floor(h / m.height)
+        this.tileSize = Math.floor(Math.max(h,400) / m.height)
         this.canvas.width = this.tileSize * m.width
         this.canvas.height = this.tileSize * m.height
         this.canvas.style.width = this.tileSize * m.width+"px"

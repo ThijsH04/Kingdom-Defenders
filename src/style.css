@@ -1,12 +1,15 @@
+* {
+    box-sizing: border-box;
+    font-family: spaceMono;
+}
 html {
-    overflow: hidden;
+    min-height: 400px;
     height: 100%;
     width: 100%;
     user-select: none;
 }
 body {
     background-color: #808080;
-    font-family: spaceMono;
 }
 #game {
     position: absolute;
@@ -74,28 +77,67 @@ body {
     border: 5px solid #fff;
 }
 
+.upgrade-menu {
+    pointer-events:all;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-width: 800px;
+    left: 0;
+    top: 0;
+    display: flex;
+    
+}
+
+.upgrade-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background: #000a;
+    font-size: 15px;
+    color: white;
+    border: 5px solid #fff;
+    border-radius: 10px;
+}
+
+.upgrade-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 400px;
+    background: #000a;
+    font-size: 15px;
+    color: white;
+    border: 5px solid #fff;
+    border-radius: 10px;
+    display: none;
+}
+
+.upgrade-tree {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 200px;
+    right: 0px;
+    min-width:200px;
+    border-radius: 10px;
+    background: #000a;
+    font-size: 15px;
+    color: white;
+    z-index: 1;
+    border: 5px solid #fff;
+    overflow-x: auto;
+}
+
 .tree-container {
     width: 1500px;
     height: 1500px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.upgrade-tree {
-    position: absolute;
-    width: 80%;
-    height: 80%;
-    top: 10%;
-    left: 10%;
-    border-radius: 10px;
-    background: #000a;
-    font-size: 15px;
-    color: white;
-    z-index: 1;
-    pointer-events:all;
-    border: 5px solid #fff;
-    overflow-x: auto;
 }
 
 .upgrade-node {
@@ -189,4 +231,20 @@ right connector from last child*/
 
 .drag {
     cursor: grab
+}
+
+.base-btn {
+    position: relative;
+    width: 160px;
+    padding: 10px;
+    background: #0005;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events:all;
+    border: 5px solid #fff;
+    border-radius: 25px;
+    display:inline-block;
+    margin:15px;
+    font-size: 15px;
 }
