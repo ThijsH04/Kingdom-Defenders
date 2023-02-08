@@ -7,6 +7,7 @@ class GameMap {
         this.enemies = []
         this.towers = new Towers(id)
         this.projectiles = new Projectiles(id);
+        this.damages = new Damages(id);
         this.height = mapData.height
         this.width = mapData.width
         this.waterFrame = 0
@@ -40,6 +41,7 @@ class GameMap {
             this.waterUpdateTime = 0
         }
         this.projectiles.update(mode, ctx, tileSize, time, render);
+        this.damages.update(mode, ctx, tileSize, time, render);
         this.towers.update(mode, ctx, tileset, tileSize, time, render)
     }
     render(ctx, tileset, tileSize, time) {

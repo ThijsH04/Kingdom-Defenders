@@ -34,7 +34,7 @@ class Tower{
             this.attackTimer = this.attackSpeed;
             return false;
         }
-        let closestEnemyData = Enemy.findClosestEnemy(this.x,this.y);
+        let closestEnemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
         if(closestEnemyData.enemy == null){
             return false;
         }

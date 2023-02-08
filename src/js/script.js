@@ -28,6 +28,9 @@ window.onload = () => {
             // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
         }
         
+        let damage = new SplashDamage(5,game.map,3,.1);
+        game.map.towers.addTower(new StandardTower(1,x+.5,y+.5,damage,game.map),game.map.tiles[y][x]);
+        // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
     });
 }
 })()
