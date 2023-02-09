@@ -6,7 +6,7 @@ class Upgrades {
         this.showBtn.className = "upgrade-btn"
         this.showBtn.onclick = () => {
             game.setMode(game.mode == "upgrade" ? "map" : "upgrade")
-            this.selectNode(false)
+            this.selectNode(game, false)
         }
         this.showBtn.innerHTML = "Upgrade Menu"
 
@@ -24,41 +24,34 @@ class Upgrades {
         this.element.appendChild(this.upgradeInfo)
 
         for(let t=0;t<trees.length;t++) {
-            this.upgradeTrees.push(new UpgradeTree(trees[t], this.element, this))
+            this.upgradeTrees.push(new UpgradeTree(game, trees[t], this.element, this))
         }
         this.upgradeTrees[0].show(this)
     }
-    selectNode(node) {
-        console.log(node)
+    selectNode(game,node) {
         if(node) {
             this.upgradeInfo.style.display = "block"
             for(let t=0;t<this.upgradeTrees.length;t++) {
                 this.upgradeTrees[t].box.style.right = "400px"
             }
-        } else {
-            this.upgradeInfo.style.display = "none"
-            for(let t=0;t<this.upgradeTrees.length;t++) {
-                this.upgradeTrees[t].box.style.right = "0px"
-            }
-        }
-        this.upgradeInfo.innerHTML = ""
+            this.upgradeInfo.innerHTML = ""
         let text = document.createElement("span")
-        text.innerHTML = "<h1>"+node.name+"</h1>"+node.description+"<br>cost: "+node.cost+"<br>"
+        text.innerHTML = "<h1>"+node.name+"</h1>"+node.description+"<br>cost: "+node.cost.coins+"<br>"
         this.upgradeInfo.appendChild(text)
         let closeBtn = document.createElement("button")
         closeBtn.className = "base-btn"
         closeBtn.innerHTML = "close"
 
         closeBtn.onclick = () => {
-            this.selectNode(false)
+            this.selectNode(game, false)
         }
         this.upgradeInfo.appendChild(closeBtn)
 
         let buyBtn = document.createElement("button")
         buyBtn.className = "base-btn"
         buyBtn.onclick = () => {
-            this.selectNode(false)
-            node.unlock()
+            this.selectNode(game, false)
+            node.unlock(game.resources)
         }
         if(node.unlocked) {
             buyBtn.disabled = true
@@ -66,11 +59,19 @@ class Upgrades {
         } else if(!node.unlockable) {
             buyBtn.disabled = true
             buyBtn.innerHTML = "Locked"
+        } else if(!node.canAfford(game.resources)) {
+            buyBtn.disabled = true
+            buyBtn.innerHTML = "Can't Afford"
         } else {
             buyBtn.innerHTML = "Buy"
         }
         this.upgradeInfo.appendChild(buyBtn)
-
+        } else {
+            this.upgradeInfo.style.display = "none"
+            for(let t=0;t<this.upgradeTrees.length;t++) {
+                this.upgradeTrees[t].box.style.right = "0px"
+            }
+        }
     }
     hideTrees() {
         for(let t=0;t<this.upgradeTrees.length;t++) {
@@ -82,7 +83,7 @@ class Upgrades {
 
 
 class UpgradeTree {
-    constructor(tree, mainElem, upgradeObj) {
+    constructor(game, tree, mainElem, upgradeObj) {
         this.type = tree.type
         this.unlocked_upgrades = []
         this.nodes = []
@@ -114,7 +115,7 @@ class UpgradeTree {
         
 
         for(let n=0;n<tree.nodes.length;n++) {
-            this.nodes.push(new UpgradeNode(tree.nodes[n], elem, upgradeObj))
+            this.nodes.push(new UpgradeNode(game, tree.nodes[n], elem, upgradeObj))
         }
 
 
@@ -134,7 +135,7 @@ class UpgradeTree {
 }
 
 class UpgradeNode {
-    constructor(node, boxElem, upgradeObj, l=0) {
+    constructor(game, node, boxElem, upgradeObj, l=0) {
         this.unlocked = false
         this.unlockable = false
         this.cost = node.cost
@@ -155,16 +156,16 @@ class UpgradeNode {
             let addElem = document.createElement("ul")
             this.element.appendChild(addElem)
             for(let n=0;n<node.nodes.length;n++) {
-                this.children.push(new UpgradeNode(node.nodes[n], addElem, upgradeObj, l+1))
+                this.children.push(new UpgradeNode(game, node.nodes[n], addElem, upgradeObj, l+1))
             }
         }
         if(l === 0) this.unlockable = true
-        if(node.cost === 0) this.unlock()
+        if(this.canAfford(game.resources)) this.unlock(game.resources)
         this.element.div.scrollIntoView({behavior:"auto", block:"center",inline:"center"})
 
-        this.element.div.onclick = (e) => {upgradeObj.selectNode(this)}
+        this.element.div.onclick = (e) => {upgradeObj.selectNode(game, this)}
     }
-    unlock() {
+    unlock(resources) {
         if(this.unlockable) {
             this.unlocked = true
             this.element.div.style.background = "#0f0a"
@@ -172,73 +173,84 @@ class UpgradeNode {
                 this.children[c].unlockable=true
                 this.children[c].element.div.style.background = "#fa0a"
             }
+            resources.coins -= this.cost.coins
+            Object.entries(this.cost.crystals).forEach(([key, value]) => {
+                resources.crystals[key] -= value
+            });
         }
+    }
+    canAfford(resources) {
+        if(resources.coins < this.cost.coins) return false
+        Object.entries(this.cost.crystals).forEach(([key, value]) => {
+            if(resources.crystals[key] < value) return false
+        });
+        return true
     }
 }
 
 
 
-upgrades = [
+let upgrades = [
     {
         type: "normal",
         nodes: [
             {
                 name: "base upgrade",
                 description: "very cool and awesome upgrade",
-                cost: 0,
+                cost: new Resources(),
                 unlocks: [],
                 nodes: [
                     {
                         name: "sub upgrade",
                         description: "hey look this upgrade can be developed further",
-                        cost: 1,
+                        cost: new Resources(cost=1),
                         unlocks: [],
                         nodes: [
                             {
                                 name: "sub sub upgrade",
                                 description: "it goes deeper",
-                                cost: 1,
+                                cost: new Resources(cost=1),
                                 unlocks: [],
                                 nodes: [
                                     {
                                         name: "sub sub sub upgrade",
                                         description: "",
-                                        cost: 1,
+                                        cost: new Resources(cost=1),
                                         unlocks: [],
                                         nodes: []
                                     },
                                     {
                                         name: "sub sub sub upgrade",
                                         description: "",
-                                        cost: 1,
+                                        cost: new Resources(cost=1),
                                         unlocks: [],
                                         nodes: []
                                     },
                                     {
                                         name: "sub sub sub upgrade",
                                         description: "",
-                                        cost: 1,
+                                        cost: new Resources(cost=1),
                                         unlocks: [],
                                         nodes: []
                                     },
                                     {
                                         name: "sub sub sub upgrade",
                                         description: "",
-                                        cost: 1,
+                                        cost: new Resources(cost=1),
                                         unlocks: [],
                                         nodes: []
                                     },
                                     {
                                         name: "sub sub sub upgrade",
                                         description: "",
-                                        cost: 1,
+                                        cost: new Resources(cost=1),
                                         unlocks: [],
                                         nodes: []
                                     },
                                     {
                                         name: "sub sub sub upgrade",
                                         description: "",
-                                        cost: 1,
+                                        cost: new Resources(cost=1),
                                         unlocks: [],
                                         nodes: []
                                     },
@@ -248,7 +260,7 @@ upgrades = [
                             {
                                 name: "sub sub upgrade",
                                 description: "it goes deeper",
-                                cost: 1,
+                                cost: new Resources(cost=1),
                                 unlocks: [],
                                 nodes: []
                             }
@@ -257,7 +269,7 @@ upgrades = [
                     {
                         name: "sub upgrade",
                         description: "hey look this upgrade can be developed further",
-                        cost: 1,
+                        cost: new Resources(cost=1),
                         unlocks: [],
                         nodes: []
                     }
@@ -271,19 +283,19 @@ upgrades = [
             {
                 name: "base upgrade",
                 description: "very cool and awesome upgrade",
-                cost: 0,
+                cost: new Resources(),
                 unlocks: [],
                 nodes: [
                     {
                         name: "sub upgrade",
                         description: "hey look this upgrade can be developed further",
-                        cost: 1,
+                        cost: new Resources(cost=1),
                         unlocks: [],
                         nodes: [
                             {
                                 name: "cool upgrade",
                                 description: "brrr",
-                                cost: 1,
+                                cost: new Resources(cost=1),
                                 unlocks: [],
                                 nodes: []
                             }
