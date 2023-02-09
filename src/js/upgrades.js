@@ -7,6 +7,7 @@ class Upgrades {
         this.showBtn.onclick = () => {
             game.setMode(game.mode == "upgrade" ? "map" : "upgrade")
             this.selectNode(game, false)
+            this.updateResources(game.resources)
         }
         this.showBtn.innerHTML = "Upgrade Menu"
 
@@ -27,6 +28,10 @@ class Upgrades {
             this.upgradeTrees.push(new UpgradeTree(game, trees[t], this.element, this))
         }
         this.upgradeTrees[0].show(this)
+
+        this.resourceElem = document.createElement("span")
+        this.infoBar.appendChild(this.resourceElem)
+        this.resourceElem.innerHTML
     }
     selectNode(game,node) {
         if(node) {
@@ -36,7 +41,13 @@ class Upgrades {
             }
             this.upgradeInfo.innerHTML = ""
         let text = document.createElement("span")
-        text.innerHTML = "<h1>"+node.name+"</h1>"+node.description+"<br>cost: "+node.cost.coins+"<br>"
+        text.innerHTML = "<h1>"+node.name+"</h1>"+node.description+"<br>"
+        text.innerHTML = "<h3>Cost</h3>"
+        text.innerHTML += "Coins: " + node.cost.coins + "<br>"
+        text.innerHTML += "<h3>Crystals</h3>"
+        Object.entries(node.cost.crystals).forEach(([key, value]) => {
+            text.innerHTML += key + ": " + value + "<br>"
+        });
         this.upgradeInfo.appendChild(text)
         let closeBtn = document.createElement("button")
         closeBtn.className = "base-btn"
@@ -52,6 +63,7 @@ class Upgrades {
         buyBtn.onclick = () => {
             this.selectNode(game, false)
             node.unlock(game.resources)
+            this.updateResources(game.resources)
         }
         if(node.unlocked) {
             buyBtn.disabled = true
@@ -78,6 +90,14 @@ class Upgrades {
             this.upgradeTrees[t].box.style.display = "none"
             this.upgradeTrees[t].selectBtn.style.background = "#0005"
         }
+    }
+    updateResources(resources) {
+        this.resourceElem.innerHTML = "<br><h3>Inventory</h3>"
+        this.resourceElem.innerHTML += "Coins: " + resources.coins + "<br>"
+        this.resourceElem.innerHTML += "<h3>Crystals</h3>"
+        Object.entries(resources.crystals).forEach(([key, value]) => {
+            this.resourceElem.innerHTML += key + ": " + value + "<br>"
+        });
     }
 }
 
