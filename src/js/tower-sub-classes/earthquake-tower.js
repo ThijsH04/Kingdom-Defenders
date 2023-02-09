@@ -1,6 +1,6 @@
-class ChainingTower extends Tower{
+class EarthquakeTower extends Tower{
     constructor(id,x,y,mapData){
-        super(id,x,y,1,1,1,null,100,"land",new ChainDamage(1,game.map,5,.1,20,[]),mapData);
+        super(id,x,y,1,1,1,null,100,"land",new SplashDamage(5,game.map,4,.1,20,[]),mapData);
     }
 
     shoot(){

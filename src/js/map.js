@@ -44,8 +44,8 @@ class GameMap {
             this.waterUpdateTime = 0
         }
         this.projectiles.update(mode, ctx, tileSize, time, render);
-        this.towers.update(mode, ctx, tileset, tileSize, time, render);
         this.damages.update(mode, ctx, tileSize, time, render);
+        this.towers.update(mode, ctx, tileset, tileSize, time, render);
     }
     render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {

@@ -25,9 +25,8 @@ window.onload = () => {
             if(x>=game.map.width||y>=game.map.height){ // return for now, just testing the tower building
                 return;
             }
-            let damage = new ChainDamage(1,game.map,2,.1,20,[]);
             // let damage = new SplashDamage(1,game.map,1,.1);
-            game.map.towers.addTower(new ChainingTower(1,x+.5,y+.5,damage,game.map),game.map.tiles[y][x]);
+            game.map.towers.addTower(new EarthquakeTower(1,x+.5,y+.5,game.map),game.map.tiles[y][x]);
             // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
         }
         
