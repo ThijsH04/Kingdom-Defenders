@@ -34,6 +34,9 @@ class GameMap {
                 this.paths[p].render(mode, ctx, tileset, tileSize, false)
             }
         }
+        if(mode == "game"){
+            // this.enemies.enemies.push(new Enemy(1, game.map.paths[0].positions))
+        }
         this.enemies.update(mode, ctx, tileset, tileSize, time, render);
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
@@ -41,8 +44,8 @@ class GameMap {
             this.waterUpdateTime = 0
         }
         this.projectiles.update(mode, ctx, tileSize, time, render);
+        this.towers.update(mode, ctx, tileset, tileSize, time, render);
         this.damages.update(mode, ctx, tileSize, time, render);
-        this.towers.update(mode, ctx, tileset, tileSize, time, render)
     }
     render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {

@@ -17,8 +17,6 @@ class SplashDamage extends Damage{
     }
 
     update(mode, ctx, tileSize, time, render=true){
-        console.log(time);
-        console.log(this.lifespan);
         this.lifespan -= time;
         if(this.lifespan<0){
             return false;
@@ -29,8 +27,6 @@ class SplashDamage extends Damage{
     }
 
     render(ctx, tileSize){
-        console.log("hi");
-        console.log(this);
         ctx.fillStyle = "yellow"; 
         ctx.beginPath();
         ctx.arc(this.x*tileSize, this.y*tileSize, this.r*(1-this.lifespan/this.maxLifespan)*tileSize,0,Math.PI*2);

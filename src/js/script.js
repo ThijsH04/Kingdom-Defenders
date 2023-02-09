@@ -25,13 +25,14 @@ window.onload = () => {
             if(x>=game.map.width||y>=game.map.height){ // return for now, just testing the tower building
                 return;
             }
-            let damage = new Damage(5,game.map);
-            game.map.towers.addTower(new ShrapnelTower(1,x+.5,y+.5,damage,game.map),game.map.tiles[y][x]);
+            let damage = new ChainDamage(1,game.map,2,.1,20,[]);
+            // let damage = new SplashDamage(1,game.map,1,.1);
+            game.map.towers.addTower(new ChainingTower(1,x+.5,y+.5,damage,game.map),game.map.tiles[y][x]);
             // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
         }
         
-        let damage = new SplashDamage(5,game.map,3,.1);
-        game.map.towers.addTower(new StandardTower(1,x+.5,y+.5,damage,game.map),game.map.tiles[y][x]);
+        // let damage = new SplashDamage(5,game.map,3,.1);
+        // game.map.towers.addTower(new StandardTower(1,x+.5,y+.5,damage,game.map),game.map.tiles[y][x]);
         // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
     });
 }
