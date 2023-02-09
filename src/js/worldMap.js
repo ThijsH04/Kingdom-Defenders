@@ -51,7 +51,7 @@ class Level {
             }
             
         };
-        document.body.appendChild(this.btn);
+        document.getElementById("map").appendChild(this.btn);
     }
     update(mode, tileSize) {
         this.btn.style.width = this.w*tileSize + "px"

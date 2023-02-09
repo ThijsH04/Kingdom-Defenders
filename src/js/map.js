@@ -21,7 +21,7 @@ class GameMap {
         }
         this.paths = []
         this.enemies = new Enemies(0);
-        
+
         if(id > -1) {
             this.paths.push(new Path(0, "ground"))
         }

@@ -2,6 +2,8 @@ class Towers{
     constructor(id){
         this.id = id;
         this.towers = [];
+        this.selectMenu = document.createElement("div");
+        this.upgradeMenu = document.createElement("div");
     }
 
     update(mode, ctx, tileset, tileSize, timePassed, render=true){        

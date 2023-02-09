@@ -5,13 +5,30 @@ class Upgrades {
         this.showBtn = document.createElement("button")
         this.showBtn.className = "upgrade-btn"
         this.showBtn.onclick = () => {
-            game.setMode(game.mode == "upgrade" ? "map" : "upgrade")
+            game.setMode("upgrade")
             this.selectNode(game, false)
+            this.showBtn.style.display = "none";
+            this.exitBtn.style.display = "block";
             this.updateResources(game.resources)
         }
         this.showBtn.innerHTML = "Upgrade Menu"
 
-        document.body.appendChild(this.showBtn)
+        document.getElementById("map").appendChild(this.showBtn)
+
+        this.exitBtn = document.createElement("button")
+        this.exitBtn.className = "upgrade-btn"
+        this.exitBtn.style.display = "none";
+        this.exitBtn.onclick = () => {
+            game.setMode("map")
+            this.selectNode(game, false)
+            this.exitBtn.style.display = "none";
+            this.showBtn.style.display = "block";
+            this.updateResources(game.resources)
+        }
+        this.exitBtn.innerHTML = "Go To Map"
+
+        document.body.appendChild(this.exitBtn)
+
         this.element = document.createElement("div")
         this.element.className = "upgrade-menu"
         document.body.appendChild(this.element)

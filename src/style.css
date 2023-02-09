@@ -3,6 +3,7 @@
     color: white;
     margin:0;
     padding:0;
+    transition: 0.4s ease;
 }
 html {
     min-height: 400px;
@@ -13,10 +14,16 @@ html {
 body {
     background-color: #808080;
 }
-#game {
+/* #game {
     position: absolute;
     top: 0px;
     left: 0px;
+} */
+
+#map {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 .text-box{
