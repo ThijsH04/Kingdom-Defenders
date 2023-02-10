@@ -213,16 +213,15 @@ class UpgradeNode {
     unlock(resources) {
         if(this.unlockable) {
             this.unlocked = true
-            this.element.div.style.background = "#0f0a"
             for(let c=0;c<this.children.length;c++) {
                 this.children[c].unlockable=true
-                this.children[c].element.div.style.background = "#fa0a"
             }
             resources.coins -= this.cost.coins
             Object.entries(this.cost.crystals).forEach(([key, value]) => {
                 resources.crystals[key] -= value
             });
         }
+        this.updateColor(resources)
     }
     canAfford(resources) {
         if(resources.coins < this.cost.coins) return false

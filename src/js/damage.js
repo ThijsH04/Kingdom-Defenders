@@ -4,12 +4,15 @@ class Damage{
         this.mapData = mapData;
     }
 
-    dealDamage(x,y,enemy){ // x and y for a damage effect later maybe
+    dealDamage(x,y,enemy,effects=[]){ // x and y for a damage effect later maybe
         if(enemy == null){
             console.log("enemy is null");
             return false;
         }
         enemy.health.hp -= this.amount;
+        for(let e=0;e<effects.length;e++) {
+            enemy.effects.push(effects[e])
+        }
     }
     
     update(){

@@ -14,6 +14,7 @@ class Enemy {
         this.point = p
 
         this.health = new HealthBar(this,100)
+        this.effects = []
     }
     update(mode, ctx, tileset, tileSize, time, render=true) {
         let p=this.point
@@ -44,6 +45,10 @@ class Enemy {
             this.render(ctx, tileset, tileSize)
             if(this.health.hp < this.health.max) this.health.update(mode, this,ctx, tileset, tileSize)
         }
+        for(let e=0;e<this.effects.length;e++) {
+            this.effects[e].update(this)
+        }
+        this.effects = this.effects.filter(e => e.timeLeft > 0)
     }
     render(ctx, tileset, tileSize) {
         ctx.fillStyle = "#ff0000"
