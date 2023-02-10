@@ -18,6 +18,7 @@ class Projectile{
         this.size = size;
         this.type = type;
         this.mapData = mapData;
+        this.effects = []
     }
 
     update(mode, ctx, tileSize, time, render=true){ // this is non homing
@@ -36,7 +37,7 @@ class Projectile{
             this.y < this.targetY + this.enemy.h &&
             this.h + this.y > this.targetY
         ) {
-            this.damage.dealDamage(this.x,this.y,this.enemy);
+            this.damage.dealDamage(this.x,this.y,this.enemy,this.effects);
             this.lifespan = 0;
         }
         if(render) this.render(ctx, tileSize);
