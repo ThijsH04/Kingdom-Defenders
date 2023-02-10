@@ -52,7 +52,7 @@ class Upgrades {
     }
     selectNode(game,node) {
         if(node) {
-            this.upgradeInfo.style.display = "block"
+            this.upgradeInfo.style.width = "400px"
             for(let t=0;t<this.upgradeTrees.length;t++) {
                 this.upgradeTrees[t].box.style.right = "400px"
             }
@@ -96,7 +96,7 @@ class Upgrades {
         }
         this.upgradeInfo.appendChild(buyBtn)
         } else {
-            this.upgradeInfo.style.display = "none"
+            this.upgradeInfo.style.width = "0px"
             for(let t=0;t<this.upgradeTrees.length;t++) {
                 this.upgradeTrees[t].box.style.right = "0px"
             }
@@ -115,6 +115,9 @@ class Upgrades {
         Object.entries(resources.crystals).forEach(([key, value]) => {
             this.resourceElem.innerHTML += key + ": " + value + "<br>"
         });
+        for(let t=0; t<this.upgradeTrees.length;t++) {
+            this.upgradeTrees[t].updateColors(resources)
+        }
     }
 }
 
@@ -169,6 +172,11 @@ class UpgradeTree {
         this.selectBtn.style.background = "#aaa5"
         this.box.style.display = "block"
     }
+    updateColors(resources) {
+        for(let n=0;n<this.nodes.length;n++) {
+            this.nodes[n].updateColor(resources)
+        }
+    }
 }
 
 class UpgradeNode {
@@ -222,6 +230,23 @@ class UpgradeNode {
             if(resources.crystals[key] < value) return false
         });
         return true
+    }
+    updateColor(resources) {
+        console.log(this.unlocked,this.unlockable)
+        if(this.unlocked) {
+            this.element.div.style.background = "#0f0a"
+        } else if(this.unlockable) {
+            if(this.canAfford(resources)) {
+                this.element.div.style.background = "#fc0a"
+            } else {
+                this.element.div.style.background = "#f90a"
+            }
+        } else {
+            this.element.div.style.background = "#f00a"
+        }
+        for(let c=0;c<this.children.length;c++) {
+            this.children[c].updateColor(resources)
+        }
     }
 }
 
