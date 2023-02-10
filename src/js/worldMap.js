@@ -11,7 +11,7 @@ class WorldMap {
         this.selectedLevel = -1
     }
     update(mode,ctx, tileset, tileSize, time, render=true) {
-        this.map.update(mode,ctx, tileset, tileSize, time, render)
+        this.map.update(mode, {x:0,y:0}, ctx, tileset, tileSize, time, render)
         for(let l=0;l<this.levels.length;l++) {
             this.levels[l].update(mode, tileSize)
         }

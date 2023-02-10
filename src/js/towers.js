@@ -33,10 +33,21 @@ class Towers{
         // }
     }
 
-    update(mode, ctx, tileset, tileSize, timePassed, render=true){     
+    update(mode, mouseTile, ctx, tileset, tileSize, timePassed, render=true){   
         for(let t of this.towers){
             t.update(mode, ctx, tileset, tileSize, timePassed, render);
         }
+        if(this.selectedTower) { // this might be inefficient but should be fine?
+            ctx.fillStyle = "#ff0000";
+            ctx.globalAlpha = 0.5;
+            let towerConstructor = this.allTowers[this.selectedTower].tower;
+            let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
+            tempTower.x = mouseTile.x+tempTower.w/2;
+            tempTower.y = mouseTile.y+tempTower.h/2;
+            tempTower.render(ctx, tileSize)
+            ctx.globalAlpha = 1
+        }
+        
     }
 
     addTower(x,y,mapData){
@@ -66,6 +77,7 @@ class Towers{
         }
         tile.tower = true;
         this.towers.push(tower);
+        this.selectedTower = null;
     }
 
     createSelectMenu(){
