@@ -26,8 +26,8 @@ class WorldMap {
 
 class Level {
     constructor(game, levelInfo, index, map) {
-        this.w = 2
-        this.h = 2
+        this.w = 2.5
+        this.h = 2.5
         this.x = levelInfo.x
         this.y = levelInfo.y
         this.index = index
@@ -39,9 +39,9 @@ class Level {
         this.createButton(game, map, index)
     }
     createButton(game, map, index) {
-        this.btn = document.createElement('div');
+        this.btn = document.createElement('button');
         this.btn.innerHTML = index + 1;
-        this.btn.className = 'buttons-world-'+(map.id+1);
+        this.btn.className = 'world-buttons';
             
     	this.btn.onclick = () => { 
             if(this.index == 0 || map.levels[this.index-1].completed) {
@@ -58,7 +58,7 @@ class Level {
         this.btn.style.height = this.h*tileSize + "px"
         this.btn.style.top = (this.y-0.5*this.h)*tileSize + "px"
         this.btn.style.left = (this.x-0.5*this.w)*tileSize + "px"
-        this.btn.style.fontSize = this.h*tileSize*0.8 + "px"
+        this.btn.style.fontSize = this.h*tileSize*0.7 + "px"
 
         let color = "radial-gradient(#f55f,#f00f)"
         if(this.completed) color = "radial-gradient(#5f5f,#0f0f)"
