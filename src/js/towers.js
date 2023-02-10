@@ -12,13 +12,13 @@ class Towers{
             "earthquake":{tower:new EarthquakeTower(0, undefined, undefined),color:"orange"},
             "chaining":{tower:new ChainingTower(0, undefined, undefined),color:"purple"},
         }
-        if(id==0){
+        // if(id==0){
             this.sideMenu = document.createElement("div");
             this.sideMenu.classList.add("sideMenu") ;
             this.sideMenu.id = "sideMenu"+id;
             console.log(id);
             this.sideMenu.innerHTML = "test"
-            document.body.appendChild(this.sideMenu);
+            document.body.insertBefore(this.sideMenu, document.body.children[0]);
             this.selectMenu = document.createElement("div");
             this.selectMenu.classList.add("selectMenu");
             this.upgradeMenu = document.createElement("div");
@@ -27,7 +27,10 @@ class Towers{
             this.createSelectMenu();
             this.sideMenu.appendChild(this.selectMenu);
             this.sideMenu.appendChild(this.upgradeMenu);
-        }
+            if(id!=0){
+                this.sideMenu.style.display = "none";
+            }
+        // }
     }
 
     update(mode, ctx, tileset, tileSize, timePassed, render=true){     
@@ -40,6 +43,8 @@ class Towers{
         if(this.selectedTower == null){
             return;
         }
+        console.log("hi");
+        
         let towerConstructor = this.allTowers[this.selectedTower].tower;
         let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         tower.x = x+tower.w/2;
