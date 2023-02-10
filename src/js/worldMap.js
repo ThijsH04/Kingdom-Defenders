@@ -32,10 +32,11 @@ class Level {
         this.y = levelInfo.y
         this.index = index
         this.id = levelInfo.mapId
+        this.levelId = levelInfo.levelId
         this.name = levelInfo.name
         this.description = levelInfo.description
         this.completed = false
-        this.gameMap = new GameMap(this.id)
+        this.gameMap = new GameMap(this.levelId) //level id could be double, not sure what id should do
         this.createButton(game, map, index)
     }
     createButton(game, map, index) {

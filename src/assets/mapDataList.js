@@ -247,6 +247,7 @@ worldDataList = [
       levels: [
          {
             mapId:0,
+            levelId:0,
             x:22,
             y:13,
             name:"The Beginning",
@@ -254,6 +255,7 @@ worldDataList = [
          },
          {
             mapId:0,
+            levelId:1,
             x:23.5,
             y:28,
             name:"Rivers",
@@ -261,6 +263,7 @@ worldDataList = [
          },
          {
             mapId:0,
+            levelId:2,
             x:30,
             y:41,
             name:"Gardens",
@@ -268,6 +271,7 @@ worldDataList = [
          },
          {
             mapId:0,
+            levelId:3,
             x:40,
             y:42,
             name:"Splitting Paths",
@@ -275,6 +279,7 @@ worldDataList = [
          },
          {
             mapId:0,
+            levelId:4,
             x:46.5,
             y:33,
             name:"Lake",
@@ -282,6 +287,7 @@ worldDataList = [
          },
          {
             mapId:0,
+            levelId:5,
             x:51.5,
             y:20,
             name:"Gardens",
@@ -289,6 +295,7 @@ worldDataList = [
          },
          {
             mapId:0,
+            levelId:6,
             x:49.5,
             y:10,
             name:"Gardens",

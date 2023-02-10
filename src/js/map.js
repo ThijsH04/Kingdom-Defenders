@@ -1,7 +1,8 @@
 class GameMap {
     constructor(id, mapData=null) {
         if(mapData === null) {
-            mapData = mapDataList[id]
+            // mapData = mapDataList[id]
+            mapData = mapDataList[0] // for testing purposes
         }
         this.tiles = []
         this.enemies = []
@@ -25,7 +26,6 @@ class GameMap {
         if(id > -1) {
             this.paths.push(new Path(0, "ground"))
         }
-        
     }
     update(mode, ctx, tileset, tileSize, time, render=true) {
         if(render) {

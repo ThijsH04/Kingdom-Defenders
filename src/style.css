@@ -306,3 +306,29 @@ button {
 button:hover {
     cursor:pointer;
 }
+
+.sideMenu{
+    display: flex;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    flex-direction: column;
+    height: 100%;
+    width: 200px;
+}
+
+.selectMenu{
+    display:flex;
+    flex-flow: row wrap;
+    width: 100%;
+    background-color: red;
+}
+
+.upgradeMenu{
+    width: 100%;
+    background-color: green;
+}
+
+.menuItem{
+    pointer-events:all;
+}

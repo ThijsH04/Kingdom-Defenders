@@ -28,7 +28,7 @@ window.onload = () => {
                 return;
             }
             // let damage = new SplashDamage(1,game.map,1,.1);
-            game.map.towers.addTower(new EarthquakeTower(1,x+.5,y+.5,game.map),game.map.tiles[y][x]);
+            game.map.towers.addTower(x,y,game.map);
             // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
         }
         
