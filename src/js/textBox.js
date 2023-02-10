@@ -13,7 +13,7 @@ class TextBox {
         this.diff = 0
         this.dy = 0
 
-        document.body.appendChild(this.element);
+        document.getElementById("map").appendChild(this.element);
         if(closeable) {
             this.closeBtn = document.createElement('div');
             this.closeBtn.innerHTML = 'X';
