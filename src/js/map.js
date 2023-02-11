@@ -27,7 +27,7 @@ class GameMap {
             this.paths.push(new Path(0, "ground"))
         }
     }
-    update(mode, mouseTile, ctx, tileset, tileSize, time, render=true) {
+    update(mode, mouseTile, ctx, tileset, tileSize, time, render=true, showMenu=true) {
         if(render) {
             this.render(ctx, tileset, tileSize, time)
             for(let p=0;p<this.paths.length;p++) {
@@ -45,7 +45,9 @@ class GameMap {
         }
         this.projectiles.update(mode, ctx, tileSize, time, render);
         this.damages.update(mode, ctx, tileSize, time, render);
-        this.towers.update(mode, mouseTile, ctx, tileset, tileSize, time, render);
+        console.log(showMenu);
+        // console.log(showMenu.h());
+        this.towers.update(mode, mouseTile, ctx, tileset, tileSize, time, render,showMenu);
     }
     render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {

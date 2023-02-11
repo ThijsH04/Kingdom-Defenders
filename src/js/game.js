@@ -11,6 +11,7 @@ class Game {
         this.gameSpeed = 1
         this.previousFrameTime = Date.now()
         this.mouseTile = {x:0,y:0}
+        Towers.createSideMenu();
     }
 
     createTileset() {
@@ -54,12 +55,12 @@ class Game {
         let timePassed = Math.min((frameTime - this.previousFrameTime) / 1000, 0.1)
         this.previousFrameTime = frameTime
         for(let x=0;x<Math.floor(this.gameSpeed);x++) { // full number speed 
-            if(this.mode == "game") this.map.update(this.mode, this.mouseTile, this.ctx, this.tileset, this.tileSize, timePassed, false)
+            if(this.mode == "game") this.map.update(this.mode, this.mouseTile, this.ctx, this.tileset, this.tileSize, timePassed)
             else if(this.mode == "map") this.world.update(this.mode, this.ctx, this.tileset, this.tileSize, timePassed, false)
         }
         this.tutorial.update(this)
-        if(this.mode == "game") this.map.update(this.mode,this.mouseTile, this.ctx, this.tileset, this.tileSize, timePassed * (this.gameSpeed % 1)) // decimal speed + render
-        else if(this.mode == "map") this.world.update(this.mode, this.ctx, this.tileset, this.tileSize, timePassed * (this.gameSpeed % 1))
+        if(this.mode == "game") this.map.update(this.mode,this.mouseTile, this.ctx, this.tileset, this.tileSize, timePassed * (this.gameSpeed % 1),) // decimal speed + render
+        else if(this.mode == "map") this.world.update(this.mode, this.ctx, this.tileset, this.tileSize, timePassed * (this.gameSpeed % 1),true)
     }
     setMode(mode) {
         this.mode = mode
