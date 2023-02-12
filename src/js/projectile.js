@@ -1,5 +1,5 @@
 class Projectile{
-    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData){
+    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData,pierce=1){
         this.tower = tower;
         this.x = x;
         this.y = y;
@@ -18,6 +18,8 @@ class Projectile{
         this.size = size;
         this.type = type;
         this.mapData = mapData;
+        this.pierce = pierce;
+        this.attacked = [];
         this.effects = []
     }
 
@@ -30,17 +32,44 @@ class Projectile{
         let dy = Math.round(Math.sin(this.a)*1000000)/1000000 * time * this.speed        
         this.x += dx
         this.y += dy
-        if( 
-            this.enemy!=null &&
-            this.x < this.targetX + this.enemy.w &&
-            this.x + this.w > this.targetX &&
-            this.y < this.targetY + this.enemy.h &&
-            this.h + this.y > this.targetY
-        ) {
-            this.damage.dealDamage(this.x,this.y,this.enemy,this.effects);
-            this.lifespan = 0;
-        }
+        this.checkHit();
+        // if( 
+        //     this.enemy!=null &&
+        //     this.x < this.targetX + this.enemy.w &&
+        //     this.x + this.w > this.targetX &&
+        //     this.y < this.targetY + this.enemy.h &&
+        //     this.h + this.y > this.targetY
+        // ) {
+        //     this.damage.dealDamage(this.x,this.y,this.enemy,this.effects);
+        //     this.lifespan = 0;
+        // }
         if(render) this.render(ctx, tileSize);
+    }
+
+    checkHit(){
+        for(let e of this.mapData.enemies.enemies){
+            if(this.pierce<=0){
+                break;
+            }
+            if(this.attacked.includes(e)){
+                continue;
+            }
+            if( 
+                e!=null &&
+                this.x < e.x + e.w &&
+                this.x + this.w > e.x &&
+                this.y < e.y + e.h &&
+                this.h + this.y > e.y
+            ) {
+                this.damage.dealDamage(this.x,this.y,e,this.effects);
+                this.attacked.push(e);
+                this.pierce-=1;
+                if(this.pierce<=0){
+                    this.lifespan = 0;
+                    break;
+                }
+            }
+        }
     }
 
     render(ctx, tileSize){
