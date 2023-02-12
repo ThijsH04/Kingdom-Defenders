@@ -35,16 +35,32 @@ class Towers{
         }
         
     }
+    
+    showUpgradeMenu(menu, tower) {
+        menu.style.height = "100%";
+        menu.innerHTML = "" // clear possible old stuff
+
+        let info = document.createElement("div")
+        info.className = "upgradeMenuBox"
+        info.innerHTML = `<h2>${tower.name}</h2>`
+        let upgrades = document.createElement("div")
+        upgrades.className = "upgradeMenuBox"
+
+        menu.appendChild(info)
+        menu.appendChild(upgrades)
+    }
 
     addTower(x,y,mapData){
         let tile = mapData.tiles[y][x];
         if(tile.tower){
             Towers.selectedPlacedTower = tile.tower;
-            Towers.upgradeMenu.style.display = "block";
+            
+            this.showUpgradeMenu(Towers.upgradeMenu, tile.tower)
+
             return;
         }        
         Towers.selectedPlacedTower = null;
-        Towers.upgradeMenu.style.display = "none";
+        Towers.upgradeMenu.style.height = "0";
         console.log(Towers.selectedTower);
         if(Towers.selectedTower == null){
             return;
@@ -99,10 +115,10 @@ class Towers{
         this.sideMenu.classList.add("sideMenu") ;
         this.sideMenu.innerHTML = "test"
         document.body.insertBefore(this.sideMenu, document.body.children[0]);
+        //document.body.appendChild(this.sideMenu)
         this.selectMenu.classList.add("selectMenu");
         this.upgradeMenu.classList.add("upgradeMenu");
         this.upgradeMenu.innerHTML="test3";
-        this.upgradeMenu.style.display = "none";
         this.createSelectMenu();
         this.sideMenu.appendChild(this.selectMenu);
         this.sideMenu.appendChild(this.upgradeMenu);
