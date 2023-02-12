@@ -1,5 +1,5 @@
 class Tower{
-    constructor(id,x,y,w,h,attackSpeed,img,cost,type,damage,mapData){
+    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,mapData){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -12,7 +12,8 @@ class Tower{
         this.type = type;
         this.damage = damage;
         this.mapData = mapData;
-
+        this.name = name;
+        
         this.health = new HealthBar(this,100)
     }
 
