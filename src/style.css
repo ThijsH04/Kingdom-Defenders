@@ -331,6 +331,6 @@ button:hover {
 
 .menuItem{
     pointer-events:all;
-    width: 50%;
+    width: 25%;
     height: 500px;
 }

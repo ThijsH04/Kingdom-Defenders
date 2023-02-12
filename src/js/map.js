@@ -45,8 +45,6 @@ class GameMap {
         }
         this.projectiles.update(mode, ctx, tileSize, time, render);
         this.damages.update(mode, ctx, tileSize, time, render);
-        console.log(showMenu);
-        // console.log(showMenu.h());
         this.towers.update(mode, mouseTile, ctx, tileset, tileSize, time, render,showMenu);
     }
     render(ctx, tileset, tileSize, time) {
