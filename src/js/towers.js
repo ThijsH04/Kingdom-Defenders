@@ -68,7 +68,8 @@ class Towers{
             return;
         }        
         let towerConstructor = Towers.allTowers[Towers.selectedTower].tower;
-        let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
+        // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
+        let tower = _.cloneDeep(towerConstructor)
         console.log(tower);
         tower.x = x+tower.w/2;
         tower.y = y+tower.h/2;
