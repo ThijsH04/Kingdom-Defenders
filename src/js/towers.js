@@ -42,10 +42,12 @@ class Towers{
 
         let info = document.createElement("div")
         info.className = "upgradeMenuBox"
-        info.innerHTML = `<h2>${tower.name}</h2>`
+        info.innerHTML = `<h2>${tower.name}</h2>more interesting useful tower info`
         let upgrades = document.createElement("div")
+        tower.upgrades.menu = upgrades
         upgrades.className = "upgradeMenuBox"
-
+        tower.upgrades.createUpgradeMenu()
+        
         menu.appendChild(info)
         menu.appendChild(upgrades)
     }

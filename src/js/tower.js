@@ -13,7 +13,7 @@ class Tower{
         this.damage = damage;
         this.mapData = mapData;
         this.name = name;
-        
+        this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
     }
 
