@@ -1,5 +1,6 @@
 class Tower{
     constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData){
+        console.log(mapData)
         this.id = id;
         this.x = x;
         this.y = y;
@@ -16,6 +17,16 @@ class Tower{
         this.name = name;
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
+
+        this.targetFunctions = [
+            {name:"First", func:(a,b)=>{return b.getProgress() - a.getProgress()}}, // first
+            {name:"Last", func:(a,b)=>{return a.getProgress() - b.getProgress()}}, // last
+            // closest is broken, tba
+            //{name:"Closest", func:(a,b)=>{return ((this.x - b.x)**2 + (this.y - b.y)**2) - ((this.x - a.x)**2 + (this.y - a.y)**2)}}, // closest
+            {name:"Most HP", func:(a,b)=>{return b.health.hp - a.health.hp}}, // most health
+            {name:"Group", func:(a,b)=>{return b.getGroupSize() - a.getGroupSize()}} //group
+        ]
+        this.targetFunction = 0
     }
 
     update(mode, ctx, tileset, tileSize, timePassed, render=true){
@@ -44,13 +55,19 @@ class Tower{
             this.attackTimer = this.attackSpeed;
             return false;
         }
-        console.log("not the issue");
-        let closestEnemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
-        if(closestEnemyData.enemy == null||!this.intersects(closestEnemyData.enemy)){
+        // console.log("not the issue");
+        let possibleEnemies = this.mapData.enemies.enemies.filter(enemy => this.intersects(enemy))
+        if(possibleEnemies.length == 0) return false
+
+        let enemyData = {enemy: possibleEnemies.sort(this.targetFunctions[this.targetFunction].func)[0]}
+        
+        console.log(enemyData.enemy.getGroupSize(this.mapData.enemies.enemies))
+        //let enemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
+        if(enemyData.enemy == null||!this.intersects(enemyData.enemy)){
             this.attackTimer = this.attackSpeed;
             return false;
         }
-        return closestEnemyData;
+        return enemyData;
     }
 
     findClosestEnemy(){
@@ -101,5 +118,7 @@ class Tower{
         this.health.hp = 0;        
     }
 
-
+    switchTarget() {
+        this.targetFunction = (this.targetFunction + 1) % this.targetFunctions.length
+    }
 }
