@@ -1,5 +1,5 @@
 class Towers{
-    static allTowers = {
+    static #allTowers = {
         "standard":{tower:new StandardTower(0, undefined, undefined, new Damage(5)),color:"red"},
         "homing":{tower:new HomingTower(0, undefined, undefined, new Damage(5)),color:"green"},
         "shrapnel":{tower:new ShrapnelTower(0, undefined, undefined, new Damage(5)),color:"yellow"},
@@ -8,34 +8,34 @@ class Towers{
         "splash":{tower:new SplashTower(0, undefined, undefined, new SplashDamage(5,null,3,.2)),color:"brown"},
     }
 
-    static selectedTower = null;
-    static selectedPlacedTower = null;
-    static sideMenu = document.createElement("div");
-    static selectMenu = document.createElement("div");
-    static upgradeMenu = document.createElement("div");
+    static #selectedTower = null;
+    static #selectedPlacedTower = null;
+    static #sideMenu = document.createElement("div");
+    static #selectMenu = document.createElement("div");
+    static #upgradeMenu = document.createElement("div");
     constructor(id){        
         this.id = id;
         this.towers = [];
     }
 
     update(mode, mouseTile, ctx, tileset, tileSize, timePassed, render=true,showMenu = false,tiles){  
-        Towers.sideMenu.style.visibility = showMenu? "visible":"hidden"; // probably also a better place for this, but eh
+        Towers.#sideMenu.style.visibility = showMenu? "visible":"hidden"; // probably also a better place for this, but eh
         for(let t of this.towers){
             if(t.health.hp>0){
                 t.update(mode, ctx, tileset, tileSize, timePassed, render);
             } else {
                 t.mapData.tiles[t.y+t.h/2][t.x+t.w/2].tower = null;
-                if(t==Towers.selectedPlacedTower){
-                    Towers.selectedPlacedTower = null;
-                    Towers.upgradeMenu.style.height = "0%";
+                if(t==Towers.#selectedPlacedTower){
+                    Towers.#selectedPlacedTower = null;
+                    Towers.#upgradeMenu.style.height = "0%";
                 }
             }
         }
         this.towers = this.towers.filter(t => t.health.hp>0);
-        if(Towers.selectedTower) { // this might be inefficient but should be fine? I think so
+        if(Towers.#selectedTower) { // this might be inefficient but should be fine? I think so
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
-            let towerConstructor = Towers.allTowers[Towers.selectedTower].tower;
+            let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
             let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
             tempTower.x = mouseTile.x+tempTower.w/2;
             tempTower.y = mouseTile.y+tempTower.h/2;
@@ -50,11 +50,11 @@ class Towers{
             ctx.arc(tempTower.x*tileSize, tempTower.y*tileSize, tempTower.r*tileSize, 0, Math.PI*2);
             ctx.fill();
             ctx.globalAlpha = 1
-        } else if (Towers.selectedPlacedTower) {
+        } else if (Towers.#selectedPlacedTower) {
             ctx.globalAlpha = .25;
             ctx.fillStyle = "#000000"
             ctx.beginPath();
-            ctx.arc(Towers.selectedPlacedTower.x*tileSize, Towers.selectedPlacedTower.y*tileSize, Towers.selectedPlacedTower.r*tileSize, 0, Math.PI*2);
+            ctx.arc(Towers.#selectedPlacedTower.x*tileSize, Towers.#selectedPlacedTower.y*tileSize, Towers.#selectedPlacedTower.r*tileSize, 0, Math.PI*2);
             ctx.fill();
             ctx.globalAlpha = 1
         }
@@ -88,19 +88,19 @@ class Towers{
     addTower(x,y,mapData){
         let tile = mapData.tiles[y][x];
         if(tile.tower){
-            Towers.selectedPlacedTower = tile.tower;
+            Towers.#selectedPlacedTower = tile.tower;
             
-            this.showUpgradeMenu(Towers.upgradeMenu, tile.tower)
+            this.showUpgradeMenu(Towers.#upgradeMenu, tile.tower)
 
             return;
         }        
-        Towers.selectedPlacedTower = null;
-        Towers.upgradeMenu.style.height = "0";
-        console.log(Towers.selectedTower);
-        if(Towers.selectedTower == null){
+        Towers.#selectedPlacedTower = null;
+        Towers.#upgradeMenu.style.height = "0";
+        console.log(Towers.#selectedTower);
+        if(Towers.#selectedTower == null){
             return;
         }        
-        let towerConstructor = Towers.allTowers[Towers.selectedTower].tower;
+        let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         let tower = _.cloneDeep(towerConstructor)
         console.log(tower);
@@ -113,7 +113,7 @@ class Towers{
         }
         tile.tower = tower;
         this.towers.push(tower);
-        Towers.selectedTower = null;
+        Towers.#selectedTower = null;
     }
 
     checkPlacement(tower,tile){
@@ -133,8 +133,8 @@ class Towers{
     }
 
     static createSelectMenu(){
-        for(let tower in this.allTowers){
-            this.selectMenu.appendChild(this.menuItem(tower,this.allTowers[tower].color));
+        for(let tower in this.#allTowers){
+            this.#selectMenu.appendChild(this.menuItem(tower,this.#allTowers[tower].color));
         }
     }
 
@@ -145,23 +145,23 @@ class Towers{
         res.innerHTML = name;
         res.name = name;
         res.addEventListener("click", () =>{
-            Towers.selectedTower = name
+            Towers.#selectedTower = name
             console.log(this);
         });
         return res;
     }
 
     static createSideMenu(){
-        this.sideMenu.classList.add("sideMenu") ;
-        this.sideMenu.innerHTML = "test"
-        document.body.insertBefore(this.sideMenu, document.body.children[0]);
-        //document.body.appendChild(this.sideMenu)
-        this.selectMenu.classList.add("selectMenu");
-        this.upgradeMenu.classList.add("upgradeMenu");
-        this.upgradeMenu.innerHTML="test3";
+        this.#sideMenu.classList.add("sideMenu") ;
+        this.#sideMenu.innerHTML = "test"
+        document.body.insertBefore(this.#sideMenu, document.body.children[0]);
+        //document.body.appendChild(this.#sideMenu)
+        this.#selectMenu.classList.add("selectMenu");
+        this.#upgradeMenu.classList.add("upgradeMenu");
+        this.#upgradeMenu.innerHTML="test3";
         this.createSelectMenu();
-        this.sideMenu.appendChild(this.selectMenu);
-        this.sideMenu.appendChild(this.upgradeMenu);
-        this.sideMenu.style.visibility = "hidden";
+        this.#sideMenu.appendChild(this.#selectMenu);
+        this.#sideMenu.appendChild(this.#upgradeMenu);
+        this.#sideMenu.style.visibility = "hidden";
     }
 }
