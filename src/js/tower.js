@@ -1,5 +1,5 @@
 class Tower{
-    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,range,mapData){
+    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -11,7 +11,7 @@ class Tower{
         this.cost = cost;
         this.type = type;
         this.damage = damage;
-        this.range = range;
+        this.r = r;
         this.mapData = mapData;
         this.name = name;
         this.upgrades = new TowerUpgrades(this)

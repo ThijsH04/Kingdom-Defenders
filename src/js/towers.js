@@ -18,11 +18,17 @@ class Towers{
         this.towers = [];
     }
 
-    update(mode, mouseTile, ctx, tileset, tileSize, timePassed, render=true,showMenu = false){  
+    update(mode, mouseTile, ctx, tileset, tileSize, timePassed, render=true,showMenu = false,tiles){  
         Towers.sideMenu.style.visibility = showMenu? "visible":"hidden"; // probably also a better place for this, but eh
         for(let t of this.towers){
             if(t.health.hp>0){
                 t.update(mode, ctx, tileset, tileSize, timePassed, render);
+            } else {
+                t.mapData.tiles[t.y+t.h/2][t.x+t.w/2].tower = null;
+                if(t==Towers.selectedPlacedTower){
+                    Towers.selectedPlacedTower = null;
+                    Towers.upgradeMenu.style.height = "0%";
+                }
             }
         }
         this.towers = this.towers.filter(t => t.health.hp>0);
@@ -34,6 +40,22 @@ class Towers{
             tempTower.x = mouseTile.x+tempTower.w/2;
             tempTower.y = mouseTile.y+tempTower.h/2;
             tempTower.render(ctx, tileSize)
+            ctx.globalAlpha = .25;
+            if(this.checkPlacement(tempTower,tiles[mouseTile.y][mouseTile.x])){
+                ctx.fillStyle = "#000000"
+            } else {
+                ctx.fillStyle = "#FF0000"
+            }
+            ctx.beginPath();
+            ctx.arc(tempTower.x*tileSize, tempTower.y*tileSize, tempTower.r*tileSize, 0, Math.PI*2);
+            ctx.fill();
+            ctx.globalAlpha = 1
+        } else if (Towers.selectedPlacedTower) {
+            ctx.globalAlpha = .25;
+            ctx.fillStyle = "#000000"
+            ctx.beginPath();
+            ctx.arc(Towers.selectedPlacedTower.x*tileSize, Towers.selectedPlacedTower.y*tileSize, Towers.selectedPlacedTower.r*tileSize, 0, Math.PI*2);
+            ctx.fill();
             ctx.globalAlpha = 1
         }
         
@@ -50,9 +72,17 @@ class Towers{
         tower.upgrades.menu = upgrades
         upgrades.className = "upgradeMenuBox"
         tower.upgrades.createUpgradeMenu()
-        
         menu.appendChild(info)
         menu.appendChild(upgrades)
+
+        let sellButton = document.createElement("button");
+        sellButton.classList.add("sellButton");
+        sellButton.innerHTML = "sell"
+        sellButton.addEventListener("click", e=>{
+            tower.sell();
+        })
+        console.log(sellButton);
+        menu.appendChild(sellButton);
     }
 
     addTower(x,y,mapData){
@@ -78,24 +108,28 @@ class Towers{
         tower.y = y+tower.h/2;
         tower.mapData = mapData;
         tower.damage.mapData = mapData;
-        if(tile.layers.object){ // checks if there is no obstacle
-            return
-        }
-        console.log(tile);
-        
-        
-        if(tower.type === "land" &&(!tile.layers.floor || tile.layers.path || tile.layers.river)){ // land check, might change the tower type check later
-            return;
-        }
-        if(tower.type === "water" &&(!(tile.layers.water||tile.layers.river) || tile.layers.cliff || tile.layers.floor)){ // water check, might change the tower type check later
-            return;
-        }
-        if(tower.type === "sky" &&!tile.layers.sky){ // fly check, might change the tower type check later
+        if(!this.checkPlacement(tower,tile)){
             return;
         }
         tile.tower = tower;
         this.towers.push(tower);
         Towers.selectedTower = null;
+    }
+
+    checkPlacement(tower,tile){
+        if(tile.layers.object){ // checks if there is no obstacle
+            return false;
+        }
+        if(tower.type === "land" &&(!tile.layers.floor || tile.layers.path || tile.layers.river)){ // land check, might change the tower type check later
+            return false;
+        }
+        if(tower.type === "water" &&(!(tile.layers.water||tile.layers.river) || tile.layers.cliff || tile.layers.floor)){ // water check, might change the tower type check later
+            return false;
+        }
+        if(tower.type === "sky" &&!tile.layers.sky){ // fly check, might change the tower type check later
+            return false;
+        }
+        return true;
     }
 
     static createSelectMenu(){

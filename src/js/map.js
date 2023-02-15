@@ -45,7 +45,7 @@ class GameMap {
         }
         this.projectiles.update(mode, ctx, tileSize, time, render);
         this.damages.update(mode, ctx, tileSize, time, render);
-        this.towers.update(mode, mouseTile, ctx, tileset, tileSize, time, render,showMenu);
+        this.towers.update(mode, mouseTile, ctx, tileset, tileSize, time, render,showMenu,this.tiles);
     }
     render(ctx, tileset, tileSize, time) {
         for(let y=0;y<this.height;y++) {
