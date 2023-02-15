@@ -1,5 +1,5 @@
 class Tower{
-    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,mapData){
+    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,range,mapData){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -11,6 +11,7 @@ class Tower{
         this.cost = cost;
         this.type = type;
         this.damage = damage;
+        this.range = range;
         this.mapData = mapData;
         this.name = name;
         this.upgrades = new TowerUpgrades(this)
@@ -66,7 +67,7 @@ class Tower{
     }
 
     sell(){
-        // to be implemented        
+        this.health.hp = 0;        
     }
 
 

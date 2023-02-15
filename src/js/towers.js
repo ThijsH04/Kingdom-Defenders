@@ -21,8 +21,11 @@ class Towers{
     update(mode, mouseTile, ctx, tileset, tileSize, timePassed, render=true,showMenu = false){  
         Towers.sideMenu.style.visibility = showMenu? "visible":"hidden"; // probably also a better place for this, but eh
         for(let t of this.towers){
-            t.update(mode, ctx, tileset, tileSize, timePassed, render);
+            if(t.health.hp>0){
+                t.update(mode, ctx, tileset, tileSize, timePassed, render);
+            }
         }
+        this.towers = this.towers.filter(t => t.health.hp>0);
         if(Towers.selectedTower) { // this might be inefficient but should be fine? I think so
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
