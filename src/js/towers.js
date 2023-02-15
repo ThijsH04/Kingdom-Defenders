@@ -68,6 +68,16 @@ class Towers{
         let info = document.createElement("div")
         info.className = "upgradeMenuBox"
         info.innerHTML = `<h2>${tower.name}</h2>more interesting useful tower info`
+
+        let modeButton = document.createElement("button")
+        modeButton.innerHTML = "Targetting: " + tower.targetFunctions[tower.targetFunction].name
+        modeButton.className = "targetModeBtn"
+        modeButton.onclick=()=>{
+            tower.switchTarget()
+            modeButton.innerHTML = "Targetting: " + tower.targetFunctions[tower.targetFunction].name
+        }
+        info.appendChild(modeButton)
+
         let upgrades = document.createElement("div")
         tower.upgrades.menu = upgrades
         upgrades.className = "upgradeMenuBox"

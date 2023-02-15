@@ -360,3 +360,17 @@ button:hover {
     left: 0;
     top: 0;
 }
+
+.targetModeBtn {
+    position: relative;
+    width: 120px;
+    height: 60px;
+    background: #0005;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events:all;
+    border: 5px solid #fff;
+    display:inline-block;
+    font-size: 15px;
+}
