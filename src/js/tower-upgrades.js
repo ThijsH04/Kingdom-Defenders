@@ -22,13 +22,14 @@ class TowerUpgrades {
             let path = this.paths[i]
             for(let j=0;j<path.upgrades.length;j++) {
                 let upgrade = path.upgrades[j]
-                upgrade.element.style.gridRow = i+1
-                upgrade.element.style.gridCol = j+1
-                if(upgrade.unlocked) upgrade.element.style.backgroundColor = "#0f0"
-                else if(upgrade.locked) upgrade.element.style.backgroundColor = "#900"
-                else if(path.upgrades.indexOf(upgrade) == path.next) upgrade.element.style.backgroundColor = "#fa0"
-                else upgrade.element.style.backgroundColor = "#f00"
-                this.menu.appendChild(upgrade.element)
+                let element = upgrade.getBtn(this, path)
+                element.style.gridRow = i+1
+                element.style.gridCol = j+1
+                if(upgrade.unlocked) element.style.backgroundColor = "#0f0"
+                else if(upgrade.locked) element.style.backgroundColor = "#900"
+                else if(path.upgrades.indexOf(upgrade) == path.next) element.style.backgroundColor = "#fa0"
+                else element.style.backgroundColor = "#f00"
+                this.menu.appendChild(element)
             }
         }
         return upgrades
@@ -68,16 +69,19 @@ class TowerUpgrade {
         this.unlocked = false
         this.locked = false
         this.cost = 0
-        this.element = document.createElement("button")
-        this.element.className = "UpgradeBlock"
-        this.element.onclick = ()=>{
+    }
+    canUnlock(upgrades, path) {
+        return path.upgrades.indexOf(this) == path.next && !this.locked
+    }
+    getBtn(upgrades, path) {
+        let element = document.createElement("button")
+        element.className = "UpgradeBlock"
+        element.onclick = ()=>{
             if(!this.canUnlock(upgrades, path)) return
             this.unlocked = true
             path.increment(upgrades)
             upgrades.createUpgradeMenu()
         }
-    }
-    canUnlock(upgrades, path) {
-        return path.upgrades.indexOf(this) == path.next && !this.locked
+        return element
     }
 }
