@@ -4,13 +4,9 @@ class HomingTower extends Tower{
     }
 
     shoot(){
-        if(this.mapData.enemies.length == 0){
-            this.attackTimer = this.attackSpeed;
-            return false;
-        }
-        let closestEnemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
-        if(closestEnemyData.enemy == null){
-            return false;
+        let closestEnemyData = this.checkShot();
+        if(!closestEnemyData){
+            return;
         }
         this.mapData.projectiles.projectiles.push(new HomingProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, this.damage, 20, null, .8, "regular",this.mapData,0)) 
     }

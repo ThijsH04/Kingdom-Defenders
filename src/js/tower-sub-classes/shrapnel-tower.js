@@ -5,15 +5,11 @@ class ShrapnelTower extends Tower{
     }
 
     shoot(){
-        if(this.mapData.enemies.length == 0){
-            this.attackTimer = this.attackSpeed;
-            return false;
+        let closestEnemyData = this.checkShot();
+        if(!closestEnemyData){
+            return;
         }
-        let closestEnemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
-        if(closestEnemyData.enemy == null){
-            return false;
-        }
-        this.mapData.projectiles.projectiles.push(new ShrapnelProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, this.damage, 20, null, .8, "regular",this.mapData,6,this.shards)) 
+        this.mapData.projectiles.projectiles.push(new ShrapnelProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, this.damage, 50, null, .8, "regular",this.mapData,6,this.shards)) 
     }
 }
 

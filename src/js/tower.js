@@ -32,15 +32,25 @@ class Tower{
     }
 
     shoot(){
-        if(this.mapData.enemies.length == 0){
+        let closestEnemyData = this.checkShot();
+        if(!closestEnemyData){
+            return;
+        }
+        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,this.damage, 20, null, .8, "regular",this.mapData))
+    }
+
+    checkShot(){
+        if(this.mapData.enemies.enemies.length == 0){
             this.attackTimer = this.attackSpeed;
             return false;
         }
+        console.log("not the issue");
         let closestEnemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
-        if(closestEnemyData.enemy == null){
+        if(closestEnemyData.enemy == null||!this.intersects(closestEnemyData.enemy)){
+            this.attackTimer = this.attackSpeed;
             return false;
         }
-        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,this.damage, 20, null, .8, "regular",this.mapData))
+        return closestEnemyData;
     }
 
     findClosestEnemy(){
@@ -58,6 +68,27 @@ class Tower{
             }
         }
         return {enemy:minEnemy,distance:minDistance};
+    }
+
+    /* defenitely not a stolen function :)
+    *   returns true when the range of a tower and the closest enemy intersect
+    *   will not work with different sizes of enemies yet!
+    */
+    intersects(enemy){
+        
+        let x = Math.abs(this.x - enemy.x);
+        let y = Math.abs(this.y - enemy.y);
+
+        if (x > (enemy.w/2 + this.r)) { return false; }
+        if (y > (enemy.h/2 + this.r)) { return false; }
+
+        if (x <= (enemy.w/2)) { return true; } 
+        if (y <= (enemy.h/2)) { return true; }
+
+        let cornerDistance_sq = (x - enemy.w/2)**2 +
+                            (y - enemy.h/2)**2;
+
+        return (cornerDistance_sq <= (this.r**2));
     }
 
     render(ctx, tileSize){

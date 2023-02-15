@@ -5,13 +5,8 @@ class EarthquakeTower extends Tower{
     }
 
     shoot(){
-        if(this.mapData.enemies.length == 0){
-            this.attackTimer = this.attackSpeed;
-            return false;
-        }
-        let closestEnemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
-        if(closestEnemyData.enemy == null||closestEnemyData.distance>this.damage.r){
-            return false;
+        if(!this.checkShot()){
+            return;
         }
         this.damage.dealDamage(this.x,this.y);
     }
