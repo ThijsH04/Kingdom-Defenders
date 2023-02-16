@@ -1,11 +1,11 @@
 class Towers{
     static #allTowers = {
-        "standard":{tower:new StandardTower(0, undefined, undefined, new Damage(5)),color:"red"},
-        "homing":{tower:new HomingTower(0, undefined, undefined, new Damage(5)),color:"green"},
-        "shrapnel":{tower:new ShrapnelTower(0, undefined, undefined, new Damage(5)),color:"yellow"},
-        "earthquake":{tower:new EarthquakeTower(0, undefined, undefined),color:"orange"},
-        "chaining":{tower:new ChainingTower(0, undefined, undefined),color:"purple"},
-        "splash":{tower:new SplashTower(0, undefined, undefined, new SplashDamage(5,null,3,.2)),color:"brown"},
+        "standard":{tower:new StandardTower(0, undefined, undefined, new Damage(5), undefined, "red"),color:"red"},
+        "homing":{tower:new HomingTower(0, undefined, undefined, new Damage(5), undefined, "green"),color:"green"},
+        "shrapnel":{tower:new ShrapnelTower(0, undefined, undefined, new Damage(5), undefined, "yellow"),color:"yellow"},
+        "earthquake":{tower:new EarthquakeTower(0, undefined, undefined, undefined, "orange"),color:"orange"},
+        "chaining":{tower:new ChainingTower(0, undefined, undefined, undefined, "purple"),color:"purple"},
+        "splash":{tower:new SplashTower(0, undefined, undefined, new SplashDamage(5,null,3,.2), undefined, "brown"),color:"brown"},
     }
 
     static #selectedTower = null;
