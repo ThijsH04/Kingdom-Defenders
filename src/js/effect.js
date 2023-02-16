@@ -7,8 +7,11 @@ class Effect {
         this.func = func
     }
     update(time, e) {
+        if(this.duration >= 0) {
+            this.duration -= time
+            if(this.duration < 0) this.duration = 0
+        }
         this.timeLeft -= time
-        this.duration -= time
         if(this.timeLeft <= 0) {
             this.func(e)
             this.timeLeft = speed
