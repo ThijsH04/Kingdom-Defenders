@@ -49,7 +49,7 @@ class Tower{
             return;
         }
         let enemy = closestEnemyData.enemy
-        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData))
+        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData, 1, this.projectileImg))
     }
 
     checkShot(){
@@ -119,7 +119,6 @@ class Tower{
             if(this.image.rotating) {
                 // rotate image in right direction first here
                 ctx.translate(this.x*tileSize,this.y*tileSize)
-                console.log(this.rotation)
                 ctx.rotate(this.rotation)
                 ctx.drawImage(this.image.rotating, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
                 ctx.rotate(-this.rotation)
