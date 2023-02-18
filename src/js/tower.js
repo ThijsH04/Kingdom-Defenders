@@ -17,6 +17,7 @@ class Tower{
         this.name = name;
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
+        this.rotation = 0
 
         this.targetFunctions = [
             {name:"First", func:(a,b)=>{return b.getProgress() - a.getProgress()}}, // first
@@ -47,7 +48,8 @@ class Tower{
         if(!closestEnemyData){
             return;
         }
-        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5,this.damage, 20, null, .8, "regular",this.mapData))
+        let enemy = closestEnemyData.enemy
+        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData))
     }
 
     checkShot(){
@@ -67,6 +69,7 @@ class Tower{
             this.attackTimer = this.attackSpeed;
             return false;
         }
+        this.rotation = Math.atan2(enemyData.enemy.y-this.y, enemyData.enemy.x-this.x)+0.5*Math.PI
         return enemyData;
     }
 
@@ -109,11 +112,24 @@ class Tower{
     }
 
     render(ctx, tileSize){
-        ctx.fillStyle = this.color;
-        ctx.fillRect((this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
-        //let img = new Image()
-        //img.src = "./assets/mage_tower.png"
-        //ctx.drawImage(img,(this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+        if(this.image) {
+            if(this.image.base) {
+                ctx.drawImage(this.image.base, (this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+            }
+            if(this.image.rotating) {
+                // rotate image in right direction first here
+                ctx.translate(this.x*tileSize,this.y*tileSize)
+                console.log(this.rotation)
+                ctx.rotate(this.rotation)
+                ctx.drawImage(this.image.rotating, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+                ctx.rotate(-this.rotation)
+                ctx.translate(-this.x*tileSize,-this.y*tileSize)
+
+            }
+        } else {
+            ctx.fillStyle = this.color;
+            ctx.fillRect((this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
+        }
     }
 
     sell(){
