@@ -10,5 +10,9 @@ class ChainingTower extends Tower{
         }
         this.damage.dealDamage(this.x,this.y);
     }
+    
+    upgrade(path, level) {
+        
+    }
 }
 

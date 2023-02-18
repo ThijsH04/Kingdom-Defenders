@@ -11,5 +11,9 @@ class ShrapnelTower extends Tower{
         }
         this.mapData.projectiles.projectiles.push(new ShrapnelProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, this.damage, 50, null, .8, "regular",this.mapData,6,this.shards)) 
     }
+
+    upgrade(path, level) {
+        
+    }
 }
 

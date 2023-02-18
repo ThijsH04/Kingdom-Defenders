@@ -81,7 +81,7 @@ class Towers{
         let upgrades = document.createElement("div")
         tower.upgrades.menu = upgrades
         upgrades.className = "upgradeMenuBox"
-        tower.upgrades.createUpgradeMenu()
+        tower.upgrades.createUpgradeMenu(tower)
         menu.appendChild(info)
         menu.appendChild(upgrades)
 

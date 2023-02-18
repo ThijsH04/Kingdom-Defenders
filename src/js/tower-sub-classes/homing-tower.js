@@ -10,5 +10,9 @@ class HomingTower extends Tower{
         }
         this.mapData.projectiles.projectiles.push(new HomingProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, this.damage, 20, null, .8, "regular",this.mapData,0)) 
     }
+
+    upgrade(path, level) {
+        
+    }
 }
 
