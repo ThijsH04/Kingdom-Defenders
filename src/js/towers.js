@@ -31,17 +31,27 @@ class Towers{
                 }
             }
         }
+        // clear dead towers
+        for(let tower of this.towers) {
+            if(tower.health.hp <= 0) {
+                for(let tile of tower.tiles) {
+                    tile.tower = false
+                    console.log(tile)
+                }
+            }
+        }
         this.towers = this.towers.filter(t => t.health.hp>0);
         if(Towers.#selectedTower) { // this might be inefficient but should be fine? I think so
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
             let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
             let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
-            tempTower.x = mouseTile.x+tempTower.w/2;
-            tempTower.y = mouseTile.y+tempTower.h/2;
+            tempTower.x = mouseTile.x-Math.floor((tempTower.w-1)/2)+0.5*tempTower.w;
+            tempTower.y = mouseTile.y-Math.floor((tempTower.h-1)/2)+0.5*tempTower.h;
             tempTower.render(ctx, tileSize)
             ctx.globalAlpha = .25;
-            if(this.checkPlacement(tempTower,tiles[mouseTile.y][mouseTile.x])){
+            let checkTiles = this.getTiles(tempTower,tiles,mouseTile.x,mouseTile.y)
+            if(this.checkPlacement(tempTower,checkTiles)){
                 ctx.fillStyle = "#000000"
             } else {
                 ctx.fillStyle = "#FF0000"
@@ -114,32 +124,53 @@ class Towers{
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         let tower = _.cloneDeep(towerConstructor)
         console.log(tower);
-        tower.x = x+tower.w/2;
-        tower.y = y+tower.h/2;
+        tower.x = x-Math.floor((tower.w-1)/2)+0.5*tower.w;
+        tower.y = y-Math.floor((tower.h-1)/2)+0.5*tower.h;
         tower.mapData = mapData;
         tower.damage.mapData = mapData;
-        if(!this.checkPlacement(tower,tile)){
+        let tiles = this.getTiles(tower,mapData.tiles,x,y)
+        if(!this.checkPlacement(tower,tiles)){
             return;
         }
-        tile.tower = tower;
+        for(let tile of tiles) {
+            tile.tower = tower;
+        }
+        tower.tiles = tiles;
         this.towers.push(tower);
         Towers.#selectedTower = null;
     }
 
-    checkPlacement(tower,tile){
-        if(tile.layers.object){ // checks if there is no obstacle
-            return false;
-        }
-        if(tower.type === "land" &&(!tile.layers.floor || tile.layers.path || tile.layers.river)){ // land check, might change the tower type check later
-            return false;
-        }
-        if(tower.type === "water" &&(!(tile.layers.water||tile.layers.river) || tile.layers.cliff || tile.layers.floor)){ // water check, might change the tower type check later
-            return false;
-        }
-        if(tower.type === "sky" &&!tile.layers.sky){ // fly check, might change the tower type check later
-            return false;
+    checkPlacement(tower,tiles){
+        for(let tile of tiles) {
+            if(tile == undefined) return false; //if the tower is off the screen
+
+            if(tile.layers.object){ // checks if there is no obstacle
+                return false;
+            }
+            if(tower.type === "land" &&(!tile.layers.floor || tile.layers.path || tile.layers.river)){ // land check, might change the tower type check later
+                return false;
+            }
+            if(tower.type === "water" &&(!(tile.layers.water||tile.layers.river) || tile.layers.cliff || tile.layers.floor)){ // water check, might change the tower type check later
+                return false;
+            }
+            if(tower.type === "sky" &&!tile.layers.sky){ // fly check, might change the tower type check later
+                return false;
+            }
         }
         return true;
+    }
+
+    getTiles(tower,tiles,x,y) {
+        let checkTiles = []
+        let sx = x-Math.floor((tower.w-1)/2)
+        let sy = y-Math.floor((tower.h-1)/2)
+        for(let x=sx;x<sx+tower.w;x++) {
+            for(let y=sy;y<sy+tower.h;y++) {
+                if(x < 0 || y < 0 || x >= tiles[0].length || y >= tiles.length) checkTiles.push(undefined)
+                else checkTiles.push(tiles[y][x])
+            }
+        }
+        return checkTiles
     }
 
     static createSelectMenu(){
