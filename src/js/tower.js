@@ -1,6 +1,6 @@
 class Tower{
-    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData){
-        console.log(mapData)
+    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData, color){
+        this.color = color
         this.id = id;
         this.x = x;
         this.y = y;
@@ -109,9 +109,11 @@ class Tower{
     }
 
     render(ctx, tileSize){
-        // to be implemented
-        ctx.fillStyle = "red";
+        ctx.fillStyle = this.color;
         ctx.fillRect((this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
+        //let img = new Image()
+        //img.src = "./assets/mage_tower.png"
+        //ctx.drawImage(img,(this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
     }
 
     sell(){
