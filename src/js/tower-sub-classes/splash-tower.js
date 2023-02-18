@@ -4,7 +4,10 @@ class SplashTower extends Tower{
 
         this.image = {}
         this.image.base = new Image()
-        this.image.base.src = "./assets/mage_tower.png"
+        this.image.base.src = "./assets/towers/mage_tower.png"
+
+        this.projectileImg = new Image()
+        this.projectileImg.src = "./assets/projectiles/magic_orb.png"
     }
 
     upgrade(path, level) {

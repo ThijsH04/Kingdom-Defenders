@@ -4,7 +4,10 @@ class StandardTower extends Tower{
 
         this.image = {}
         this.image.rotating = new Image()
-        this.image.rotating.src = "./assets/cannon.png"
+        this.image.rotating.src = "./assets/towers/cannon.png"
+
+        this.projectileImg = new Image()
+        this.projectileImg.src = "./assets/projectiles/cannonball.png"
     }
 
     upgrade(path, level) {
