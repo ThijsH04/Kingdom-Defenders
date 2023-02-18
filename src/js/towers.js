@@ -133,6 +133,7 @@ class Towers{
             return;
         }
         for(let tile of tiles) {
+            console.log(tile)
             tile.tower = tower;
         }
         tower.tiles = tiles;
@@ -144,7 +145,7 @@ class Towers{
         for(let tile of tiles) {
             if(tile == undefined) return false; //if the tower is off the screen
 
-            if(tile.layers.object){ // checks if there is no obstacle
+            if(tile.layers.object || tile.tower){ // checks if there is no obstacle
                 return false;
             }
             if(tower.type === "land" &&(!tile.layers.floor || tile.layers.path || tile.layers.river)){ // land check, might change the tower type check later
