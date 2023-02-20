@@ -42,12 +42,15 @@ class Towers{
         }
         this.towers = this.towers.filter(t => t.health.hp>0);
         if(Towers.#selectedTower) { // this might be inefficient but should be fine? I think so
+            if(mouseTile.x==-1||mouseTile.y==-1){
+                return;
+            }
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
             let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
             let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
             tempTower.x = mouseTile.x-Math.floor((tempTower.w-1)/2)+.5*tempTower.w;
-            tempTower.y = mouseTile.y-Math.floor((tempTower.h-1)/2)+.5*tempTower.h;
+            tempTower.y = mouseTile.y-Math.floor((tempTower.h-1)/2)+.5*tempTower.h; 
             tempTower.render(ctx, tileSize)
             ctx.globalAlpha = .25;
             let checkTiles = this.getTiles(tempTower,tiles,mouseTile.x,mouseTile.y)

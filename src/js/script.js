@@ -41,5 +41,9 @@ window.onload = () => {
         let y = Math.floor(e.offsetY/game.tileSize);
         game.mouseTile = {x,y}
     })
+
+    document.getElementById("game").addEventListener("mouseleave", e =>{
+        game.mouseTile = {x:-1,y:-1}
+    })
 }
 })()
