@@ -27,7 +27,7 @@ class SplashDamage extends Damage{
     }
 
     render(ctx, tileSize){
-        ctx.fillStyle = "yellow"; 
+        ctx.fillStyle = "#ff00ff88"; 
         ctx.beginPath();
         ctx.arc(this.x*tileSize, this.y*tileSize, this.r*(1-this.lifespan/this.maxLifespan)*tileSize,0,Math.PI*2);
         ctx.fill();
