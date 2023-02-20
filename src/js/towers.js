@@ -46,8 +46,8 @@ class Towers{
             ctx.globalAlpha = 0.5;
             let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
             let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
-            tempTower.x = mouseTile.x-Math.floor((tempTower.w-1)/2)+0.5*tempTower.w;
-            tempTower.y = mouseTile.y-Math.floor((tempTower.h-1)/2)+0.5*tempTower.h;
+            tempTower.x = mouseTile.x-Math.floor((tempTower.w-1)/2)+.5*tempTower.w;
+            tempTower.y = mouseTile.y-Math.floor((tempTower.h-1)/2)+.5*tempTower.h;
             tempTower.render(ctx, tileSize)
             ctx.globalAlpha = .25;
             let checkTiles = this.getTiles(tempTower,tiles,mouseTile.x,mouseTile.y)
@@ -101,8 +101,7 @@ class Towers{
         sellButton.addEventListener("click", e=>{
             tower.sell();
         })
-        console.log(sellButton);
-        menu.appendChild(sellButton);
+        info.appendChild(sellButton);
     }
 
     addTower(x,y,mapData){
@@ -176,16 +175,22 @@ class Towers{
 
     static createSelectMenu(){
         for(let tower in this.#allTowers){
-            this.#selectMenu.appendChild(this.menuItem(tower,this.#allTowers[tower].color));
+            this.#selectMenu.appendChild(this.menuItem(tower,this.#allTowers[tower].color,this.#allTowers[tower].tower.img));
         }
     }
 
     static menuItem(name, color, img=null){
         let res = document.createElement("div");
-        res.classList.add("menuItem");
-        res.style.backgroundColor = color; // no img yet
         res.innerHTML = name;
         res.name = name;
+        if(img){
+            let image = document.createElement("img");
+            image.src = img;
+            res.appendChild(image);
+            console.log(image);
+        }
+        res.classList.add("menuItem");
+        res.style.backgroundColor = color; 
         res.addEventListener("click", () =>{
             Towers.#selectedTower = name
             console.log(this);

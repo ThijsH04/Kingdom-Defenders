@@ -342,7 +342,14 @@ button:hover {
 .menuItem{
     pointer-events:all;
     width: 25%;
-    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menuItem img{
+    max-width: 100%;
+    height: auto;
 }
 
 .UpgradeBlock {
@@ -351,14 +358,17 @@ button:hover {
 }
 
 .sellButton {
-    background-color: red;
-    border: none;
-    width: 50px;
-    height: 50px;
-    text-align: center;
     position: relative;
-    left: 0;
-    top: 0;
+    width: 120px;
+    height: 60px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events:all;
+    border: 5px solid #fff;
+    display:inline-block;
+    font-size: 15px;
 }
 
 .targetModeBtn {

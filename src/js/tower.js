@@ -37,14 +37,14 @@ class Tower{
             if(this.health.hp < this.health.max) this.health.update(mode, this,ctx, tileset, tileSize)
         }
         this.attackTimer+=timePassed;
+        let closestEnemyData = this.checkShot();
         if(this.attackTimer>=this.attackSpeed){
             this.attackTimer-=this.attackSpeed;
-            this.shoot();
+            this.shoot(closestEnemyData);
         }
     }
 
-    shoot(){
-        let closestEnemyData = this.checkShot();
+    shoot(closestEnemyData){
         if(!closestEnemyData){
             return;
         }
