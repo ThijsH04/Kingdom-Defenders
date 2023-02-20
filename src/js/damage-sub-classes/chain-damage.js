@@ -6,6 +6,9 @@ class ChainDamage extends Damage{
         this.maxLifespan = lifespan;
         this.targetAmount = targetAmount;
         this.previousTargets = previousTargets;
+
+        this.image = new Image()
+        this.image.src = "./assets/projectiles/lightning_projectile.png"
     }
 
     dealDamage(x,y,enemy=null){ // there is no actual target in splash 
@@ -60,9 +63,11 @@ class ChainDamage extends Damage{
         ctx.strokeStyle = "yellow"; 
         ctx.beginPath();
         ctx.moveTo(this.x*tileSize, this.y*tileSize);
+        let lastPoint = {x:this.x*tileSize,y:this.y*tileSize}
         for(;index<this.previousTargets.length;index++){
-            ctx.lineTo(this.previousTargets[index].x*tileSize, this.previousTargets[index].y*tileSize);
-            ctx.stroke();
+            let point = {x:this.previousTargets[index].x*tileSize, y:this.previousTargets[index].y*tileSize}
+            draw_image_line(ctx,tileSize,this.image,point,lastPoint,0.5,0.8)
+            lastPoint = point
         }
     }
 }
