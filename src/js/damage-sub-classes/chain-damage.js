@@ -8,7 +8,7 @@ class ChainDamage extends Damage{
         this.previousTargets = previousTargets;
 
         this.image = new Image()
-        this.image.src = "./assets/projectiles/lightning_projectile.png"
+        this.image.src = "./assets/images/projectiles/lightning_projectile.png"
     }
 
     dealDamage(x,y,enemy=null){ // there is no actual target in splash 
