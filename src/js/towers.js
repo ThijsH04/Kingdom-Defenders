@@ -49,11 +49,11 @@ class Towers{
             ctx.globalAlpha = 0.5;
             let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
             let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
-            tempTower.x = mouseTile.x-Math.floor((tempTower.w-1)/2)+.5*tempTower.w;
-            tempTower.y = mouseTile.y-Math.floor((tempTower.h-1)/2)+.5*tempTower.h; 
+            tempTower.x = Math.floor(mouseTile.x-(tempTower.w-1)/2)+.5*tempTower.w;
+            tempTower.y = Math.floor(mouseTile.y-(tempTower.h-1)/2)+.5*tempTower.h; 
             tempTower.render(ctx, tileSize)
             ctx.globalAlpha = .25;
-            let checkTiles = this.getTiles(tempTower,tiles,mouseTile.x,mouseTile.y)
+            let checkTiles = this.getTiles(tempTower,tiles,tempTower.x,tempTower.y)
             if(this.checkPlacement(tempTower,checkTiles)){
                 ctx.fillStyle = "#000000"
             } else {
@@ -108,7 +108,7 @@ class Towers{
     }
 
     addTower(x,y,mapData){
-        let tile = mapData.tiles[y][x];
+        let tile = mapData.tiles[Math.floor(y)][Math.floor(x)];
         if(tile.tower){
             Towers.#selectedPlacedTower = tile.tower;
             
@@ -118,19 +118,17 @@ class Towers{
         }        
         Towers.#selectedPlacedTower = null;
         Towers.#upgradeMenu.style.height = "0";
-        console.log(Towers.#selectedTower);
         if(Towers.#selectedTower == null){
             return;
         }        
         let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         let tower = _.cloneDeep(towerConstructor)
-        console.log(tower);
-        tower.x = x-Math.floor((tower.w-1)/2)+0.5*tower.w;
-        tower.y = y-Math.floor((tower.h-1)/2)+0.5*tower.h;
+        tower.x = Math.floor(x-(tower.w-1)/2)+0.5*tower.w;
+        tower.y = Math.floor(y-(tower.h-1)/2)+0.5*tower.h; 
         tower.mapData = mapData;
         tower.damage.mapData = mapData;
-        let tiles = this.getTiles(tower,mapData.tiles,x,y)
+        let tiles = this.getTiles(tower,mapData.tiles,tower.x,tower.y)
         if(!this.checkPlacement(tower,tiles)){
             return;
         }
@@ -165,8 +163,8 @@ class Towers{
 
     getTiles(tower,tiles,x,y) {
         let checkTiles = []
-        let sx = x-Math.floor((tower.w-1)/2)
-        let sy = y-Math.floor((tower.h-1)/2)
+        let sx = Math.floor(x-(tower.w-1)/2)
+        let sy = Math.floor(y-(tower.h-1)/2)
         for(let x=sx;x<sx+tower.w;x++) {
             for(let y=sy;y<sy+tower.h;y++) {
                 if(x < 0 || y < 0 || x >= tiles[0].length || y >= tiles.length) checkTiles.push(undefined)
