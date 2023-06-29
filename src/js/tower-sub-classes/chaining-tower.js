@@ -1,7 +1,15 @@
 class ChainingTower extends Tower{
-    constructor(id,x,y,mapData, color, className){
-        let r = 5;
-        super(id,"Chaining Tower",x,y,2,2,1,"./assets/images/towers/lightning_tower.png",100,"land",new ChainDamage(1,game.map,r,.1,20,[]),r,mapData, color, className);
+    constructor(id,x,y,mapData, color){
+        super(id, x, y, mapData, color);
+        this.name = "Lightning Tower";
+        this.w = 2
+        this.h = 2
+        this.attackSpeed = 1
+        this.cost = 100
+        this.type = "land"
+        this.r = 5
+        this.damage = new ChainDamage(1,game.map,this.r,.1,20,[])
+        this.className = "elemental"
 
         this.image = {}
         this.image.base = new Image()

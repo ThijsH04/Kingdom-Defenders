@@ -1,6 +1,15 @@
 class HomingTower extends Tower{
-    constructor(id,x,y,damage,mapData, color, className){
-        super(id,"Homing Tower",x,y,2,2,1,"./assets/images/towers/rocket_tower.png",100,"land",damage,8,mapData, color, className);
+    constructor(id,x,y,mapData, color){
+        super(id, x, y, mapData, color);
+        this.name = "Missile Launcher";
+        this.w = 2
+        this.h = 2
+        this.attackSpeed = 1
+        this.cost = 100
+        this.type = "land"
+        this.r = 5
+        this.damage = new Damage(5)
+        this.className = "normal"
 
         this.image = {}
         this.image.base = new Image()

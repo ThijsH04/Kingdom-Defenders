@@ -1,11 +1,11 @@
 class Towers{
     static #allTowers = {
-        "standard":{tower:new StandardTower(0, undefined, undefined, new Damage(5), undefined, "red", "normal"),color:"red",},
-        "homing":{tower:new HomingTower(0, undefined, undefined, new Damage(5), undefined, "green", "normal"),color:"green"},
-        "shrapnel":{tower:new ShrapnelTower(0, undefined, undefined, new Damage(5), undefined, "yellow", "normal"),color:"yellow"},
-        "earthquake":{tower:new EarthquakeTower(0, undefined, undefined, undefined, "orange", "elemental"),color:"orange"},
-        "chaining":{tower:new ChainingTower(0, undefined, undefined, undefined, "purple", "elemental"),color:"purple"},
-        "splash":{tower:new SplashTower(0, undefined, undefined, new SplashDamage(5,null,3,.2), undefined, "brown", "magic"),color:"brown"},
+        "Cannon Tower":{tower: StandardTower, color:"red", img:"./assets/images/towers/cannon.png"},
+        "Missile Tower":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png"},
+        "Shrapnel Tower":{tower: ShrapnelTower, color:"yellow", img:"./assets/images/towers/shrapnel_tower.png"},
+        "Earthquake Tower":{tower: EarthquakeTower, color:"orange", img:"./assets/images/towers/earthquake_tower.png"},
+        "Lightning Tower":{tower: ChainingTower, color:"purple", img:"./assets/images/towers/lightning_tower.png"},
+        "Mage Tower":{tower: SplashTower, color:"brown", img:"./assets/images/towers/mage_tower.png"},
     }
 
     static #selectedTower = null;
@@ -48,7 +48,7 @@ class Towers{
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
             let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
-            let tempTower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor);
+            let tempTower = new towerConstructor(0, undefined, undefined, undefined);
             tempTower.x = Math.floor(mouseTile.x-(tempTower.w-1)/2)+.5*tempTower.w;
             tempTower.y = Math.floor(mouseTile.y-(tempTower.h-1)/2)+.5*tempTower.h; 
             tempTower.render(ctx, tileSize)
@@ -123,7 +123,8 @@ class Towers{
         }        
         let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
-        let tower = _.cloneDeep(towerConstructor)
+        // let tower = _.cloneDeep(towerConstructor)
+        let tower = new towerConstructor(0, undefined, undefined, undefined);
         tower.x = Math.floor(x-(tower.w-1)/2)+0.5*tower.w;
         tower.y = Math.floor(y-(tower.h-1)/2)+0.5*tower.h; 
         tower.mapData = mapData;
@@ -176,7 +177,7 @@ class Towers{
 
     static createSelectMenu(){
         for(let tower in this.#allTowers){
-            this.#selectMenu.appendChild(this.menuItem(tower,this.#allTowers[tower].color,this.#allTowers[tower].tower.img));
+            this.#selectMenu.appendChild(this.menuItem(tower,this.#allTowers[tower].color,this.#allTowers[tower].img));
         }
     }
 

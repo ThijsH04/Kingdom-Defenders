@@ -1,7 +1,17 @@
 class ShrapnelTower extends Tower{
-    constructor(id,x,y,damage,mapData, color, className){
-        super(id,"Shrapnel Tower",x,y,2,2,1,null,100,"land",damage,5,mapData, color, className);
-        this.shards = new HomingProjectile(null,undefined,undefined,1,1,null,3,damage,10,null,.5,"shard",null,.3)
+    constructor(id,x,y,mapData, color){
+        super(id, x, y, mapData, color);
+        this.name = "Shrapnel Tower";
+        this.w = 2
+        this.h = 2
+        this.attackSpeed = 1
+        this.cost = 100
+        this.type = "land"
+        this.r = 5
+        this.damage = new Damage(5)
+        this.className = "normal"
+
+        this.shards = new HomingProjectile(null,undefined,undefined,1,1,null,3,new Damage(5),10,null,.5,"shard",null,.3)
     }
 
     shoot(){

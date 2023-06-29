@@ -1,6 +1,15 @@
 class StandardTower extends Tower{
-    constructor(id,x,y,damage,mapData, color, className){
-        super(id,"Standard Tower",x,y,2,2,1,"./assets/images/towers/cannon.png",100,"land",damage,5,mapData, color, className);
+    constructor(id,x,y,mapData, color){
+        super(id, x, y, mapData, color);
+        this.name = "Cannon";
+        this.w = 2
+        this.h = 2
+        this.attackSpeed = 1
+        this.cost = 100
+        this.type = "land"
+        this.r = 5
+        this.damage = new Damage(5)
+        this.className = "normal"
 
         this.image = {}
         this.image.rotating = new Image()

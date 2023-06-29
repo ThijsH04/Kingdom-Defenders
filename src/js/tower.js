@@ -1,24 +1,15 @@
 class Tower{
-    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData, color, className){
+    constructor(id, x, y, mapData, color){
+        this.id = id
+        this.x = x
+        this.y = y
+        this.mapData = mapData
         this.color = color
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.attackSpeed = attackSpeed;
-        this.attackTimer = 0;
-        this.img = img;
-        this.cost = cost;
-        this.type = type;
-        this.damage = damage;
-        this.r = r;
-        this.mapData = mapData;
-        this.name = name;
+
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
         this.rotation = 0
-        this.class = new TowerClasses().get(className)
+        this.attackTimer = 0
 
         this.targetFunctions = [
             {name:"First", func:(a,b)=>{return b.getProgress() - a.getProgress()}}, // first
