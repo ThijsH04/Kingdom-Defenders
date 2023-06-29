@@ -260,13 +260,17 @@ let upgrades = [
                 name: "Normal Class",
                 description: "Below here, you can unlock all the upgrades for normal-class towers, as well as some other related upgrades.",
                 cost: new Resources(),
-                unlocks: [],
+                unlocks: [
+                    
+                ],
                 nodes: [
                     {
                         name: "Double Cannon",
                         description: "Unlock the Double Cannon.",
                         cost: new Resources(coins=1),
-                        unlocks: [],
+                        unlocks: [
+                            
+                        ],
                         nodes: [
                             {
                                 name: "Double Cannon Upgrades",

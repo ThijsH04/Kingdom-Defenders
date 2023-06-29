@@ -1,6 +1,6 @@
 class HomingTower extends Tower{
-    constructor(id,x,y,damage,mapData, color){
-        super(id,"Homing Tower",x,y,2,2,1,"./assets/images/towers/rocket_tower.png",100,"land",damage,8,mapData, color);
+    constructor(id,x,y,damage,mapData, color, className){
+        super(id,"Homing Tower",x,y,2,2,1,"./assets/images/towers/rocket_tower.png",100,"land",damage,8,mapData, color, className);
 
         this.image = {}
         this.image.base = new Image()

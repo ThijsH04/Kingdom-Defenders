@@ -1,5 +1,5 @@
 class Tower{
-    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData, color){
+    constructor(id,name,x,y,w,h,attackSpeed,img,cost,type,damage,r,mapData, color, className){
         this.color = color
         this.id = id;
         this.x = x;
@@ -18,12 +18,13 @@ class Tower{
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
         this.rotation = 0
+        this.class = new TowerClasses().get(className)
 
         this.targetFunctions = [
             {name:"First", func:(a,b)=>{return b.getProgress() - a.getProgress()}}, // first
             {name:"Last", func:(a,b)=>{return a.getProgress() - b.getProgress()}}, // last
             // closest is broken, tba
-            //{name:"Closest", func:(a,b)=>{return ((this.x - b.x)**2 + (this.y - b.y)**2) - ((this.x - a.x)**2 + (this.y - a.y)**2)}}, // closest
+            // {name:"Closest", func:(a,b)=>{return ((this.x - b.x)**2 + (this.y - b.y)**2) - ((this.x - a.x)**2 + (this.y - a.y)**2)}}, // closest
             {name:"Most HP", func:(a,b)=>{return b.health.hp - a.health.hp}}, // most health
             {name:"Group", func:(a,b)=>{return b.getGroupSize() - a.getGroupSize()}} //group
         ]
