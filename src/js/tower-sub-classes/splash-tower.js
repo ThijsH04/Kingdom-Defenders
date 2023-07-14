@@ -1,14 +1,13 @@
 class SplashTower extends Tower{
-    constructor(id,x,y,mapData, color){
-        super(id, x, y, mapData, color);
-        this.name = "Mage Tower";
+    constructor(id,x,y,mapData){
+        super(id, x, y, mapData, "Mage Tower");
         this.w = 2
         this.h = 2
         this.attackSpeed = 1
         this.cost = 100
         this.type = "land"
         this.r = 5
-        this.damage = new SplashDamage(5,null,3,.2)
+        this.damage = new SplashDamage(5,null,3,.2,this.stats)
         this.className = "magic"
 
         this.image = {}

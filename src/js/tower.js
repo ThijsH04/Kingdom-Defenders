@@ -1,13 +1,16 @@
 class Tower{
-    constructor(id, x, y, mapData, color){
+    constructor(id, x, y, mapData, name){
         this.id = id
         this.x = x
         this.y = y
         this.mapData = mapData
-        this.color = color
+        this.name = name;
+        console.log(Towers.allTowers)
+        this.color = Towers.allTowers[name].color
 
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
+        this.stats = new Stats()
         this.rotation = 0
         this.attackTimer = 0
 
@@ -42,6 +45,7 @@ class Tower{
         }
         let enemy = closestEnemyData.enemy
         this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData, 1, this.projectileImg))
+        this.stats.increaseShots();
     }
 
     checkShot(){
@@ -119,6 +123,7 @@ class Tower{
             }
         } else {
             ctx.fillStyle = this.color;
+            console.log(this.color)
             ctx.fillRect((this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
         }
     }

@@ -1,7 +1,7 @@
 class Towers{
-    static #allTowers = {
+    static allTowers = {
         "Cannon Tower":{tower: StandardTower, color:"red", img:"./assets/images/towers/cannon.png"},
-        "Missile Tower":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png"},
+        "Missile Launcher":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png"},
         "Shrapnel Tower":{tower: ShrapnelTower, color:"yellow", img:"./assets/images/towers/shrapnel_tower.png"},
         "Earthquake Tower":{tower: EarthquakeTower, color:"orange", img:"./assets/images/towers/earthquake_tower.png"},
         "Lightning Tower":{tower: ChainingTower, color:"purple", img:"./assets/images/towers/lightning_tower.png"},
@@ -23,6 +23,16 @@ class Towers{
         for(let t of this.towers){
             if(t.health.hp>0){
                 t.update(mode, ctx, tileset, tileSize, timePassed, render);
+                if(t==Towers.#selectedPlacedTower){ // update the stats in the upgrade menu
+                    let listField = document.getElementById("shots");
+                    if(listField !=null){
+                        listField.innerText = t.stats.shots;
+                    }
+                    listField = document.getElementById("damageDealt");
+                    if(listField !=null){
+                        listField.innerText = t.stats.damageDealt;
+                    }
+                }
             } else {
                 t.mapData.tiles[t.y+t.h/2][t.x+t.w/2].tower = null;
                 if(t==Towers.#selectedPlacedTower){
@@ -47,7 +57,7 @@ class Towers{
             }
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
-            let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
+            let towerConstructor = Towers.allTowers[Towers.#selectedTower].tower;
             let tempTower = new towerConstructor(0, undefined, undefined, undefined);
             tempTower.x = Math.floor(mouseTile.x-(tempTower.w-1)/2)+.5*tempTower.w;
             tempTower.y = Math.floor(mouseTile.y-(tempTower.h-1)/2)+.5*tempTower.h; 
@@ -79,8 +89,9 @@ class Towers{
         menu.innerHTML = "" // clear possible old stuff
 
         let info = document.createElement("div")
+        info.id = "towerInfo"
         info.className = "upgradeMenuBox"
-        info.innerHTML = `<h2>${tower.name}</h2>more interesting useful tower info`
+        info.innerHTML = `<h2>${tower.name}</h2><ul><li>shots:<span  id = "shots">${tower.stats.shots}</span></li><li>damage dealt:<span  id = "damageDealt">${tower.stats.damageDealt}</span></li></ul>more interesting useful tower info`
 
         let modeButton = document.createElement("button")
         modeButton.innerHTML = "Targetting: " + tower.targetFunctions[tower.targetFunction].name
@@ -121,7 +132,7 @@ class Towers{
         if(Towers.#selectedTower == null){
             return;
         }        
-        let towerConstructor = Towers.#allTowers[Towers.#selectedTower].tower;
+        let towerConstructor = Towers.allTowers[Towers.#selectedTower].tower;
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         // let tower = _.cloneDeep(towerConstructor)
         let tower = new towerConstructor(0, undefined, undefined, undefined);
@@ -176,8 +187,8 @@ class Towers{
     }
 
     static createSelectMenu(){
-        for(let tower in this.#allTowers){
-            this.#selectMenu.appendChild(this.menuItem(tower,this.#allTowers[tower].color,this.#allTowers[tower].img));
+        for(let tower in this.allTowers){
+            this.#selectMenu.appendChild(this.menuItem(tower,this.allTowers[tower].color,this.allTowers[tower].img));
         }
     }
 

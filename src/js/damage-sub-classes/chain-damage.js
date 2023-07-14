@@ -1,6 +1,6 @@
 class ChainDamage extends Damage{
-    constructor(amount,mapData,r,lifespan,targetAmount,previousTargets=[]){
-        super(amount,mapData);
+    constructor(amount,mapData,r,lifespan,targetAmount,stats,previousTargets=[]){
+        super(amount,mapData,stats);
         this.r = r;
         this.lifespan = lifespan;
         this.maxLifespan = lifespan;
