@@ -1,7 +1,15 @@
 class EarthquakeTower extends Tower{
     constructor(id,x,y,mapData, color){
-        let r = 4;
-        super(id,"Earthquake Tower",x,y,2,2,1,null,100,"land",new SplashDamage(5,game.map,r,.1,20,[]),r,mapData, color);
+        super(id, x, y, mapData, color);
+        this.name = "Earthquake Tower";
+        this.w = 2
+        this.h = 2
+        this.attackSpeed = 1
+        this.cost = 100
+        this.type = "land"
+        this.r = 5
+        this.damage = new SplashDamage(5,game.map,this.r,.1,20,[])
+        this.className = "elemental"
     }
 
     shoot(){
