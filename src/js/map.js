@@ -95,7 +95,7 @@ class Path {
         this.startBox.text.innerHTML += "start"
         this.startBox.element.style.background = "#0f05"
         this.startBox.element.style.display = "none"
-        this.endBox = new TextBox(this.positions[this.positions.length-1][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,1,false,1)
+        this.endBox = new TextBox(this.positions[this.positions.length-2][0]-1.5,this.positions[this.positions.length-1][1]-1,3,1,0,1,false,1)
         this.endBox.text.innerHTML += "end"
         this.endBox.element.style.background = "#f005"
         this.endBox.element.style.display = "none"

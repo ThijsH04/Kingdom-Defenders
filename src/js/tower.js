@@ -34,8 +34,12 @@ class Tower{
         this.attackTimer+=timePassed;
         let closestEnemyData = this.checkShot();
         if(this.attackTimer>=this.attackSpeed){
-            this.attackTimer-=this.attackSpeed;
-            this.shoot(closestEnemyData);
+            if(!closestEnemyData){
+                this.attackTimer = this.attackSpeed
+            } else {
+                this.attackTimer-=this.attackSpeed;
+                this.shoot(closestEnemyData);
+            }
         }
     }
 
@@ -116,7 +120,8 @@ class Tower{
                 // rotate image in right direction first here
                 ctx.translate(this.x*tileSize,this.y*tileSize)
                 ctx.rotate(this.rotation)
-                ctx.drawImage(this.image.rotating, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+                console.log(this.attackSpeed);
+                ctx.drawImage(this.image.rotating, -tileSize*(this.w/2)*(Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
                 ctx.rotate(-this.rotation)
                 ctx.translate(-this.x*tileSize,-this.y*tileSize)
 

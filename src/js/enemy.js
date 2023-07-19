@@ -21,6 +21,7 @@ class Enemy {
     update(mode, ctx, tileset, tileSize, time, render=true) {
         let p=this.point
         if(p === this.path.length - 1) {
+            this.endOfTrack();
             // deal damage to player
         } else {
             let diffX = this.path[p+1][0] - this.path[p][0]
@@ -82,5 +83,13 @@ class Enemy {
             if(dis < range) count += range - dis
         }
         return count
+    }
+    /**
+     * method to "kill" enemy and deal damage to player
+     * once the enemy reaches the end of the track
+     * damage dealt still has to be implemented
+     */
+    endOfTrack(){ 
+        this.health = -1;
     }
 }

@@ -14,6 +14,11 @@ class SplashTower extends Tower{
         this.image.base = new Image()
         this.image.base.src = "./assets/images/towers/mage_tower.png"
 
+        this.image.rotating = new Image()
+        this.image.rotating.src = "./assets/images/projectiles/magic_orb.png"
+        this.maxRotatingSize = .35;
+        
+
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/magic_orb.png"
     }
