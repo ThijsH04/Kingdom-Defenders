@@ -59,6 +59,7 @@ class Towers{
             ctx.globalAlpha = 0.5;
             let towerConstructor = Towers.allTowers[Towers.#selectedTower].tower;
             let tempTower = new towerConstructor(0, undefined, undefined, undefined);
+            tempTower.attackTimer = Infinity;
             tempTower.x = Math.floor(mouseTile.x-(tempTower.w-1)/2)+.5*tempTower.w;
             tempTower.y = Math.floor(mouseTile.y-(tempTower.h-1)/2)+.5*tempTower.h; 
             tempTower.render(ctx, tileSize)

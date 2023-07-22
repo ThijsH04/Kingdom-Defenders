@@ -11,10 +11,7 @@ class Damage{
             return false;
         }
         this.stats.increaseDamageDealt(Math.min(enemy.health.hp,this.amount))
-        enemy.health.hp -= this.amount;
-        for(let e=0;e<effects.length;e++) {
-            enemy.effects.push(effects[e])
-        }
+        enemy.dealDamageToEnemy(this.amount,effects);
     }
     
     update(){

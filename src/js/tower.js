@@ -116,12 +116,20 @@ class Tower{
             if(this.image.base) {
                 ctx.drawImage(this.image.base, (this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
             }
+            if(this.image.animation) {
+                // rotate image in right direction first here
+                ctx.translate(this.x*tileSize,this.y*tileSize)
+                ctx.rotate(this.rotation)
+                ctx.drawImage(this.image.animation, -tileSize*(this.w/2)*(Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
+                ctx.rotate(-this.rotation)
+                ctx.translate(-this.x*tileSize,-this.y*tileSize)
+
+            }
             if(this.image.rotating) {
                 // rotate image in right direction first here
                 ctx.translate(this.x*tileSize,this.y*tileSize)
                 ctx.rotate(this.rotation)
-                console.log(this.attackSpeed);
-                ctx.drawImage(this.image.rotating, -tileSize*(this.w/2)*(Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.maxRotatingSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
+                ctx.drawImage(this.image.rotating, -tileSize*(this.w/2),-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
                 ctx.rotate(-this.rotation)
                 ctx.translate(-this.x*tileSize,-this.y*tileSize)
 

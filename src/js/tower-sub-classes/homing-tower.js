@@ -13,9 +13,9 @@ class HomingTower extends Tower{
         this.image = {}
         this.image.base = new Image()
         this.image.base.src = "./assets/images/towers/rocket_base.png"
-        this.image.rotating = new Image()
-        this.image.rotating.src = "./assets/images/towers/rocket.png"
-        this.maxRotatingSize = 1;
+        this.image.animation = new Image()
+        this.image.animation.src = "./assets/images/towers/rocket.png"
+        this.maxAnimationSize = 1;
         
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/rocket.png"
