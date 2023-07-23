@@ -1,11 +1,11 @@
 class Towers{
     static allTowers = {
-        "Cannon Tower":{tower: StandardTower, color:"red", img:"./assets/images/towers/cannon.png"},
-        "Missile Launcher":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png"},
-        "Shrapnel Tower":{tower: ShrapnelTower, color:"yellow", img:"./assets/images/towers/shrapnel_tower.png"},
-        "Earthquake Tower":{tower: EarthquakeTower, color:"orange", img:"./assets/images/towers/earthquake_tower.png"},
-        "Lightning Tower":{tower: ChainingTower, color:"purple", img:"./assets/images/towers/lightning_tower.png"},
-        "Mage Tower":{tower: SplashTower, color:"brown", img:"./assets/images/towers/mage_tower.png"},
+        "Cannon Tower":{tower: StandardTower, color:"red", img:"./assets/images/towers/cannon.png", id:0},
+        "Missile Launcher":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png", id:1},
+        "Shrapnel Tower":{tower: ShrapnelTower, color:"yellow", img:"./assets/images/towers/shrapnel_tower.png", id:2},
+        "Earthquake Tower":{tower: EarthquakeTower, color:"orange", img:"./assets/images/towers/earthquake_tower.png", id:3},
+        "Lightning Tower":{tower: ChainingTower, color:"purple", img:"./assets/images/towers/lightning_tower.png", id:4},
+        "Mage Tower":{tower: SplashTower, color:"brown", img:"./assets/images/towers/mage_tower.png", id:5},
     }
 
     static #selectedTower = null;
@@ -224,5 +224,37 @@ class Towers{
         this.#sideMenu.appendChild(this.#selectMenu);
         this.#sideMenu.appendChild(this.#upgradeMenu);
         this.#sideMenu.style.visibility = "hidden";
+    }
+
+    /**
+     * method used to go to the next tower in the list if the user scrolls their mouse
+     * @returns nothing
+     */
+    static increaseSelectedTower(directionMultiplier){
+        if(!this.#selectedTower){
+            return;
+        }
+        let curId = -1;
+        for(let t in this.allTowers){
+            console.log(this.#selectedTower)
+            if(t == this.#selectedTower){
+                curId = this.allTowers[t].id;
+                break;
+            }
+        }
+        if(curId == -1){
+            return;
+        }
+        // let curId = this.allTowers.filter(t => t.name == this.#selectedTower.name)[0].id;
+        let newId = (curId+1*directionMultiplier)%Object.keys(this.allTowers).length;
+        if(newId<0){
+            newId = Object.keys(this.allTowers).length-1;
+        }
+        for(let t in this.allTowers){
+            if(this.allTowers[t].id == newId){
+                this.#selectedTower = t;
+                return;
+            }
+        }
     }
 }

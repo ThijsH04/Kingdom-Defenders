@@ -5,7 +5,6 @@ class Tower{
         this.y = y
         this.mapData = mapData
         this.name = name;
-        console.log(Towers.allTowers)
         this.color = Towers.allTowers[name].color
 
         this.upgrades = new TowerUpgrades(this)
