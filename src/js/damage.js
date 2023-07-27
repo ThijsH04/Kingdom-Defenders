@@ -1,7 +1,8 @@
 class Damage{
-    constructor(amount,mapData){
+    constructor(amount,mapData,stats){
         this.amount = amount;
         this.mapData = mapData;
+        this.stats = stats;
     }
 
     dealDamage(x,y,enemy,effects=[]){ // x and y for a damage effect later maybe
@@ -9,10 +10,8 @@ class Damage{
             console.log("enemy is null");
             return false;
         }
-        enemy.health.hp -= this.amount;
-        for(let e=0;e<effects.length;e++) {
-            enemy.effects.push(effects[e])
-        }
+        this.stats.increaseDamageDealt(Math.min(enemy.health.hp,this.amount))
+        enemy.dealDamageToEnemy(this.amount,effects);
     }
     
     update(){

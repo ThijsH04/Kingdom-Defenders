@@ -14,6 +14,10 @@ class Enemy {
         this.path = path
         this.point = p
 
+        this.image = {}
+        // this.image.base = new Image()
+        // this.image.base.src =;
+
         this.health = new HealthBar(this,100)
         this.effects = []
         this.enemies = enemies
@@ -21,6 +25,7 @@ class Enemy {
     update(mode, ctx, tileset, tileSize, time, render=true) {
         let p=this.point
         if(p === this.path.length - 1) {
+            this.endOfTrack();
             // deal damage to player
         } else {
             let diffX = this.path[p+1][0] - this.path[p][0]
@@ -53,8 +58,18 @@ class Enemy {
         this.effects = this.effects.filter(e => e.timeLeft > 0)
     }
     render(ctx, tileset, tileSize) {
-        ctx.fillStyle = "#ff0000"
-        ctx.fillRect((this.x - 0.5*this.w)*tileSize, (this.y - 0.5*this.h)*tileSize, this.w*tileSize, this.h*tileSize)
+        if(this.image.base){
+            ctx.drawImage(this.image.base, (this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+        } else { 
+            ctx.fillStyle = "#ff0000"
+            ctx.fillRect((this.x - 0.5*this.w)*tileSize, (this.y - 0.5*this.h)*tileSize, this.w*tileSize, this.h*tileSize)
+        }
+        if(this.effects.filter(e => e.type == "damage dealt").length!=0){
+            ctx.alpha = .5;
+            ctx.fillStyle = "red";
+            ctx.fillRect((this.x - 0.5*this.w)*tileSize, (this.y - 0.5*this.h)*tileSize, this.w*tileSize, this.h*tileSize)
+            ctx.alpha = 1;
+        }
     }
     getProgress() {
         let p=this.point
@@ -72,6 +87,14 @@ class Enemy {
         }
     }
 
+    dealDamageToEnemy(amount, effects) {
+        this.health.hp -= amount;
+        for(let e=0;e<effects.length;e++) {
+            this.effects.push(effects[e])
+        }
+        this.effects.push(new Effect("damage dealt", 0.25));
+    }
+
     getGroupSize(range=1) {
         console.log(this)
         let count = 0
@@ -82,5 +105,13 @@ class Enemy {
             if(dis < range) count += range - dis
         }
         return count
+    }
+    /**
+     * method to "kill" enemy and deal damage to player
+     * once the enemy reaches the end of the track
+     * damage dealt still has to be implemented
+     */
+    endOfTrack(){ 
+        this.health.hp = -1;
     }
 }

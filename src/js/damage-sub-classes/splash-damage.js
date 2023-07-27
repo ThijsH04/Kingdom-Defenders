@@ -1,6 +1,6 @@
 class SplashDamage extends Damage{
-    constructor(amount,mapData,r,lifespan){
-        super(amount,mapData);
+    constructor(amount,mapData,r,lifespan,stats){
+        super(amount,mapData,stats);
         this.r = r;
         this.lifespan = lifespan;
         this.maxLifespan = lifespan;

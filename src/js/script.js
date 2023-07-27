@@ -45,5 +45,15 @@ window.onload = () => {
     document.getElementById("game").addEventListener("mouseleave", e =>{
         game.mouseTile = {x:-1,y:-1}
     })
+
+    document.getElementById("game").addEventListener("wheel", e =>{
+        if(game.mode == "game") {
+            if(e.deltaY>=0){
+                Towers.increaseSelectedTower(1);
+            } else {
+                Towers.increaseSelectedTower(-1);
+            }
+        }
+    })
 }
 })()

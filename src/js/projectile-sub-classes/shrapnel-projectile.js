@@ -19,6 +19,7 @@ class ShrapnelProjectile extends Projectile {
             let newShard = Object.assign(Object.create(Object.getPrototypeOf(this.shard)), this.shard); // this is no copy yet, will work on that later.
             newShard.x = this.x;
             newShard.y = this.y;
+            newShard.damage = this.shard.damage
             let angle = 2*Math.PI/this.amount*i;
             newShard.targetX = this.x + Math.round(Math.cos(angle)*1000000)/1000000 * newShard.speed * newShard.lifespan;
             newShard.targetY = this.y + Math.round(Math.sin(angle)*1000000)/1000000 * newShard.speed * newShard.lifespan;

@@ -25,17 +25,6 @@ class HomingProjectile extends Projectile{
         this.y += dy
 
         this.checkHit();
-        if(
-            this.enemy!=null &&
-            this.x < this.enemy.x + this.enemy.w &&
-            this.x + this.w > this.enemy.x &&
-            this.y < this.enemy.y + this.enemy.h &&
-            this.h + this.y > this.enemy.y
-        ) {
-            this.damage.dealDamage(this.x,this.y,this.enemy);
-            this.lifespan = 0;
-        }
-        console.log(this.rotation)
         if(render) this.render(ctx, tileSize);
     }
 }

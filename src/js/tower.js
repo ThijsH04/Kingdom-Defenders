@@ -1,13 +1,15 @@
 class Tower{
-    constructor(id, x, y, mapData, color){
+    constructor(id, x, y, mapData, name){
         this.id = id
         this.x = x
         this.y = y
         this.mapData = mapData
-        this.color = color
+        this.name = name;
+        this.color = Towers.allTowers[name].color
 
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
+        this.stats = new Stats()
         this.rotation = 0
         this.attackTimer = 0
 
@@ -31,8 +33,12 @@ class Tower{
         this.attackTimer+=timePassed;
         let closestEnemyData = this.checkShot();
         if(this.attackTimer>=this.attackSpeed){
-            this.attackTimer-=this.attackSpeed;
-            this.shoot(closestEnemyData);
+            if(!closestEnemyData){
+                this.attackTimer = this.attackSpeed
+            } else {
+                this.attackTimer-=this.attackSpeed;
+                this.shoot(closestEnemyData);
+            }
         }
     }
 
@@ -42,6 +48,7 @@ class Tower{
         }
         let enemy = closestEnemyData.enemy
         this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData, 1, this.projectileImg))
+        this.stats.increaseShots();
     }
 
     checkShot(){
@@ -108,17 +115,27 @@ class Tower{
             if(this.image.base) {
                 ctx.drawImage(this.image.base, (this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
             }
+            if(this.image.animation) {
+                // rotate image in right direction first here
+                ctx.translate(this.x*tileSize,this.y*tileSize)
+                ctx.rotate(this.rotation)
+                ctx.drawImage(this.image.animation, -tileSize*(this.w/2)*(Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
+                ctx.rotate(-this.rotation)
+                ctx.translate(-this.x*tileSize,-this.y*tileSize)
+
+            }
             if(this.image.rotating) {
                 // rotate image in right direction first here
                 ctx.translate(this.x*tileSize,this.y*tileSize)
                 ctx.rotate(this.rotation)
-                ctx.drawImage(this.image.rotating, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+                ctx.drawImage(this.image.rotating, -tileSize*(this.w/2),-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
                 ctx.rotate(-this.rotation)
                 ctx.translate(-this.x*tileSize,-this.y*tileSize)
 
             }
         } else {
             ctx.fillStyle = this.color;
+            console.log(this.color)
             ctx.fillRect((this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
         }
     }
