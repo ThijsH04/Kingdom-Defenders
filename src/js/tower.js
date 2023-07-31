@@ -1,12 +1,13 @@
 class Tower{
-    constructor(id, x, y, mapData, name){
+    constructor(id, x, y, mapData, name, unlockedUpgrades){
         this.id = id
         this.x = x
         this.y = y
         this.mapData = mapData
         this.name = name;
-        this.color = Towers.allTowers[name].color
+        this.color = towerTypes[name].color
 
+        this.unlockedUpgrades = unlockedUpgrades
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
         this.stats = new Stats()
@@ -116,22 +117,23 @@ class Tower{
                 ctx.drawImage(this.image.base, (this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
             }
             if(this.image.animation) {
-                // rotate image in right direction first here
+                if(this.image.animation.types.includes("fade")) {
+                    ctx.globalAlpha = Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)
+                }
                 ctx.translate(this.x*tileSize,this.y*tileSize)
-                ctx.rotate(this.rotation)
-                ctx.drawImage(this.image.animation, -tileSize*(this.w/2)*(Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.maxAnimationSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
-                ctx.rotate(-this.rotation)
+                if(this.image.animation.types.includes("rotate")) {
+                    ctx.rotate(this.rotation)
+                }
+                if(this.image.animation.types.includes("grow")) {
+                    ctx.drawImage(this.image.animation, -tileSize*(this.w/2)*(Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
+                } else {
+                    ctx.drawImage(this.image.animation, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+                }
+                if(this.image.animation.types.includes("rotate")) {
+                    ctx.rotate(-this.rotation)
+                }
                 ctx.translate(-this.x*tileSize,-this.y*tileSize)
-
-            }
-            if(this.image.rotating) {
-                // rotate image in right direction first here
-                ctx.translate(this.x*tileSize,this.y*tileSize)
-                ctx.rotate(this.rotation)
-                ctx.drawImage(this.image.rotating, -tileSize*(this.w/2),-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
-                ctx.rotate(-this.rotation)
-                ctx.translate(-this.x*tileSize,-this.y*tileSize)
-
+                ctx.globalAlpha = 1
             }
         } else {
             ctx.fillStyle = this.color;

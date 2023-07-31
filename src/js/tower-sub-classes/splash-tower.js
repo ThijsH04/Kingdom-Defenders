@@ -1,6 +1,6 @@
 class SplashTower extends Tower{
-    constructor(id,x,y,mapData){
-        super(id, x, y, mapData, "Mage Tower");
+    constructor(id,x,y,mapData, unlockedUpgrades){
+        super(id, x, y, mapData, "Mage Tower", unlockedUpgrades);
         this.w = 2
         this.h = 2
         this.attackSpeed = 1
@@ -16,7 +16,8 @@ class SplashTower extends Tower{
 
         this.image.animation = new Image()
         this.image.animation.src = "./assets/images/projectiles/magic_orb.png"
-        this.maxAnimationSize = .35;
+        this.image.animation.maxSize = .35;
+        this.image.animation.types = ["grow", "rotate"]
         
 
         this.projectileImg = new Image()

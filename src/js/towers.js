@@ -1,13 +1,4 @@
 class Towers{
-    static allTowers = {
-        "Cannon Tower":{tower: StandardTower, color:"red", img:"./assets/images/towers/cannon.png", id:0},
-        "Missile Launcher":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png", id:1},
-        "Shrapnel Tower":{tower: ShrapnelTower, color:"yellow", img:"./assets/images/towers/shrapnel_tower.png", id:2},
-        "Earthquake Tower":{tower: EarthquakeTower, color:"orange", img:"./assets/images/towers/earthquake_tower.png", id:3},
-        "Lightning Tower":{tower: ChainingTower, color:"purple", img:"./assets/images/towers/lightning_tower.png", id:4},
-        "Mage Tower":{tower: SplashTower, color:"brown", img:"./assets/images/towers/mage_tower.png", id:5},
-    }
-
     static #selectedTower = null;
     static #selectedPlacedTower = null;
     static #sideMenu = document.createElement("div");
@@ -57,7 +48,7 @@ class Towers{
             }
             ctx.fillStyle = "#ff0000";
             ctx.globalAlpha = 0.5;
-            let towerConstructor = Towers.allTowers[Towers.#selectedTower].tower;
+            let towerConstructor = towerTypes[Towers.#selectedTower].tower;
             let tempTower = new towerConstructor(0, undefined, undefined, undefined);
             tempTower.attackTimer = Infinity;
             tempTower.x = Math.floor(mouseTile.x-(tempTower.w-1)/2)+.5*tempTower.w;
@@ -119,7 +110,7 @@ class Towers{
         info.appendChild(sellButton);
     }
 
-    addTower(x,y,mapData){
+    addTower(x,y,mapData, unlockedUpgrades){
         let tile = mapData.tiles[Math.floor(y)][Math.floor(x)];
         if(tile.tower){
             Towers.#selectedPlacedTower = tile.tower;
@@ -133,10 +124,12 @@ class Towers{
         if(Towers.#selectedTower == null){
             return;
         }        
-        let towerConstructor = Towers.allTowers[Towers.#selectedTower].tower;
+        let towerConstructor = towerTypes[Towers.#selectedTower].tower;
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         // let tower = _.cloneDeep(towerConstructor)
-        let tower = new towerConstructor(0, undefined, undefined, undefined);
+        unlockedUpgrades = unlockedUpgrades[Towers.#selectedTower]
+        if(unlockedUpgrades.unlocked == false) return;
+        let tower = new towerConstructor(0, undefined, undefined, undefined, unlockedUpgrades);
         tower.x = Math.floor(x-(tower.w-1)/2)+0.5*tower.w;
         tower.y = Math.floor(y-(tower.h-1)/2)+0.5*tower.h; 
         tower.mapData = mapData;
@@ -188,8 +181,8 @@ class Towers{
     }
 
     static createSelectMenu(){
-        for(let tower in this.allTowers){
-            this.#selectMenu.appendChild(this.menuItem(tower,this.allTowers[tower].color,this.allTowers[tower].img));
+        for(let tower in towerTypes){
+            this.#selectMenu.appendChild(this.menuItem(tower,towerTypes[tower].color,towerTypes[tower].img));
         }
     }
 
@@ -204,7 +197,6 @@ class Towers{
             console.log(image);
         }
         res.classList.add("menuItem");
-        res.style.backgroundColor = color; 
         res.addEventListener("click", () =>{
             Towers.#selectedTower = name
             console.log(this);
@@ -235,23 +227,23 @@ class Towers{
             return;
         }
         let curId = -1;
-        for(let t in this.allTowers){
+        for(let t in towerTypes){
             console.log(this.#selectedTower)
             if(t == this.#selectedTower){
-                curId = this.allTowers[t].id;
+                curId = towerTypes[t].id;
                 break;
             }
         }
         if(curId == -1){
             return;
         }
-        // let curId = this.allTowers.filter(t => t.name == this.#selectedTower.name)[0].id;
-        let newId = (curId+1*directionMultiplier)%Object.keys(this.allTowers).length;
+        // let curId = towerTypes.filter(t => t.name == this.#selectedTower.name)[0].id;
+        let newId = (curId+1*directionMultiplier)%Object.keys(towerTypes).length;
         if(newId<0){
-            newId = Object.keys(this.allTowers).length-1;
+            newId = Object.keys(towerTypes).length-1;
         }
-        for(let t in this.allTowers){
-            if(this.allTowers[t].id == newId){
+        for(let t in towerTypes){
+            if(towerTypes[t].id == newId){
                 this.#selectedTower = t;
                 return;
             }

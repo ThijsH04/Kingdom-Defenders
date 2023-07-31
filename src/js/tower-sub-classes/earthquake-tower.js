@@ -1,6 +1,6 @@
 class EarthquakeTower extends Tower{
-    constructor(id,x,y,mapData){
-        super(id, x, y, mapData, "Earthquake Tower");
+    constructor(id,x,y,mapData, unlockedUpgrades){
+        super(id, x, y, mapData, "Earthquake Tower", unlockedUpgrades);
         this.w = 2
         this.h = 2
         this.attackSpeed = 1

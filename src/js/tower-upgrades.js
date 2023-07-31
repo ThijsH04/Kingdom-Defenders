@@ -7,10 +7,10 @@ class TowerUpgrades {
             [{},{},{}],
         ]
         this.paths = [
-            new UpgradePath(tower, upgradeInfo[0],this, 0),
-            new UpgradePath(tower, upgradeInfo[1],this, 1),
-            new UpgradePath(tower, upgradeInfo[2],this, 2),
-            new UpgradePath(tower, upgradeInfo[3],this, 3)
+            new UpgradePath(0),
+            new UpgradePath(1),
+            new UpgradePath(2),
+            new UpgradePath(3)
         ]
         this.menu = false
     }
@@ -37,8 +37,8 @@ class TowerUpgrades {
 }
 
 class UpgradePath {
-    constructor(tower, data, upgrades, i) {
-        this.upgrades = [new TowerUpgrade(tower, data[0], upgrades, this, 0), new TowerUpgrade(tower, data[1], upgrades, this, 1), new TowerUpgrade(tower, data[2], upgrades, this, 2)]
+    constructor(i) {
+        this.upgrades = [new TowerUpgrade(0), new TowerUpgrade(1), new TowerUpgrade(2)]
         this.next = 0
         this.index = i
     }
@@ -65,20 +65,21 @@ class UpgradePath {
 }
 
 class TowerUpgrade {
-    constructor(tower, data, upgrades, path, i) {
+    constructor(i) {
         this.unlocked = false
         this.locked = false
         this.cost = 0
         this.index = i
     }
-    canUnlock(upgrades, path) {
-        return path.upgrades.indexOf(this) == path.next && !this.locked
+    canUnlock(upgrades, path, unlockedUpgrades) {
+        console.log(unlockedUpgrades.paths)
+        return path.upgrades.indexOf(this) == path.next && !this.locked && unlockedUpgrades.paths[path.index][this.index]
     }
     getBtn(upgrades, path, tower) {
         let element = document.createElement("button")
         element.className = "UpgradeBlock"
         element.onclick = ()=>{
-            if(!this.canUnlock(upgrades, path)) return
+            if(!this.canUnlock(upgrades, path, tower.unlockedUpgrades)) return
             this.unlocked = true
             path.increment(upgrades)
             upgrades.createUpgradeMenu(tower)

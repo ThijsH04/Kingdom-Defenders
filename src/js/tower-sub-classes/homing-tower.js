@@ -1,6 +1,6 @@
 class HomingTower extends Tower{
-    constructor(id,x,y,mapData){
-        super(id, x, y, mapData, "Missile Launcher");
+    constructor(id,x,y,mapData, unlockedUpgrades){
+        super(id, x, y, mapData, "Missile Launcher", unlockedUpgrades);
         this.w = 2
         this.h = 2
         this.attackSpeed = 1
@@ -15,7 +15,8 @@ class HomingTower extends Tower{
         this.image.base.src = "./assets/images/towers/rocket_base.png"
         this.image.animation = new Image()
         this.image.animation.src = "./assets/images/towers/rocket.png"
-        this.maxAnimationSize = 1;
+        this.image.animation.maxSize = 1;
+        this.image.animation.types = ["grow", "rotate"]
         
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/rocket.png"

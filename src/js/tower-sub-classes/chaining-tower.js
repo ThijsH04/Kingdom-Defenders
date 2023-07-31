@@ -1,6 +1,6 @@
 class ChainingTower extends Tower{
-    constructor(id,x,y,mapData){
-        super(id, x, y, mapData, "Lightning Tower");
+    constructor(id,x,y,mapData, unlockedUpgrades){
+        super(id, x, y, mapData, "Lightning Tower", unlockedUpgrades);
         this.w = 2
         this.h = 2
         this.attackSpeed = 1
@@ -13,6 +13,11 @@ class ChainingTower extends Tower{
         this.image = {}
         this.image.base = new Image()
         this.image.base.src = "./assets/images/towers/lightning_tower.png"
+
+        this.image.animation = new Image()
+        this.image.animation.src = "./assets/images/towers/lightning_effect.png"
+        this.image.animation.maxSize = 1;
+        this.image.animation.types = ["fade"]
     }
 
     shoot(){

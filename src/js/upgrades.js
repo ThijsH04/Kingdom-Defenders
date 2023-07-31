@@ -1,5 +1,5 @@
 class Upgrades {
-    constructor(game, trees) {
+    constructor(game, trees, towerTypes, towerClasses) {
         this.upgradeTrees = []
 
         this.showBtn = document.createElement("button")
@@ -41,6 +41,15 @@ class Upgrades {
         this.upgradeInfo.className = "upgrade-info"
         this.element.appendChild(this.upgradeInfo)
 
+        this.unlocked = {}
+        for(let t of Object.keys(towerTypes)) {
+            this.unlocked[t] = new TowerUnlocks()
+        }
+        for(let t of Object.keys(towerClasses)) {
+            this.unlocked[t] = new TowerUnlocks()
+            this.unlocked[t].unlocked = true
+        }
+
         for(let t=0;t<trees.length;t++) {
             this.upgradeTrees.push(new UpgradeTree(game, trees[t], this.element, this))
         }
@@ -79,7 +88,7 @@ class Upgrades {
         buyBtn.className = "base-btn"
         buyBtn.onclick = () => {
             this.selectNode(game, false)
-            node.unlock(game.resources)
+            node.unlock(game.resources, this.unlocked)
             this.updateResources(game.resources)
         }
         if(node.unlocked) {
@@ -206,12 +215,12 @@ class UpgradeNode {
             }
         }
         if(l === 0) this.unlockable = true
-        if(this.canAfford(game.resources)) this.unlock(game.resources)
+        if(this.canAfford(game.resources)) this.unlock(game.resources, upgradeObj.unlocked)
         this.element.div.scrollIntoView({behavior:"auto", block:"center",inline:"center"})
 
         this.element.div.onclick = (e) => {upgradeObj.selectNode(game, this)}
     }
-    unlock(resources) {
+    unlock(resources, unlocked) {
         if(this.unlockable) {
             this.unlocked = true
             for(let c=0;c<this.children.length;c++) {
@@ -221,8 +230,12 @@ class UpgradeNode {
             Object.entries(this.cost.crystals).forEach(([key, value]) => {
                 resources.crystals[key] -= value
             });
+            for(let unlock of this.unlocks) {
+                unlock.unlock(unlocked)
+            }
         }
         this.updateColor(resources)
+        console.log(unlocked)
     }
     canAfford(resources) {
         if(resources.coins < this.cost.coins) return false
@@ -232,7 +245,6 @@ class UpgradeNode {
         return true
     }
     updateColor(resources) {
-        console.log(this.unlocked,this.unlockable)
         if(this.unlocked) {
             this.element.div.style.background = "#0f0a"
         } else if(this.unlockable) {
@@ -249,254 +261,3 @@ class UpgradeNode {
         }
     }
 }
-
-
-
-let upgrades = [
-    {
-        type: "Normal",
-        nodes: [
-            {
-                name: "Normal Class",
-                description: "Below here, you can unlock all the upgrades for normal-class towers, as well as some other related upgrades.",
-                cost: new Resources(),
-                unlocks: [
-                    
-                ],
-                nodes: [
-                    {
-                        name: "Double Cannon",
-                        description: "Unlock the Double Cannon.",
-                        cost: new Resources(coins=1),
-                        unlocks: [
-                            
-                        ],
-                        nodes: [
-                            {
-                                name: "Double Cannon Upgrades",
-                                description: "Unlock several new upgrades for the Double Cannon.",
-                                cost: new Resources(coins=1),
-                                unlocks: [],
-                                nodes: [
-                                    {
-                                        name: "Double Cannon Upgrades",
-                                        description: "Unlock several new upgrades for the Double Cannon.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: []
-                                    },
-                                    {
-                                        name: "Double Cannon Upgrades",
-                                        description: "Unlock several new upgrades for the Double Cannon.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: [
-                                            {
-                                                name: "Speed Increase",
-                                                description: "All Normal-Class Towers shoot 5% faster.",
-                                                cost: new Resources(coins=1),
-                                                unlocks: [],
-                                                nodes: []
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                name: "Cannon Upgrades",
-                                description: "Unlock several new upgrades for the Cannon.",
-                                cost: new Resources(coins=1),
-                                unlocks: [],
-                                nodes: [
-                                    {
-                                        name: "Double Cannon Upgrades",
-                                        description: "Unlock several new upgrades for the Double Cannon.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: []
-                                    }
-                                ]
-                            },
-                        ]
-                    },
-                    {
-                        name: "Cannon Upgrades",
-                        description: "Unlock several new upgrades for the Cannon.",
-                        cost: new Resources(coins=1),
-                        unlocks: [],
-                        nodes: [
-                            {
-                                name: "Unlock Air Turret",
-                                description: "Unlock the Air Turret.",
-                                cost: new Resources(coins=1),
-                                unlocks: [],
-                                nodes: [
-                                    {
-                                        name: "Air Turret Upgrades",
-                                        description: "Unlock several new upgrades for the Air Turret.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: []
-                                    },
-                                    {
-                                        name: "Air Turret Upgrades",
-                                        description: "Unlock several new upgrades for the Air Turret.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: [
-                                            {
-                                                name: "Health Increase",
-                                                description: "All Normal-Class Towers have 5% more health.",
-                                                cost: new Resources(coins=1),
-                                                unlocks: [],
-                                                nodes: []
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        name: "Air Turret Upgrades",
-                                        description: "Unlock several new upgrades for the Air Turret.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: []
-                                    },
-                                    {
-                                        name: "Air Turret Upgrades",
-                                        description: "Unlock several new upgrades for the Air Turret.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: []
-                                    },
-                                ]
-                            },
-                            {
-                                name: "Cannon Upgrades",
-                                description: "Unlock several new upgrades for the Cannon.",
-                                cost: new Resources(coins=1),
-                                unlocks: [],
-                                nodes: [
-                                    {
-                                        name: "Unlock Headhunter",
-                                        description: "Unlock the Headhunter.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: [
-                                            {
-                                                name: "Headhunter Upgrades",
-                                                description: "Unlock several new upgrades for the Headhunter.",
-                                                cost: new Resources(coins=1),
-                                                unlocks: [],
-                                                nodes: []
-                                            },
-                                            {
-                                                name: "Headhunter Upgrades",
-                                                description: "Unlock several new upgrades for the Headhunter.",
-                                                cost: new Resources(coins=1),
-                                                unlocks: [],
-                                                nodes: [
-                                                    {
-                                                        name: "Headhunter Upgrades",
-                                                        description: "Unlock several new upgrades for the Headhunter.",
-                                                        cost: new Resources(coins=1),
-                                                        unlocks: [],
-                                                        nodes: []
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    },
-                                ]
-                            },
-                            {
-                                name: "Cannon Upgrades",
-                                description: "Unlock several new upgrades for the Cannon.",
-                                cost: new Resources(coins=1),
-                                unlocks: [],
-                                nodes: [
-                                    {
-                                        name: "Cannon Upgrades",
-                                        description: "Unlock several new upgrades for the Cannon.",
-                                        cost: new Resources(coins=1),
-                                        unlocks: [],
-                                        nodes: [
-                                            {
-                                                name: "Headhunter Upgrades",
-                                                description: "Unlock several new upgrades for the Headhunter.",
-                                                cost: new Resources(coins=1),
-                                                unlocks: [],
-                                                nodes: []
-                                            },
-                                            {
-                                                name: "Damage Increase",
-                                                description: "All Normal-Class Towers deal 5% more damage.",
-                                                cost: new Resources(coins=1),
-                                                unlocks: [],
-                                                nodes: []
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        type: "Magic",
-        nodes: [
-            {
-                name: "Magic Class",
-                description: "Below here, you can unlock all the upgrades for magic-class towers, as well as some other related upgrades.",
-                cost: new Resources(),
-                unlocks: [],
-                nodes: [
-
-                ]
-            }
-        ]
-    },
-    {
-        type: "Elemental",
-        nodes: [
-            {
-                name: "Elemental Class",
-                description: "Below here, you can unlock all the upgrades for elemental-class towers, as well as some other related upgrades.",
-                cost: new Resources(),
-                unlocks: [],
-                nodes: [
-
-                ]
-            }
-        ]
-    },
-    {
-        type: "Summon",
-        nodes: [
-            {
-                name: "Summon Class",
-                description: "Below here, you can unlock all the upgrades for summon-class towers, as well as some other related upgrades.",
-                cost: new Resources(),
-                unlocks: [],
-                nodes: [
-
-                ]
-            }
-        ]
-    },
-    {
-        type: "Support",
-        nodes: [
-            {
-                name: "Support Class",
-                description: "Below here, you can unlock all the upgrades for support-class towers, as well as some other related upgrades.",
-                cost: new Resources(),
-                unlocks: [],
-                nodes: [
-
-                ]
-            }
-        ]
-    },
-]
