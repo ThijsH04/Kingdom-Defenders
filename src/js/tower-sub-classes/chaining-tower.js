@@ -13,6 +13,11 @@ class ChainingTower extends Tower{
         this.image = {}
         this.image.base = new Image()
         this.image.base.src = "./assets/images/towers/lightning_tower.png"
+
+        this.image.animation = new Image()
+        this.image.animation.src = "./assets/images/towers/lightning_effect.png"
+        this.image.animation.maxSize = 1;
+        this.image.animation.types = ["fade"]
     }
 
     shoot(){

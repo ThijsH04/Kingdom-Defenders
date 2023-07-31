@@ -204,7 +204,6 @@ class Towers{
             console.log(image);
         }
         res.classList.add("menuItem");
-        res.style.backgroundColor = color; 
         res.addEventListener("click", () =>{
             Towers.#selectedTower = name
             console.log(this);

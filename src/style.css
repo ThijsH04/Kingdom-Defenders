@@ -10,6 +10,7 @@ html {
     height: 100%;
     width: 100%;
     user-select: none;
+    overflow: hidden;
 }
 body {
     background-color: #808080;
@@ -314,11 +315,15 @@ button:hover {
 }
 
 .selectMenu{
-    display:flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    justify-content: space-evenly;
     width: 100%;
     overflow-y: scroll;
-    background-color: red;
+    background-color: #666;
 }
 
 .upgradeMenu{
@@ -341,10 +346,13 @@ button:hover {
 
 .menuItem{
     pointer-events:all;
-    width: 33%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #555;
+    border-radius: 25px;
 }
 
 .menuItem img{

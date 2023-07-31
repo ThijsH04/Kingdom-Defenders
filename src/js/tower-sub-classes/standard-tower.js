@@ -11,8 +11,9 @@ class StandardTower extends Tower{
         this.className = "normal"
 
         this.image = {}
-        this.image.rotating = new Image()
-        this.image.rotating.src = "./assets/images/towers/cannon.png"
+        this.image.animation = new Image()
+        this.image.animation.src = "./assets/images/towers/cannon.png"
+        this.image.animation.types = ["rotate"]
 
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/cannonball.png"

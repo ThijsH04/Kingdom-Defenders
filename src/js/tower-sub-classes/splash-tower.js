@@ -16,7 +16,8 @@ class SplashTower extends Tower{
 
         this.image.animation = new Image()
         this.image.animation.src = "./assets/images/projectiles/magic_orb.png"
-        this.maxAnimationSize = .35;
+        this.image.animation.maxSize = .35;
+        this.image.animation.types = ["grow", "rotate"]
         
 
         this.projectileImg = new Image()
