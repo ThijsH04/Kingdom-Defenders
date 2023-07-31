@@ -6,7 +6,8 @@ window.onload = () => {
     game.map = new GameMap(0)
     game.tutorial = new Tutorial(game)
     game.resources = new Resources(coins=5)
-    game.upgrades = new Upgrades(game, upgrades)
+    game.upgrades = new Upgrades(game, upgrades, towerTypes, towerClasses)
+
     game.setMode("map", false)
     function update() {
         game.update()
@@ -28,7 +29,7 @@ window.onload = () => {
                 return;
             }
             // let damage = new SplashDamage(1,game.map,1,.1);
-            game.map.towers.addTower(x,y,game.map);
+            game.map.towers.addTower(x,y,game.map, game.upgrades.unlocked);
             // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
         }
         

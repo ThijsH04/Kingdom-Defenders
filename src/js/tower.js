@@ -1,12 +1,13 @@
 class Tower{
-    constructor(id, x, y, mapData, name){
+    constructor(id, x, y, mapData, name, unlockedUpgrades){
         this.id = id
         this.x = x
         this.y = y
         this.mapData = mapData
         this.name = name;
-        this.color = Towers.allTowers[name].color
+        this.color = towerTypes[name].color
 
+        this.unlockedUpgrades = unlockedUpgrades
         this.upgrades = new TowerUpgrades(this)
         this.health = new HealthBar(this,100)
         this.stats = new Stats()

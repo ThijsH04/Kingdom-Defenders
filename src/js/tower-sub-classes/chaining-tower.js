@@ -1,6 +1,6 @@
 class ChainingTower extends Tower{
-    constructor(id,x,y,mapData){
-        super(id, x, y, mapData, "Lightning Tower");
+    constructor(id,x,y,mapData, unlockedUpgrades){
+        super(id, x, y, mapData, "Lightning Tower", unlockedUpgrades);
         this.w = 2
         this.h = 2
         this.attackSpeed = 1

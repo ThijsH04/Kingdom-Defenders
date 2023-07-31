@@ -1,6 +1,6 @@
 class HomingTower extends Tower{
-    constructor(id,x,y,mapData){
-        super(id, x, y, mapData, "Missile Launcher");
+    constructor(id,x,y,mapData, unlockedUpgrades){
+        super(id, x, y, mapData, "Missile Launcher", unlockedUpgrades);
         this.w = 2
         this.h = 2
         this.attackSpeed = 1
