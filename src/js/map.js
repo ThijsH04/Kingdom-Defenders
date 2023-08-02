@@ -24,7 +24,7 @@ class GameMap {
         this.enemies = new Enemies(0);
 
         if(id > -1) {
-            this.paths.push(new Path(0, "ground"))
+            this.paths.push(new Path(0))
         }
     }
     update(mode, mouseTile, ctx, tileset, tileSize, time, render=true, showMenu=true) {
@@ -88,9 +88,8 @@ class Tile {
 
 
 class Path {
-    constructor(id, type) {
+    constructor(id) {
         this.positions = mapDataPaths[id]
-        this.type = type
         this.startBox = new TextBox(this.positions[0][0]-3,this.positions[0][1],3,1,0,1,false,1)
         this.startBox.text.innerHTML += "start"
         this.startBox.element.style.background = "#0f05"

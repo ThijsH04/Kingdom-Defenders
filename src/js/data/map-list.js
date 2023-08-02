@@ -1,4 +1,4 @@
-mapDataList = [
+const mapDataList = [
    { "compressionlevel":-1,
    "editorsettings":
       {
@@ -125,7 +125,7 @@ mapDataList = [
   }
 ]
 
-worldDataList = [
+const worldDataList = [
    {
       //map json from Tiled
       map:{ "compressionlevel":-1,
@@ -303,8 +303,4 @@ worldDataList = [
          }
       ]
    }
-]
-
-mapDataPaths = [
-   [[31,5.5],[28,5.5],[27,4.5],[22,4.5],[21,3.5],[17,3.5],[16,2.5],[5,2.5],[2.5,5],[2.5,8],[1.5,9],[1.5,13],[3,14.5],[5,14.5],[6,15.5],[11,15.5],[12,16.5],[19,16.5],[20,15.5],[27,15.5],[28,16.5],[29.5,16.5],[30.5,16.5]]
 ]

@@ -6,9 +6,10 @@ class EarthquakeTower extends Tower{
         this.attackSpeed = 1
         this.cost = 100
         this.type = "land"
+        this.hitTypes = ["ground"]
         this.r = 5
         this.damage = new SplashDamage(5,game.map,this.r,.1,this.stats)
-        this.className = "elemental"
+        this.className = "Elemental"
     }
 
     shoot(){

@@ -44,9 +44,6 @@ class Tower{
     }
 
     shoot(closestEnemyData){
-        if(!closestEnemyData){
-            return;
-        }
         let enemy = closestEnemyData.enemy
         this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData, 1, this.projectileImg))
         this.stats.increaseShots();
@@ -58,12 +55,11 @@ class Tower{
             return false;
         }
         // console.log("not the issue");
-        let possibleEnemies = this.mapData.enemies.enemies.filter(enemy => this.intersects(enemy))
+        let possibleEnemies = this.mapData.enemies.enemies.filter(enemy => this.intersects(enemy) && this.hitTypes.includes(enemy.moveType))
         if(possibleEnemies.length == 0) return false
 
         let enemyData = {enemy: possibleEnemies.sort(this.targetFunctions[this.targetFunction].func)[0]}
         
-        console.log(enemyData.enemy.getGroupSize(this.mapData.enemies.enemies))
         //let enemyData = this.mapData.enemies.findClosestEnemy(this.x,this.y);
         if(enemyData.enemy == null||!this.intersects(enemyData.enemy)){
             this.attackTimer = this.attackSpeed;

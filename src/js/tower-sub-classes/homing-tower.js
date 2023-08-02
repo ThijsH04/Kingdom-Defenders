@@ -6,9 +6,10 @@ class HomingTower extends Tower{
         this.attackSpeed = 1
         this.cost = 100
         this.type = "land"
+        this.hitTypes = ["ground", "air"]
         this.r = 5
         this.damage = new Damage(5,mapData,this.stats)
-        this.className = "normal"
+        this.className = "Normal"
 
         this.image = {}
         this.image.base = new Image()
@@ -22,8 +23,7 @@ class HomingTower extends Tower{
         this.projectileImg.src = "./assets/images/projectiles/rocket.png"
     }
 
-    shoot(){
-        let closestEnemyData = this.checkShot();
+    shoot(closestEnemyData){
         if(!closestEnemyData){
             return;
         }

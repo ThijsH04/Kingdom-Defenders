@@ -22,7 +22,7 @@ window.onload = () => {
         // let dummyTower = new Tower(1,Math.floor(e.clientX/tileSize)+.5,Math.floor(e.clientY/tileSize)+.5,null,1,1,0,"water");    
         // map.projectiles.addProjectile(dummyTower,map.enemies[0]);
         if(game.mode == "game") {
-            game.map.enemies.enemies.push(new Enemy(1, game.map.paths[0].positions, game.map.enemies))
+            game.map.enemies.enemies.push(new Enemy(1, game.map.paths[0].positions, game.map.enemies, "ground"))
             let x = e.offsetX/game.tileSize;
             let y = e.offsetY/game.tileSize;
             if(x>=game.map.width||y>=game.map.height){ // return for now, just testing the tower building

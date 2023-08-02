@@ -6,9 +6,10 @@ class SplashTower extends Tower{
         this.attackSpeed = 1
         this.cost = 100
         this.type = "land"
+        this.hitTypes = ["ground", "air"]
         this.r = 5
         this.damage = new SplashDamage(5,null,3,.2,this.stats)
-        this.className = "magic"
+        this.className = "Magic"
 
         this.image = {}
         this.image.base = new Image()
