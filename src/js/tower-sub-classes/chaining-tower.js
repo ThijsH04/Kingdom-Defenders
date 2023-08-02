@@ -6,9 +6,10 @@ class ChainingTower extends Tower{
         this.attackSpeed = 1
         this.cost = 100
         this.type = "land"
+        this.hitTypes = ["ground", "air"]
         this.r = 5
         this.damage = new ChainDamage(1,game.map,this.r,.1,20,this.stats,[])
-        this.className = "elemental"
+        this.className = "Elemental"
 
         this.image = {}
         this.image.base = new Image()

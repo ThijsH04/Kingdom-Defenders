@@ -1,6 +1,6 @@
 class Enemy {
-    constructor(type,path,enemies,x=null,y=null,p=0) {
-        console.log(enemies)
+    constructor(type,path,enemies,moveType="ground",x=null,y=null,p=0) {
+        // console.log(enemies)
         if(x === null || y === null) {
             x = path[0][0]
             y = path[0][1]
@@ -13,6 +13,7 @@ class Enemy {
         this.type=type
         this.path = path
         this.point = p
+        this.moveType = moveType
 
         this.image = {}
         // this.image.base = new Image()
@@ -82,7 +83,7 @@ class Enemy {
 
             let progress = ((this.path[p][0]-this.x)**2 + (this.path[p][1]-this.y)**2)**0.5
 
-            console.log(p + (progress/dis))
+            // console.log(p + (progress/dis))
             return p + (progress / dis)
         }
     }
@@ -96,7 +97,7 @@ class Enemy {
     }
 
     getGroupSize(range=1) {
-        console.log(this)
+        // console.log(this)
         let count = 0
         for(let e of this.enemies.enemies) {
             if(e == this) continue

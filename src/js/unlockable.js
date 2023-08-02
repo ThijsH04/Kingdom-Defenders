@@ -6,6 +6,7 @@ class Unlockable {
     }
 
     unlock(unlocked) {
+        console.log(this.name, unlocked)
         unlocked[this.name].unlocked = true;
         for(let path of this.paths) {
             unlocked[this.name].paths[path[0]][path[1]] = true;

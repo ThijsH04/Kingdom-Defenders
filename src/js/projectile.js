@@ -78,7 +78,6 @@ class Projectile{
         if(this.image) {
             ctx.translate(this.x*tileSize,this.y*tileSize)
             ctx.rotate(this.rotation)
-            console.log(this.rotation)
             ctx.drawImage(this.image, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
             ctx.rotate(-this.rotation)
             ctx.translate(-this.x*tileSize,-this.y*tileSize)
