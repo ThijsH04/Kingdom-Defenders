@@ -1,7 +1,6 @@
 const towerTypes = {
     "Cannon":{tower: StandardTower, color:"red", img:"./assets/images/towers/cannon.png", id:0},
     "Missile Launcher":{tower: HomingTower, color:"green", img:"./assets/images/towers/rocket_tower.png", id:1},
-    "Double Cannon":{tower: DoubleCannon, color:"red", img:"./assets/images/towers/double_cannon.png", id:2},
     "Shrapnel Tower":{tower: ShrapnelTower, color:"yellow", img:"./assets/images/towers/shrapnel_tower.png", id:3},
     "Scattershot":{tower:ScatterTower, color:"yellow", img:"./assets/images/towers/scatter_tower.png", id:4},
     "Air Turret":{tower: AirTower, color:"blue", img:"./assets/images/towers/air_turret.png", id:5},
