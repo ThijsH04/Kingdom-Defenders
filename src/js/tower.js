@@ -23,6 +23,7 @@ class Tower{
             {name:"Group", func:(a,b)=>{return b.getGroupSize() - a.getGroupSize()}} //group
         ]
         this.targetFunction = 0
+        this.images = {}
     }
 
     update(mode, ctx, tileset, tileSize, timePassed, render=true){
@@ -108,24 +109,22 @@ class Tower{
     }
 
     render(ctx, tileSize){
-        if(this.image) {
-            if(this.image.base) {
-                ctx.drawImage(this.image.base, (this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
-            }
-            if(this.image.animation) {
-                if(this.image.animation.types.includes("fade")) {
-                    ctx.globalAlpha = Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)
+        let images = this.getImages()
+        if(images.length > 0) {
+            for(let image of images) {
+                if(image.animationTypes.includes("fade")) {
+                    ctx.globalAlpha = Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)
                 }
                 ctx.translate(this.x*tileSize,this.y*tileSize)
-                if(this.image.animation.types.includes("rotate")) {
+                if(image.animationTypes.includes("rotate")) {
                     ctx.rotate(this.rotation)
                 }
-                if(this.image.animation.types.includes("grow")) {
-                    ctx.drawImage(this.image.animation, -tileSize*(this.w/2)*(Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(this.image.animation.maxSize,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
+                if(image.animationTypes.includes("grow")) {
+                    ctx.drawImage(image, -tileSize*(this.w/2)*(Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
                 } else {
-                    ctx.drawImage(this.image.animation, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+                    ctx.drawImage(image, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
                 }
-                if(this.image.animation.types.includes("rotate")) {
+                if(image.animationTypes.includes("rotate")) {
                     ctx.rotate(-this.rotation)
                 }
                 ctx.translate(-this.x*tileSize,-this.y*tileSize)
@@ -144,5 +143,23 @@ class Tower{
 
     switchTarget() {
         this.targetFunction = (this.targetFunction + 1) % this.targetFunctions.length
+    }
+
+    addImage(img) {
+        let image = new Image()
+        image.src = img.src
+        image.z = img.z
+        image.animationTypes = img.animationTypes
+        image.maxAnimation = img.maxAnimation
+        this.images[img.name] = image
+    }
+
+    getImages() {
+        let images = []
+        for(let img in this.images) {
+            images.push(this.images[img])
+        }
+        console.log(images)
+        return images.sort((a,b)=>{return a.z-b.z})
     }
 }

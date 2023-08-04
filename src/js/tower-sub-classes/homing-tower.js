@@ -11,13 +11,21 @@ class HomingTower extends Tower{
         this.damage = new Damage(5,mapData,this.stats)
         this.className = "Normal"
 
-        this.image = {}
-        this.image.base = new Image()
-        this.image.base.src = "./assets/images/towers/rocket_base.png"
-        this.image.animation = new Image()
-        this.image.animation.src = "./assets/images/towers/rocket.png"
-        this.image.animation.maxSize = 1;
-        this.image.animation.types = ["grow", "rotate"]
+        super.addImage({
+            name: "base",
+            src: "./assets/images/towers/rocket_base.png",
+            z: 0,
+            animationTypes: [],
+            maxAnimation: 1
+        })
+
+        super.addImage({
+            name: "effect",
+            src: "./assets/images/towers/rocket.png",
+            z: 1,
+            animationTypes: ["grow",  "rotate"],
+            maxAnimation: 1
+        })
         
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/rocket.png"

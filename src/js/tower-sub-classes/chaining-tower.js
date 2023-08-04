@@ -11,14 +11,21 @@ class ChainingTower extends Tower{
         this.damage = new ChainDamage(1,game.map,this.r,.1,20,this.stats,[])
         this.className = "Elemental"
 
-        this.image = {}
-        this.image.base = new Image()
-        this.image.base.src = "./assets/images/towers/lightning_tower.png"
+        super.addImage({
+            name: "base",
+            src: "./assets/images/towers/lightning_tower.png",
+            z: 0,
+            animationTypes: ["rotate"],
+            maxAnimation: 1
+        })
 
-        this.image.animation = new Image()
-        this.image.animation.src = "./assets/images/towers/lightning_effect.png"
-        this.image.animation.maxSize = 1;
-        this.image.animation.types = ["fade"]
+        super.addImage({
+            name: "effect",
+            src: "./assets/images/towers/lightning_effect.png",
+            z: 1,
+            animationTypes: ["fade"],
+            maxAnimation: 1
+        })
     }
 
     shoot(){

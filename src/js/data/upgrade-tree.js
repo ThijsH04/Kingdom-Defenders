@@ -15,50 +15,49 @@ const upgrades = [
                     new Unlockable("Earthquake Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
                     new Unlockable("Lightning Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
                     new Unlockable("Mage Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
-                    new Unlockable("Scattershot", paths=[[0,0],[1,0],[2,0],[3,0]]),
                 ],
                 nodes: [
                     {
-                        name: "Double Cannon",
-                        description: "Unlock the Double Cannon.",
+                        name: "Scattershot",
+                        description: "Unlock the Scattershot.",
                         cost: new Resources(coins=1),
                         unlocks: [
-                            new Unlockable("Double Cannon", paths=[[0,0],[1,0],[2,0],[3,0]]),
+                            new Unlockable("Scattershot", paths=[[0,0],[1,0],[2,0],[3,0]]),
                         ],
                         nodes: [
                             {
-                                name: "Double Cannon Upgrades",
-                                description: "Unlock upgrades for the Double Cannon.",
+                                name: "Scattershot Upgrades",
+                                description: "Unlock upgrades for the Scattershot.",
                                 cost: new Resources(coins=1),
                                 unlocks: [
-                                    new Unlockable("Double Cannon", paths=[[0,1],[1,1],[2,1]]),
+                                    new Unlockable("Scattershot", paths=[[0,1],[1,1],[2,1]]),
                                 ],
                                 nodes: [
                                     {
-                                        name: "Double Cannon Upgrades",
-                                        description: "Unlock upgrades for the Double Cannon.",
+                                        name: "Scattershot Upgrades",
+                                        description: "Unlock upgrades for the Scattershot.",
                                         cost: new Resources(coins=1),
                                         unlocks: [
-                                            new Unlockable("Double Cannon", paths=[[0,2],[1,2],[2,2]]),
+                                            new Unlockable("Scattershot", paths=[[0,2],[1,2],[2,2]]),
                                         ],
                                         nodes: [],
                                     }
                                 ]
                             },
                             {
-                                name: "Double Cannon Upgrades",
-                                description: "Unlock upgrades for the Double Cannon.",
+                                name: "Scattershot Upgrades",
+                                description: "Unlock upgrades for the Scattershot.",
                                 cost: new Resources(coins=1),
                                 unlocks: [
-                                    new Unlockable("Double Cannon", paths=[[3,1]]),
+                                    new Unlockable("Scattershot", paths=[[3,1]]),
                                 ],
                                 nodes: [
                                     {
-                                        name: "Double Cannon Upgrades",
-                                        description: "Unlock upgrades for the Double Cannon.",
+                                        name: "Scattershot Upgrades",
+                                        description: "Unlock upgrades for the Scattershot.",
                                         cost: new Resources(coins=1),
                                         unlocks: [
-                                            new Unlockable("Double Cannon", paths=[[3,2]]),
+                                            new Unlockable("Scattershot", paths=[[3,2]]),
                                         ],
                                         nodes: [],
                                     },
@@ -67,9 +66,19 @@ const upgrades = [
                                         description: "Unlock upgrades for the Cannon.",
                                         cost: new Resources(coins=1),
                                         unlocks: [
-                                            new Unlockable("Cannon", paths=[[2,1],[2,2]]),
+                                            new Unlockable("Cannon", paths=[[3,1]]),
                                         ],
-                                        nodes: []
+                                        nodes: [
+                                            {
+                                                name: "Cannon Upgrades",
+                                                description: "Unlock upgrades for the Cannon.",
+                                                cost: new Resources(coins=1),
+                                                unlocks: [
+                                                    new Unlockable("Cannon", paths=[[3,2]]),
+                                                ],
+                                                nodes: [],
+                                            }
+                                        ]
                                     }
                                 ]
                             }

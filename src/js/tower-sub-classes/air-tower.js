@@ -11,13 +11,8 @@ class AirTower extends Tower{
         this.damage = new Damage(10,mapData,this.stats)
         this.className = "Normal"
 
-        this.image = {}
-        this.image.animation = new Image()
-        this.image.animation.src = "./assets/images/towers/cannon.png" // needs a sprite
-        this.image.animation.types = ["rotate"]
-
         this.projectileImg = new Image()
-        this.projectileImg.src = "./assets/images/projectiles/cannonball.png" // needs a sprite
+        this.projectileImg.src = "./assets/images/projectiles/cannonball.png"
     }
 
     upgrade(path, level) {
