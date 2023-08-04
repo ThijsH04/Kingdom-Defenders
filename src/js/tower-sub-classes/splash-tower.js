@@ -11,15 +11,21 @@ class SplashTower extends Tower{
         this.damage = new SplashDamage(5,null,3,.2,this.stats)
         this.className = "Magic"
 
-        this.image = {}
-        this.image.base = new Image()
-        this.image.base.src = "./assets/images/towers/mage_tower.png"
+        super.addImage({
+            name: "base",
+            src: "./assets/images/towers/mage_tower.png",
+            z: 0,
+            animationTypes: [],
+            maxAnimation: 1
+        })
 
-        this.image.animation = new Image()
-        this.image.animation.src = "./assets/images/projectiles/magic_orb.png"
-        this.image.animation.maxSize = .35;
-        this.image.animation.types = ["grow", "rotate"]
-        
+        super.addImage({
+            name: "effect",
+            src: "./assets/images/projectiles/magic_orb.png",
+            z: 1,
+            animationTypes: ["grow", "rotate"],
+            maxAnimation: 0.35
+        })
 
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/magic_orb.png"

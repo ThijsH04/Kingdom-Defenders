@@ -66,9 +66,19 @@ const upgrades = [
                                         description: "Unlock upgrades for the Cannon.",
                                         cost: new Resources(coins=1),
                                         unlocks: [
-                                            new Unlockable("Cannon", paths=[[3,1],[3,2]]),
+                                            new Unlockable("Cannon", paths=[[3,1]]),
                                         ],
-                                        nodes: []
+                                        nodes: [
+                                            {
+                                                name: "Cannon Upgrades",
+                                                description: "Unlock upgrades for the Cannon.",
+                                                cost: new Resources(coins=1),
+                                                unlocks: [
+                                                    new Unlockable("Cannon", paths=[[3,2]]),
+                                                ],
+                                                nodes: [],
+                                            }
+                                        ]
                                     }
                                 ]
                             }

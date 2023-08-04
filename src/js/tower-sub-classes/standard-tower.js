@@ -11,16 +11,19 @@ class StandardTower extends Tower{
         this.damage = new Damage(5,mapData,this.stats)
         this.className = "Normal"
 
-        this.image = {}
-        this.image.animation = new Image()
-        this.image.animation.src = "./assets/images/towers/cannon.png"
-        this.image.animation.types = ["rotate"]
-
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/cannonball.png"
 
         this.shotCount = 1
         this.shotRange = 1
+
+        super.addImage({
+            name: "base",
+            src: "./assets/images/towers/cannon.png",
+            z: 0,
+            animationTypes: ["rotate"],
+            maxAnimation: 1
+        })
     }
 
     shoot(closestEnemyData) {

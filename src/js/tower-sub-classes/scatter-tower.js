@@ -13,11 +13,6 @@ class ScatterTower extends Tower{ // to implement
         this.bullets = 10
         this.angleSpread = Math.PI/8
 
-        this.image = {}
-        this.image.animation = new Image()
-        this.image.animation.src = "./assets/images/towers/cannon.png"
-        this.image.animation.types = ["rotate"]
-
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/cannonball.png"
     }
