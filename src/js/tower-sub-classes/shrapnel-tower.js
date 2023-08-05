@@ -8,16 +8,31 @@ class ShrapnelTower extends Tower{
         this.type = "land"
         this.hitTypes = ["ground", "air"]
         this.r = 5
-        this.damage = new Damage(5,mapData,this.stats)
         this.className = "Elemental"
+        
+        this.shards = new HomingProjectile({
+            name: "shard",
+            img: null,
+            damage: 5,
+            speed: 20,
+            lifespan: 5,
+            homingCooldown: .2,
+            hitCooldown: .1,
+            size: .5,
+        })
 
-        this.shards = new HomingProjectile(null,undefined,undefined,1,1,null,3,new Damage(5,mapData,this.stats),10,null,.5,"shard",null,.3)
+        this.projectiles.push(new ShrapnelProjectile({
+            name: "shrapnel",
+            img: null,
+            damage: 5,
+            speed: 20,
+            lifespan: 5,
+            shards: this.shards,
+            shardCount: 6
+        }))
     }
 
-    shoot(closestEnemyData){
-        this.mapData.projectiles.projectiles.push(new ShrapnelProjectile(this, this.x, this.y, 1, 1, closestEnemyData.enemy, 5, this.damage, 50, null, .8, "regular",this.mapData,6,this.shards))
-        this.stats.increaseShots();
-    }
+
 
     upgrade(path, level) {
         

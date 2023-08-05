@@ -8,18 +8,18 @@ class ChainingTower extends Tower{
         this.type = "land"
         this.hitTypes = ["ground", "air"]
         this.r = 5
-        this.damage = new ChainDamage(1,game.map,this.r,.1,20,this.stats,[])
+        this.damage = new ChainEffect({amount:5,mapData:null,r:this.r,lifespan:.1,targetAmount:5,stats:this.stats})
         this.className = "Elemental"
 
-        super.addImage({
+        this.addImage({
             name: "base",
             src: "./assets/images/towers/lightning_tower.png",
             z: 0,
-            animationTypes: ["rotate"],
+            animationTypes: [],
             maxAnimation: 1
         })
 
-        super.addImage({
+        this.addImage({
             name: "effect",
             src: "./assets/images/towers/lightning_effect.png",
             z: 1,
@@ -32,6 +32,7 @@ class ChainingTower extends Tower{
         if(!this.checkShot()){
             return;
         }
+        this.damage.mapData = this.mapData;
         this.damage.dealDamage(this.x,this.y,this.stats);
         this.stats.increaseShots();
     }

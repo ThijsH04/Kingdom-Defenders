@@ -1,8 +1,8 @@
 class HomingProjectile extends Projectile{
-    constructor(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData,homingCooldown, image){
-        super(tower,x,y,w,h,enemy,lifespan,damage,speed,img,size,type,mapData,1,image);
+    constructor(args){
+        super(args);
         this.rotation = 0; // just in case no angle is set anywhere
-        this.homingCooldown = homingCooldown;
+        this.homingCooldown = args.homingCooldown || 0;
     }
 
     update(mode, ctx, tileSize, time, render=true){ 
@@ -15,10 +15,11 @@ class HomingProjectile extends Projectile{
             return false;
         }
         let a = this.rotation;
-        if(this.enemy != null){
-            a = Math.atan2(this.enemy.y-this.y,this.enemy.x-this.x);
+        console.log(this.enemy, this.enemy.health.hp > 0)
+        if(this.enemy && this.enemy.health.hp > 0){
+            a = Math.atan2(this.enemy.y-this.y,this.enemy.x-this.x) + 0.5*Math.PI;
         }
-        this.rotation = a+0.5*Math.PI
+        this.rotation = a
         let dx = Math.round(Math.cos(a)*1000000)/1000000 * time * this.speed
         let dy = Math.round(Math.sin(a)*1000000)/1000000 * time * this.speed
         this.x += dx

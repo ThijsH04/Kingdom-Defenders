@@ -8,10 +8,9 @@ class SplashTower extends Tower{
         this.type = "land"
         this.hitTypes = ["ground", "air"]
         this.r = 5
-        this.damage = new SplashDamage(5,null,3,.2,this.stats)
         this.className = "Magic"
 
-        super.addImage({
+        this.addImage({
             name: "base",
             src: "./assets/images/towers/mage_tower.png",
             z: 0,
@@ -19,7 +18,7 @@ class SplashTower extends Tower{
             maxAnimation: 1
         })
 
-        super.addImage({
+        this.addImage({
             name: "effect",
             src: "./assets/images/projectiles/magic_orb.png",
             z: 1,
@@ -27,8 +26,14 @@ class SplashTower extends Tower{
             maxAnimation: 0.35
         })
 
-        this.projectileImg = new Image()
-        this.projectileImg.src = "./assets/images/projectiles/magic_orb.png"
+        this.projectiles.push(new Projectile({
+            name: "magic",
+            img: "./assets/images/projectiles/magic_orb.png",
+            damage: 5,
+            speed: 20,
+            lifespan: 5,
+            mapEffects: [new SplashEffect({amount: 5, mapData: null, r: 3, lifespan: .2, stats: this.stats})]
+        }))
     }
 
     upgrade(path, level) {
