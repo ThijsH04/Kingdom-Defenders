@@ -17,7 +17,7 @@ class HomingProjectile extends Projectile{
         let a = this.rotation;
         console.log(this.enemy, this.enemy.health.hp > 0)
         if(this.enemy && this.enemy.health.hp > 0){
-            a = Math.atan2(this.enemy.y-this.y,this.enemy.x-this.x) + 0.5*Math.PI;
+            a = Math.atan2(this.enemy.y-this.y,this.enemy.x-this.x);
         }
         this.rotation = a
         let dx = Math.round(Math.cos(a)*1000000)/1000000 * time * this.speed
