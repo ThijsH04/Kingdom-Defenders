@@ -121,10 +121,25 @@ class Tower{
                 if(image.animationTypes.includes("rotate")) {
                     ctx.rotate(this.rotation)
                 }
+                let xOffset = image.xOffset || 0
+                let yOffset = image.yOffset || 0
+                if(image.animationTypes.includes("move")) {
+                    let startX = image.startX || 0
+                    let startY = image.startY || 0
+                    let endX = image.endX || 0
+                    let endY = image.endY || 0
+                    xOffset = (endX-startX)*(this.attackSpeed-this.attackTimer/this.attackSpeed)
+                }
+                if(xOffset || yOffset) {
+                    ctx.translate(xOffset*tileSize,yOffset*tileSize)
+                }
                 if(image.animationTypes.includes("grow")) {
                     ctx.drawImage(image, -tileSize*(this.w/2)*(Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed)),-(this.h/2)*tileSize*Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.w*Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed),tileSize*this.h*Math.min(image.maxAnimation,Math.min(this.attackSpeed,this.attackTimer)/this.attackSpeed))
                 } else {
                     ctx.drawImage(image, -(this.w/2)*tileSize,-(this.h/2)*tileSize,tileSize*this.w,tileSize*this.h)
+                }
+                if(xOffset || yOffset) {
+                    ctx.translate(-xOffset*tileSize,-yOffset*tileSize)
                 }
                 if(image.animationTypes.includes("rotate")) {
                     ctx.rotate(-this.rotation)
@@ -152,6 +167,12 @@ class Tower{
         image.z = img.z
         image.animationTypes = img.animationTypes
         image.maxAnimation = img.maxAnimation
+        image.startX = img.startX
+        image.startY = img.startY
+        image.endX = img.endX
+        image.endY = img.endY
+        image.xOffset = img.xOffset
+        image.yOffset = img.yOffset
         this.images[img.name] = image
     }
 
