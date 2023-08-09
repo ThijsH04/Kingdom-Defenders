@@ -8,7 +8,6 @@ class EarthquakeTower extends Tower{
         this.type = "land"
         this.hitTypes = ["ground"]
         this.r = 5
-        this.damage = new SplashDamage(5,game.map,this.r,.1,this.stats)
         this.className = "Elemental"
     }
 

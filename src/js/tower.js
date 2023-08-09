@@ -24,6 +24,7 @@ class Tower{
         ]
         this.targetFunction = 0
         this.images = {}
+        this.projectiles = []
     }
 
     update(mode, ctx, tileset, tileSize, timePassed, render=true){
@@ -45,8 +46,9 @@ class Tower{
     }
 
     shoot(closestEnemyData){
-        let enemy = closestEnemyData.enemy
-        this.mapData.projectiles.projectiles.push(new Projectile(this, this.x, this.y, 1, 1, enemy, 5,this.damage, 20, null, .8, "regular",this.mapData, 1, this.projectileImg))
+        for(let p of this.projectiles) {
+            this.mapData.projectiles.projectiles.push(p.getCopy(this, closestEnemyData.enemy))
+        }
         this.stats.increaseShots();
     }
 
@@ -132,7 +134,6 @@ class Tower{
             }
         } else {
             ctx.fillStyle = this.color;
-            console.log(this.color)
             ctx.fillRect((this.x-this.w/2)*tileSize,(this.y-this.h/2)*tileSize,tileSize*this.w,tileSize*this.h);
         }
     }
@@ -159,7 +160,6 @@ class Tower{
         for(let img in this.images) {
             images.push(this.images[img])
         }
-        console.log(images)
         return images.sort((a,b)=>{return a.z-b.z})
     }
 }

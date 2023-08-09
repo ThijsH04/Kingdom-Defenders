@@ -8,10 +8,9 @@ class HomingTower extends Tower{
         this.type = "land"
         this.hitTypes = ["ground", "air"]
         this.r = 5
-        this.damage = new Damage(5,mapData,this.stats)
         this.className = "Normal"
 
-        super.addImage({
+        this.addImage({
             name: "base",
             src: "./assets/images/towers/rocket_base.png",
             z: 0,
@@ -19,24 +18,26 @@ class HomingTower extends Tower{
             maxAnimation: 1
         })
 
-        super.addImage({
+        this.addImage({
             name: "effect",
             src: "./assets/images/towers/rocket.png",
             z: 1,
             animationTypes: ["grow",  "rotate"],
             maxAnimation: 1
         })
+
+        this.projectiles.push(new HomingProjectile({
+            name: "rocket",
+            img: "./assets/images/projectiles/rocket.png",
+            damage: 5,
+            speed: 20,
+            lifespan: 5,
+            homingCooldown: 0,
+            height: 2,
+        }))
         
         this.projectileImg = new Image()
         this.projectileImg.src = "./assets/images/projectiles/rocket.png"
-    }
-
-    shoot(closestEnemyData){
-        if(!closestEnemyData){
-            return;
-        }
-        this.mapData.projectiles.projectiles.push(new HomingProjectile(this, this.x, this.y, 1, 2, closestEnemyData.enemy, 5, this.damage, 20, null, .8, "regular",this.mapData,0,this.projectileImg)) 
-        this.stats.increaseShots();
     }
 
     upgrade(path, level) {

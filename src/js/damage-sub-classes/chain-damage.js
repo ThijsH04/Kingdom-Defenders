@@ -1,11 +1,11 @@
-class ChainDamage extends Damage{
-    constructor(amount,mapData,r,lifespan,targetAmount,stats,previousTargets=[]){
-        super(amount,mapData,stats);
-        this.r = r;
-        this.lifespan = lifespan;
-        this.maxLifespan = lifespan;
-        this.targetAmount = targetAmount;
-        this.previousTargets = previousTargets;
+class ChainEffect extends MapEffect {
+    constructor(args){
+        super(args);
+        this.r = args.r;
+        this.lifespan = args.lifespan;
+        this.maxLifespan = args.lifespan;
+        this.targetAmount = args.targetAmount || 3;
+        this.previousTargets = [];
 
         this.image = new Image()
         this.image.src = "./assets/images/projectiles/lightning_projectile.png"
@@ -22,7 +22,7 @@ class ChainDamage extends Damage{
         }
         super.dealDamage(this.x,this.y,enemyData.enemy);
         newDamage.previousTargets.push(enemyData.enemy);
-        this.mapData.damages.damages.push(newDamage);
+        this.mapData.mapEffects.effects.push(newDamage);
     }
 
     update(mode, ctx, tileSize, time, render=true){

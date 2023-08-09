@@ -1,22 +1,20 @@
-class SplashDamage extends Damage{
-    constructor(amount,mapData,r,lifespan,stats){
-        super(amount,mapData,stats);
-        this.r = r;
-        this.lifespan = lifespan;
-        this.maxLifespan = lifespan;
-    }
-
-    dealDamage(x,y,enemy=null){ // there is no actual target in splash 
-        let enemiesInRange = this.mapData.enemies.findEnemiesInRadius(x,y,this.r);
-        this.x = x;
-        this.y = y;
-        for(let e of enemiesInRange){
-            super.dealDamage(x,y,e);
-        }
-        this.mapData.damages.damages.push(Object.assign(Object.create(Object.getPrototypeOf(this)), this));
+class SplashEffect extends MapEffect {
+    constructor(args){
+        super(args);
+        this.r = args.r;
+        this.lifespan = args.lifespan;
+        this.maxLifespan = args.lifespan;
+        this.hitEnemies = [];
     }
 
     update(mode, ctx, tileSize, time, render=true){
+        let enemiesInRange = this.mapData.enemies.findEnemiesInRadius(this.x,this.y,this.r);
+        for(let e of enemiesInRange){
+            if(!this.hitEnemies.includes(e)){
+                this.hitEnemies.push(e);
+                super.dealDamage(this.x,this.y,e);
+            }
+        }
         this.lifespan -= time;
         if(this.lifespan<0){
             return false;

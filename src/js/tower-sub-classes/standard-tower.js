@@ -8,49 +8,42 @@ class StandardTower extends Tower{
         this.type = "land"
         this.hitTypes = ["ground"]
         this.r = 5
-        this.damage = new Damage(5,mapData,this.stats)
         this.className = "Normal"
 
-        this.projectileImg = new Image()
-        this.projectileImg.src = "./assets/images/projectiles/cannonball.png"
-
-        this.shotCount = 1
-        this.shotRange = 1
-
-        super.addImage({
+        this.addImage({
             name: "base",
             src: "./assets/images/towers/cannon.png",
             z: 0,
             animationTypes: ["rotate"],
             maxAnimation: 1
         })
-    }
 
-    shoot(closestEnemyData) {
-        let diff = this.shotRange / this.shotCount
-        for(let i=0; i<this.shotCount; i++){
-            let offset = diff * (i - (this.shotCount - 1) / 2)
-            let angle = Math.atan2(closestEnemyData.enemy.y - this.y, closestEnemyData.enemy.x - this.x);
-            let offsetX = offset * Math.cos(angle + Math.PI/2);
-            let offsetY = offset * Math.sin(angle + Math.PI/2);
-            let projectile = new Projectile(this, this.x + offsetX, this.y + offsetY, 1, 1, closestEnemyData.enemy, 5, this.damage, 20, null, .8, "regular",this.mapData,1,this.projectileImg);
-            projectile.a = angle;
-            this.mapData.projectiles.projectiles.push(projectile);
-        }
-        this.stats.increaseShots();
+        this.projectiles.push(new Projectile({
+            name: "bullet",
+            img: "./assets/images/projectiles/cannonball.png",
+            damage: 5,
+            speed: 20,
+            lifespan: 5
+        }))
     }
 
     upgrade(path, level) {
         // example upgrades
         switch(path + ',' + level){
             case '0,0':
-                this.damage = new Damage(7,this.mapData,this.stats)
+                for(let p of this.projectiles) {
+                    p.damage = 7
+                }
                 break;
             case '0,1':
-                this.damage = new Damage(10,this.mapData,this.stats)
+                for(let p of this.projectiles) {
+                    p.damage = 10
+                }
                 break;
             case '0,2':
-                this.damage = new Damage(20,this.mapData,this.stats)
+                for(let p of this.projectiles) {
+                    p.damage = 18
+                }
                 break;
             default:
                 break;
@@ -73,24 +66,24 @@ class StandardTower extends Tower{
                 this.attackSpeed = 0.6
                 break;
             case '3,0':
-                this.shotCount = 2
+                this.projectiles.push(this.projectiles[0].getCopy(this))
+                this.projectiles[0].offset = -0.2
+                this.projectiles[1].offset = 0.2
+                console.log(this.projectiles)
                 break;
             case '3,1':
-                this.shotCount = 3
+                this.projectiles.push(this.projectiles[0].getCopy(this))
+                this.projectiles[0].offset = -0.3
+                this.projectiles[1].offset = 0.3
+                this.projectiles[2].offset = 0
                 break;
             case '3,2':
                 this.shoot = (closestEnemyData) => {
-                    let diff = this.shotRange / this.shotCount
-                    for(let a=0; a<2; a++){
-                        let angle = Math.atan2(closestEnemyData.enemy.y - this.y, closestEnemyData.enemy.x - this.x) + Math.PI * a;
-                        for(let i=0; i<this.shotCount; i++){
-                            let offset = diff * (i - (this.shotCount - 1) / 2)
-                            let offsetX = offset * Math.cos(angle + Math.PI/2);
-                            let offsetY = offset * Math.sin(angle + Math.PI/2);
-                            let projectile = new Projectile(this, this.x + offsetX, this.y + offsetY, 1, 1, closestEnemyData.enemy, 5, this.damage, 20, null, .8, "regular",this.mapData,1,this.projectileImg);
-                            projectile.a = angle;
-                            this.mapData.projectiles.projectiles.push(projectile);
-                        }
+                    for(let p of this.projectiles) {
+                        this.mapData.projectiles.projectiles.push(p.getCopy(this))
+                        let reverseProjectile = p.getCopy(this)
+                        reverseProjectile.a += Math.PI
+                        this.mapData.projectiles.projectiles.push(reverseProjectile)
                     }
                     this.stats.increaseShots();
                 }

@@ -28,7 +28,7 @@ window.onload = () => {
             if(x>=game.map.width||y>=game.map.height){ // return for now, just testing the tower building
                 return;
             }
-            // let damage = new SplashDamage(1,game.map,1,.1);
+
             game.map.towers.addTower(x,y,game.map, game.upgrades.unlocked);
             // map.towers.addTower(new Tower(1,x+.5,y+.5,1,1,null,0,"test"),map.tiles[y][x]); // just places a tower down
         }

@@ -133,7 +133,6 @@ class Towers{
         tower.x = Math.floor(x-(tower.w-1)/2)+0.5*tower.w;
         tower.y = Math.floor(y-(tower.h-1)/2)+0.5*tower.h; 
         tower.mapData = mapData;
-        tower.damage.mapData = mapData;
         let tiles = this.getTiles(tower,mapData.tiles,tower.x,tower.y)
         if(!this.checkPlacement(tower,tiles)){
             return;

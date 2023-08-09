@@ -8,11 +8,15 @@ class AirTower extends Tower{
         this.type = "land"
         this.hitTypes = ["air"]
         this.r = 5
-        this.damage = new Damage(10,mapData,this.stats)
         this.className = "Normal"
 
-        this.projectileImg = new Image()
-        this.projectileImg.src = "./assets/images/projectiles/cannonball.png"
+        this.projectiles.push(new Projectile({
+            name: "bullet",
+            img: "./assets/images/projectiles/cannonball.png",
+            damage: 5,
+            speed: 20,
+            lifespan: 5
+        }))
     }
 
     upgrade(path, level) {
