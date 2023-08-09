@@ -15,7 +15,6 @@ class HomingProjectile extends Projectile{
             return false;
         }
         let a = this.rotation;
-        console.log(this.enemy, this.enemy.health.hp > 0)
         if(this.enemy && this.enemy.health.hp > 0){
             a = Math.atan2(this.enemy.y-this.y,this.enemy.x-this.x);
         }

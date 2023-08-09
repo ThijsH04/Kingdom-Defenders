@@ -15,6 +15,7 @@ class Projectile{
         this.hitEffects = args.hitEffects || [];
         this.mapEffects = args.mapEffects || [];
         this.offset = args.offset || 0;
+        this.offsetY = args.offsetY || 0;
         this.hitCooldown = args.hitCooldown || 0;
         this.attacked = [];
         this.effects = [];
@@ -92,8 +93,8 @@ class Projectile{
     getCopy(tower=null, enemy=null) {
         let projectile = new this.constructor(this.args)
         if(tower) {
-            projectile.x = tower.x + this.offset * Math.cos(tower.rotation);
-            projectile.y = tower.y + this.offset * Math.sin(tower.rotation);
+            projectile.x = tower.x + this.offset * Math.cos(tower.rotation) + this.offsetY * Math.sin(tower.rotation);
+            projectile.y = tower.y + this.offset * Math.sin(tower.rotation) - this.offsetY * Math.cos(tower.rotation);
             projectile.a = tower.rotation - Math.PI/2
             projectile.mapData = tower.mapData
             projectile.hitTypes = tower.hitTypes
