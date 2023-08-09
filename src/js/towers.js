@@ -128,7 +128,7 @@ class Towers{
         // let tower = Object.assign(Object.create(Object.getPrototypeOf(towerConstructor)), towerConstructor)
         // let tower = _.cloneDeep(towerConstructor)
         unlockedUpgrades = unlockedUpgrades[Towers.#selectedTower]
-        if(unlockedUpgrades.unlocked == false) return;
+        // if(unlockedUpgrades.unlocked == false) return;
         let tower = new towerConstructor(0, undefined, undefined, undefined, unlockedUpgrades);
         tower.x = Math.floor(x-(tower.w-1)/2)+0.5*tower.w;
         tower.y = Math.floor(y-(tower.h-1)/2)+0.5*tower.h; 

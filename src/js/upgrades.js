@@ -43,6 +43,7 @@ class Upgrades {
 
         this.unlocked = {}
         for(let t of Object.keys(towerTypes)) {
+            console.log(t);
             this.unlocked[t] = new TowerUnlocks()
         }
         for(let t of Object.keys(towerClasses)) {

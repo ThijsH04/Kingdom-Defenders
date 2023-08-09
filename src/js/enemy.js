@@ -9,7 +9,7 @@ class Enemy {
         this.y=y
         this.w=0.8
         this.h=0.8
-        this.speed = 5
+        this.speed = 0.5
         this.type=type
         this.path = path
         this.point = p

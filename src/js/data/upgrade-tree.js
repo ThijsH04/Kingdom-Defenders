@@ -15,6 +15,7 @@ const upgrades = [
                     new Unlockable("Earthquake Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
                     new Unlockable("Lightning Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
                     new Unlockable("Mage Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
+                    new Unlockable("Ricochet Tower", paths=[[0,0],[1,0],[2,0],[3,0]]),
                 ],
                 nodes: [
                     {
