@@ -5,7 +5,6 @@ class GameMap {
             mapData = mapDataList[0] // for testing purposes
         }
         this.tiles = []
-        this.enemies = []
         this.towers = new Towers(id)
         this.projectiles = new Projectiles(id);
         this.mapEffects = new MapEffects(id);
@@ -13,6 +12,14 @@ class GameMap {
         this.width = mapData.width
         this.waterFrame = 0
         this.waterUpdateTime = 0
+        this.infoDiv = document.createElement("div")
+        this.healthbar = document.createElement("div")
+        this.healthbar.bar = document.createElement("div")
+        this.statsDiv = document.createElement("div")
+        
+        this.maxHealth = 100
+        this.health = 100
+        this.money = 1000
 
         for(let i=0;i<this.height;i++) {
             this.tiles.push([])
@@ -26,7 +33,37 @@ class GameMap {
         if(id > -1) {
             this.paths.push(new Path(0))
         }
+
+        this.initStatsBox()
     }
+
+    initStatsBox() {
+        this.infoDiv.classList.add("mapInfo")
+        this.infoDiv.innerHTML = "<h2>mapname</h2> wave n/m"
+        this.healthbar.innerHTML = "Health: "+this.health+"/"+this.maxHealth
+        this.healthbar.bar.style.width = (this.health/this.maxHealth*100)+"%"
+        this.healthbar.classList.add("healthbar")
+        this.healthbar.bar.classList.add("healthbar-inner")
+        this.statsDiv.classList.add("money")
+        this.healthbar.bar.style.background = "#0f0"
+        this.healthbar.appendChild(this.healthbar.bar)
+        this.healthbar.style.background = "#f00"
+
+        this.statsDiv.innerHTML = `<h3>$ ${this.money}</h3>`
+
+        Towers.updateStatsBox(this.infoDiv,this.healthbar, this.statsDiv)
+    }
+
+    updateStatsBox() {
+        this.healthbar.innerHTML = "Health: "+this.health+"/"+this.maxHealth
+        console.log(this.health)
+        this.healthbar.bar.style.width = (this.health/this.maxHealth*100)+"%"
+        this.healthbar.appendChild(this.healthbar.bar)
+        this.statsDiv.innerHTML = `<h3>$ ${this.money}</h3>`
+        Towers.updateStatsBox(this.infoDiv, this.healthbar, this.statsDiv)
+    }
+
+
     update(mode, mouseTile, ctx, tileset, tileSize, time, render=true, showMenu=true) {
         if(render) {
             this.render(ctx, tileset, tileSize, time)
@@ -37,7 +74,12 @@ class GameMap {
         if(mode == "game"){
             // this.enemies.enemies.push(new Enemy(1, game.map.paths[0].positions))
         }
-        this.enemies.update(mode, ctx, tileset, tileSize, time, render);
+        let damage = this.enemies.update(mode, ctx, tileset, tileSize, time, render);
+        if(damage > 0) {
+            console.log(damage)
+            this.health -= damage
+            this.updateStatsBox()
+        }
         this.waterUpdateTime+=time
         if(this.waterUpdateTime > 0.1) {
             this.waterFrame = (this.waterFrame + 1) % 8

@@ -6,9 +6,14 @@ class Enemies{
 
     update(mode, ctx, tileset, tileSize, timePassed, render=true){     
         this.enemies = this.enemies.filter(e => e.health.hp>0);
+        let damage = 0;
         for(let e=0;e<this.enemies.length;e++) {
-            this.enemies[e].update(mode, ctx, tileset, tileSize, timePassed, render)
+            let hitDmg = this.enemies[e].update(mode, ctx, tileset, tileSize, timePassed, render)
+            if(hitDmg>0){
+                damage += hitDmg;
+            }
         }
+        return damage;
     }
 
     

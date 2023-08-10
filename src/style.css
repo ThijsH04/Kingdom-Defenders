@@ -392,3 +392,31 @@ button:hover {
     display:inline-block;
     font-size: 15px;
 }
+
+.healthbar {
+    display: inline-block;
+    width: 80%;
+    height: 20px;
+    border: 4px solid black;
+    margin: 5px;
+    text-align: left;
+    position: relative;
+    color: black;
+    z-index: -2;
+    overflow: hidden;
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.healthbar-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.statsBox {
+    text-align: center;
+}

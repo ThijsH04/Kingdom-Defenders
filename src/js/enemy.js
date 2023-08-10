@@ -10,6 +10,7 @@ class Enemy {
         this.w=0.8
         this.h=0.8
         this.speed = 5
+        this.damage = 1
         this.type=type
         this.path = path
         this.point = p
@@ -27,6 +28,7 @@ class Enemy {
         let p=this.point
         if(p === this.path.length - 1) {
             this.endOfTrack();
+            return this.damage
             // deal damage to player
         } else {
             let diffX = this.path[p+1][0] - this.path[p][0]

@@ -4,6 +4,7 @@ class Towers{
     static #sideMenu = document.createElement("div");
     static #selectMenu = document.createElement("div");
     static #upgradeMenu = document.createElement("div");
+    static #statsBox = document.createElement("div");
     constructor(id){        
         this.id = id;
         this.towers = [];
@@ -205,18 +206,24 @@ class Towers{
 
     static createSideMenu(){
         this.#sideMenu.classList.add("sideMenu") ;
-        this.#sideMenu.innerHTML = "test"
         document.body.insertBefore(this.#sideMenu, document.body.children[0]);
         //document.body.appendChild(this.#sideMenu)
         this.#selectMenu.classList.add("selectMenu");
         this.#upgradeMenu.classList.add("upgradeMenu");
-        this.#upgradeMenu.innerHTML="test3";
+        this.#statsBox.classList.add("statsBox");
         this.createSelectMenu();
+        this.#sideMenu.appendChild(this.#statsBox);
         this.#sideMenu.appendChild(this.#selectMenu);
         this.#sideMenu.appendChild(this.#upgradeMenu);
         this.#sideMenu.style.visibility = "hidden";
     }
 
+    static updateStatsBox(infoElem, healthElem, statsElem){
+        this.#statsBox.innerHTML = "";
+        this.#statsBox.appendChild(infoElem);
+        this.#statsBox.appendChild(healthElem);
+        this.#statsBox.appendChild(statsElem);
+    }
     /**
      * method used to go to the next tower in the list if the user scrolls their mouse
      * @returns nothing
